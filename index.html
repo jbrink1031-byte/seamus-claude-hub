@@ -914,17 +914,16 @@
   }
 
   .goon-row {
-    position: relative;
-    z-index: 1;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: flex-end;
-    justify-content: space-around;
-    gap: 8px;
-    padding-top: 6px;
-    position: relative;
-    z-index: 1;
+    gap: 12px 10px;
     min-height: 170px;
-    align-items: flex-end;
+    max-height: 46vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 6px;
   }
 
   .goon {
@@ -2079,7 +2078,7 @@
   #active-track .at-dot { width: 5px; height: 5px; border-radius: 50%; background: #2EA86C; box-shadow: 0 0 5px #2EA86C; }
 
   /* v0.28 deck cleanup */
-  .goon-deck { padding: 8px 10px !important; }
+  .goon-deck { padding: 8px 10px 14px !important; display: flex; flex-direction: column; }
   .goon-trigger-btn { font-size: 7px !important; padding: 5px 3px !important; }
   .agent-comms { max-height: 240px !important; }
   #btn-warden { font-size: 8px !important; padding: 6px !important; margin-top: 6px !important; }
@@ -2345,7 +2344,7 @@
       <div class="brand-mark"></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.50</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.51</div>
       </div>
     </div>
     <div class="status-cluster">
@@ -8769,6 +8768,8 @@ function spawnTracer(x1, y1, x2, y2, color) {
   ['goon-1', 'goon-2', 'goon-3', 'goon-4', 'goon-5'].forEach((srcId, i) => {
     const src = document.getElementById(srcId);
     if (!src) return;
+    // v0.51 — character-equipped agents live in their Annex stations only; no pixel doubles
+    if (['goon-2', 'goon-3', 'goon-4', 'goon-5'].includes(srcId)) return;
     const meta = agentMeta(srcId);
     const r = document.createElement('div');
     r.className = 'goon-roamer';
@@ -8807,7 +8808,7 @@ function spawnTracer(x1, y1, x2, y2, color) {
   });
 
   // AGENT MODE: 'roam' (default) | 'base' (all in The Annex) | 'inspect' (panels only)
-  window.agentMode = localStorage.getItem('brink_agent_mode') || 'roam';
+  window.agentMode = localStorage.getItem('brink_agent_mode') || 'base';
   window.setAgentMode = function(mode) {
     window.agentMode = mode;
     localStorage.setItem('brink_agent_mode', mode);
@@ -9412,7 +9413,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.50';
+  var v = 'v0.51';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
