@@ -923,6 +923,8 @@
     padding-top: 6px;
     position: relative;
     z-index: 1;
+    min-height: 170px;
+    align-items: flex-end;
   }
 
   .goon {
@@ -935,7 +937,9 @@
   }
   .goon:hover { transform: translateY(-3px); }
 
-  .goon svg { width: 44px; height: 58px; }
+  .goon svg { width: 62px; height: 82px; }
+  .char-crop { pointer-events: none; }
+  .goon { min-width: 116px; }
 
   .goon-label {
     font-size: 8px;
@@ -2077,9 +2081,9 @@
   /* v0.28 deck cleanup */
   .goon-deck { padding: 8px 10px !important; }
   .goon-trigger-btn { font-size: 7px !important; padding: 5px 3px !important; }
-  .agent-comms { max-height: 96px !important; }
+  .agent-comms { max-height: 240px !important; }
   #btn-warden { font-size: 8px !important; padding: 6px !important; margin-top: 6px !important; }
-  .goon-row { gap: 4px !important; padding-top: 2px !important; }
+  .goon-row { gap: 10px !important; padding-top: 6px !important; }
   .goon svg { width: 40px; height: 52px; }
   .goon { cursor: pointer; }
   .goon:hover .goon-label { color: var(--cyan); }
@@ -2341,7 +2345,7 @@
       <div class="brand-mark"></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.49</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.50</div>
       </div>
     </div>
     <div class="status-cluster">
@@ -2373,7 +2377,7 @@
       <!-- GOON OPS DECK — operative minis + task triggers -->
       <div class="section goon-deck">
         <!-- THE ANNEX — vintage gothic NY hotel homebase (v0.30 detailed build) -->
-        <div id="hotel-base" style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;z-index:0;pointer-events:none;opacity:0.65;">
+        <div id="hotel-base" style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;z-index:0;pointer-events:none;opacity:0.8;">
   <svg viewBox="0 0 220 200" style="width:92%;height:96%;" preserveAspectRatio="xMidYMax meet">
     <defs>
       <linearGradient id="hb-stone" x1="0" y1="0" x2="0" y2="1">
@@ -2525,36 +2529,36 @@
             <div class="goon-status" id="goon-1-status">IDLE</div>
           </div>
           <div class="goon" id="goon-2" title="Insect Cop — Bug & Edge-Case Investigator">
-            <canvas id="insect-live" class="goon-body" width="680" height="580" style="width:57px;height:49px;"></canvas>
+            <div class="char-crop" style="width:112px;height:106px;overflow:hidden;position:relative;"><canvas id="insect-live" class="goon-body" width="680" height="580" style="position:absolute;width:157px;height:134px;left:-23px;top:-23px;"></canvas></div>
             <div class="goon-label">Insect Cop</div>
             <div class="goon-role-sub">Bug Investigator</div>
             <div class="goon-status" id="goon-2-status">IDLE</div>
           </div>
           <div class="goon" id="goon-3" title="Nix — Requirements Consistency">
-            <canvas id="seamus-live" class="goon-body" width="660" height="560" style="width:58px;height:49px;"></canvas>
+            <div class="char-crop" style="width:112px;height:106px;overflow:hidden;position:relative;"><canvas id="seamus-live" class="goon-body" width="660" height="560" style="position:absolute;width:153px;height:130px;left:-20px;top:-17px;"></canvas></div>
             <div class="goon-label">Seamus</div>
             <div class="goon-role-sub">Command Chief</div>
             <div class="goon-status" id="goon-3-status">IDLE</div>
           </div>
           <div class="goon" id="goon-4" title="Polyphemus — Wire Intelligence Scout">
-            <canvas id="cyclops-live" class="goon-body" width="88" height="112" style="width:44px;height:56px;image-rendering:auto;"></canvas>
+            <canvas id="cyclops-live" class="goon-body" width="88" height="112" style="width:104px;height:132px;margin:-14px -8px -12px;image-rendering:auto;"></canvas>
             <div class="goon-label">Polyphemus</div>
             <div class="goon-role-sub">Wire Intelligence</div>
             <div class="goon-status" id="goon-4-status">IDLE</div>
           </div>
           <div class="goon" id="goon-5" title="Oracle — Intelligence Officer (CIA x Matrix)">
-            <canvas id="oracle-live" class="goon-body" width="620" height="560" style="width:55px;height:50px;"></canvas>
+            <div class="char-crop" style="width:112px;height:106px;overflow:hidden;position:relative;"><canvas id="oracle-live" class="goon-body" width="620" height="560" style="position:absolute;width:143px;height:130px;left:-16px;top:-16px;"></canvas></div>
             <div class="goon-label">Oracle</div>
             <div class="goon-role-sub">Intelligence Officer</div>
             <div class="goon-status" id="goon-5-status">IDLE</div>
           </div>
         </div>
-        <div class="agent-comms" id="agent-comms" style="position:relative;z-index:1;margin-top:8px;max-height:120px;overflow-y:auto;background:rgba(6,9,14,0.5);border:1px solid var(--border);border-radius:3px;padding:6px 8px;">
+        <div class="agent-comms" id="agent-comms" style="position:relative;z-index:1;margin-top:8px;min-height:190px;max-height:280px;overflow-y:auto;font-size:12px;line-height:1.6;background:rgba(6,9,14,0.5);border:1px solid var(--border);border-radius:3px;padding:6px 8px;">
           <div style="font-size:8px;letter-spacing:1.5px;color:var(--text-2);margin-bottom:4px;">AGENT COMMS · DEDICATED CHANNEL</div>
           <div class="ac-line" style="font-size:10px;color:var(--text-2);">— channel quiet —</div>
         </div>
         <div style="display:flex;gap:5px;margin-top:6px;position:relative;z-index:1;">
-          <input type="text" id="agent-reply" placeholder="Reply to agents… (paste content, Enter to send)" style="flex:1;background:rgba(6,9,14,0.6);border:1px solid var(--border);color:var(--text-0);font-family:'JetBrains Mono',monospace;font-size:10px;padding:6px 8px;border-radius:3px;">
+          <input type="text" id="agent-reply" placeholder="Reply to agents… (paste content, Enter to send)" style="flex:1;background:rgba(6,9,14,0.6);border:1px solid var(--border);color:var(--text-0);font-family:'JetBrains Mono',monospace;font-size:13px;padding:11px 12px;border-radius:4px;">
           <button id="agent-reply-send" style="background:rgba(6,182,212,0.15);border:1px solid var(--cyan);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:6px 10px;border-radius:3px;cursor:pointer;">SEND</button>
         </div>
         <button id="btn-warden" style="width:100%;margin-top:8px;position:relative;z-index:1;background:rgba(245,158,11,0.10);border:1px solid #f59e0b;color:#f59e0b;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1.5px;padding:7px;border-radius:3px;cursor:pointer;">🛡 RUN COMMAND REVIEW · SEND REPORTS TO SEAMUS</button>
@@ -4934,16 +4938,9 @@ let last=performance.now();
 function frame(now){
   const dt=Math.min((now-last)/1000,0.05); last=now; t+=dt; stateT+=dt;
   ctx.clearRect(0,0,W,H);
-  // background
-  const bg=ctx.createRadialGradient(W/2,H*0.3,60,W/2,H*0.55,H*0.9);
-  bg.addColorStop(0,'#221a26'); bg.addColorStop(1,'#100c14');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
-  // soft floor
-  const fg=ctx.createRadialGradient(W/2,GROUND+16,10,W/2,GROUND+16,240);
-  fg.addColorStop(0,'rgba(255,140,180,.08)'); fg.addColorStop(1,'rgba(0,0,0,0)');
-  ctx.fillStyle=fg; ctx.fillRect(0,GROUND-30,W,120);
-  ctx.strokeStyle='rgba(180,150,190,.18)'; ctx.lineWidth=2;
-  ctx.beginPath(); ctx.moveTo(0,GROUND+16); ctx.lineTo(W,GROUND+16); ctx.stroke();
+  // background removed — transparent hub port
+  // floor removed
+  // ground line removed
 
   drawOracle(pose());
   drawParts(); stepParts(dt);
@@ -5302,10 +5299,7 @@ function frame(now){
   fireToggle=Math.max(0,fireToggle-rawDt*8);
 
   ctx.clearRect(0,0,W,H);
-  // bg vignette
-  const bg=ctx.createRadialGradient(W/2,H*0.35,60,W/2,H*0.5,H*0.9);
-  bg.addColorStop(0,'#0c141a'); bg.addColorStop(1,'#04070a');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  // bg removed — transparent hub port
   drawRain(rawDt);
   // ground line
   ctx.strokeStyle='rgba(80,110,140,.18)'; ctx.lineWidth=2;
@@ -5688,15 +5682,8 @@ function frame(now){
       shake=Math.max(shake,true?6:0); } }
 
   ctx.clearRect(0,0,W,H);
-  const bg=ctx.createRadialGradient(W/2,H*0.32,60,W/2,H*0.55,H*0.95);
-  bg.addColorStop(0,'#0a1512'); bg.addColorStop(1,'#03060a');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
-  // eerie floor glow
-  const fgl=ctx.createRadialGradient(W/2,GROUND+14,10,W/2,GROUND+14,300);
-  fgl.addColorStop(0,'rgba(60,255,170,.06)'); fgl.addColorStop(1,'rgba(0,0,0,0)');
-  ctx.fillStyle=fgl; ctx.fillRect(0,GROUND-40,W,140);
-  ctx.strokeStyle='rgba(70,120,100,.18)'; ctx.lineWidth=2;
-  ctx.beginPath(); ctx.moveTo(0,GROUND+14); ctx.lineTo(W,GROUND+14); ctx.stroke();
+  // bg removed — transparent hub port
+  // floor removed
 
   const sh=true?shake:0;
   ctx.save(); ctx.translate((Math.random()-0.5)*sh,(Math.random()-0.5)*sh);
@@ -5704,12 +5691,7 @@ function frame(now){
   drawFx();
   ctx.restore();
 
-  // fog overlay
-  if(true){
-    const fg=ctx.createLinearGradient(0,GROUND-120,0,GROUND+40);
-    fg.addColorStop(0,'rgba(20,40,34,0)'); fg.addColorStop(1,'rgba(20,45,38,.35)');
-    ctx.fillStyle=fg; ctx.fillRect(0,GROUND-120,W,160);
-  }
+  // fog removed
   stepFx(dt);
   requestAnimationFrame(frame);
 }
@@ -9211,8 +9193,20 @@ async function agentSpeakOnCam(goonId, fullText) {
   const roleEl = document.getElementById('aa-role');
   if (!overlay || !portrait) return;
 
-  // Build persona feed: video > image > SVG — all get video-call treatment
-  if (meta.videoUrl) {
+  // Build persona feed: LIVE CHARACTER is the default · user-set video/photo overrides
+  const savedLook = agentSaved()[goonId] || {};
+  const explicitMedia = savedLook.videoUrl || savedLook.photoUrl || savedLook.imageUrl;
+  const liveCanvasIds = { 'goon-2': 'insect-live', 'goon-3': 'seamus-live', 'goon-4': 'cyclops-live', 'goon-5': 'oracle-live' };
+  const liveSrc = !explicitMedia && document.getElementById(liveCanvasIds[goonId]);
+  if (liveSrc) {
+    portrait.innerHTML = '<canvas id="aa-live-mirror" width="' + liveSrc.width + '" height="' + liveSrc.height + '" style="width:100%;height:100%;object-fit:contain;"></canvas><div class="feed-fx"></div>';
+    const mirror = document.getElementById('aa-live-mirror').getContext('2d');
+    (function mirrorLoop() {
+      if (!overlay.classList.contains('active')) return;
+      try { mirror.clearRect(0, 0, liveSrc.width, liveSrc.height); mirror.drawImage(liveSrc, 0, 0); } catch (e) {}
+      requestAnimationFrame(mirrorLoop);
+    })();
+  } else if (meta.videoUrl) {
     portrait.innerHTML = `<video src="${meta.videoUrl}" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;"></video><div class="feed-fx"></div>`;
   } else if (meta.photoUrl) {
     // Realistic profile matched to the chosen character's gender; sprite inset confirms identity
@@ -9418,7 +9412,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.49';
+  var v = 'v0.50';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
