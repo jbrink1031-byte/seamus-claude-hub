@@ -2341,7 +2341,7 @@
       <div class="brand-mark"></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.35</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.37</div>
       </div>
     </div>
     <div class="status-cluster">
@@ -2352,7 +2352,8 @@
       <div class="status-item online" id="status-recon"><div class="status-dot"></div><span>Recon</span></div>
       <div class="status-item online" id="status-jotform"><div class="status-dot"></div><span>Jotform</span></div>
       <div class="status-item warn" id="status-mc"><div class="status-dot"></div><span>MarketCheck</span></div>
-      <button id="mute-btn" title="Mute/unmute Seamus & agent voices" style="background:transparent;border:1px solid var(--border);color:var(--text-1);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:13px;margin-right:10px;font-family:inherit;">🔊</button>
+      <button id="ops-btn" title="Ops metrics — Claude, Cloudflare, Netlify, Supabase" style="background:transparent;border:1px solid var(--border);color:var(--text-1);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:13px;margin-right:8px;font-family:inherit;">📊</button>
+        <button id="mute-btn" title="Mute/unmute Seamus & agent voices" style="background:transparent;border:1px solid var(--border);color:var(--text-1);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:13px;margin-right:10px;font-family:inherit;">🔊</button>
       <div class="clock" id="clock">--:--:--</div>
     </div>
 
@@ -4456,6 +4457,84 @@ $('btn-close-settings').addEventListener('click', closeSettings);
 $('btn-cancel-settings').addEventListener('click', closeSettings);
 $('btn-save-settings').addEventListener('click', saveSettings);
 
+// =========================================================
+// OPS METRICS DECK — usage across Claude / Cloudflare / Netlify / Supabase
+// Data comes from the agents worker /metrics (server-side tokens only).
+// =========================================================
+async function showOpsMetrics(force) {
+  playImpact('open', 0.28);
+  let m = document.getElementById('ops-modal');
+  if (!m) {
+    m = document.createElement('div');
+    m.id = 'ops-modal';
+    m.style.cssText = 'position:fixed;inset:0;background:rgba(3,5,10,0.85);backdrop-filter:blur(9px);z-index:100022;display:flex;align-items:center;justify-content:center;';
+    m.addEventListener('click', ev => { if (ev.target === m) m.style.display = 'none'; });
+    document.body.appendChild(m);
+  }
+  const shell = (body) => `
+  <div onclick="event.stopPropagation()" style="width:min(760px,94vw);max-height:88vh;overflow-y:auto;background:linear-gradient(160deg,rgba(10,14,22,0.98),rgba(6,9,15,0.98));border:1px solid var(--cyan);border-radius:8px;font-family:'JetBrains Mono',monospace;box-shadow:0 0 60px rgba(6,182,212,0.25);">
+    <div style="padding:14px 20px;border-bottom:1px solid rgba(6,182,212,0.3);display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-size:14px;font-weight:800;color:var(--cyan);letter-spacing:3px;">📊 OPS METRICS</div>
+        <div style="font-size:8px;color:var(--text-2);letter-spacing:2px;margin-top:2px;">CLAUDE · CLOUDFLARE · NETLIFY · SUPABASE · 5-MIN CACHE</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="showOpsMetrics(true)" style="background:transparent;border:1px solid var(--border);color:var(--text-1);padding:5px 12px;cursor:pointer;font-family:inherit;font-size:10px;border-radius:3px;">REFRESH</button>
+        <button onclick="document.getElementById('ops-modal').style.display='none'" style="background:transparent;border:1px solid var(--border);color:var(--text-1);padding:5px 12px;cursor:pointer;font-family:inherit;font-size:10px;border-radius:3px;">ESC</button>
+      </div>
+    </div>
+    <div style="padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">${body}</div>
+  </div>`;
+  m.innerHTML = shell('<div style="grid-column:1/-1;font-size:10px;color:var(--text-2);padding:20px;text-align:center;">Pulling the wire…</div>');
+  m.style.display = 'flex';
+
+  const be = agentsBackend();
+  if (!be) {
+    m.innerHTML = shell('<div style="grid-column:1/-1;font-size:10px;color:#f59e0b;padding:16px;line-height:1.7;">Metrics ride the agents worker — configure the Managed Agents Backend in Settings first.<br>Then add provider tokens as worker secrets: ANTHROPIC_ADMIN_KEY, CF_API_TOKEN + CF_ACCOUNT_ID, NETLIFY_TOKEN, SUPABASE_PAT.</div>');
+    return;
+  }
+  try {
+    const res = await fetch(be.url + '/metrics' + (force ? '?refresh=1' : ''), { headers: { 'X-Brink-Key': be.key } });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+    const P = data.providers || {};
+    const card = (title, color, inner) => `
+      <div style="border:1px solid ${color}44;border-left:3px solid ${color};border-radius:4px;padding:12px 14px;background:rgba(12,16,24,0.6);">
+        <div style="font-size:9px;font-weight:800;color:${color};letter-spacing:2px;margin-bottom:8px;">${title}</div>
+        <div style="font-size:10px;color:var(--text-1);line-height:1.7;">${inner}</div>
+      </div>`;
+    const big = (v, label) => `<div style="font-size:18px;font-weight:800;color:var(--text-0);">${v}</div><div style="font-size:8px;color:var(--text-2);letter-spacing:1px;margin-bottom:6px;">${label}</div>`;
+    const need = (p) => `<span style="color:#f59e0b;">Not wired — add worker secret${(p.needs||[]).length>1?'s':''}: ${(p.needs||[]).join(', ')}</span>`;
+    const errLine = (p) => p.error ? `<div style="color:#dc2626;font-size:9px;">⚠ ${escapeHtml(p.error)}</div>` : '';
+
+    const cl = P.claude || {};
+    const cf = P.cloudflare || {};
+    const nl = P.netlify || {};
+    const sb = P.supabase || {};
+    m.innerHTML = shell(
+      card('◈ CLAUDE CONSOLE', '#06b6d4', !cl.configured ? need(cl) : cl.error ? errLine(cl) :
+        big('$' + (cl.costUSD ?? '—'), 'SPEND · LAST 30 DAYS') +
+        big(((cl.inputTokens || 0) / 1e6).toFixed(1) + 'M / ' + ((cl.outputTokens || 0) / 1e6).toFixed(1) + 'M', 'INPUT / OUTPUT TOKENS') +
+        (cl.note ? `<div style="color:#f59e0b;font-size:9px;">${cl.note}</div>` : '')) +
+      card('☁ CLOUDFLARE', '#f59e0b', !cf.configured ? need(cf) : cf.error ? errLine(cf) :
+        big((cf.workerRequests ?? 0).toLocaleString(), 'WORKER REQUESTS · 24H') +
+        big(cf.workerErrors ?? 0, 'WORKER ERRORS · 24H')) +
+      card('◆ NETLIFY', '#2EA86C', !nl.configured ? need(nl) : nl.error ? errLine(nl) :
+        big(nl.sites ?? 0, 'SITES') +
+        (nl.list || []).map(s => `<div>· ${escapeHtml(s.name)} — <span style="color:${s.state === 'ready' ? '#2EA86C' : '#f59e0b'};">${s.state}</span></div>`).join('')) +
+      card('▲ SUPABASE', '#8b5cf6', !sb.configured ? need(sb) : sb.error ? errLine(sb) :
+        big(sb.projects ?? 0, 'PROJECTS') +
+        (sb.list || []).map(p => `<div>· ${escapeHtml(p.name)} — <span style="color:${/ACTIVE|HEALTHY/i.test(p.status) ? '#2EA86C' : '#f59e0b'};">${escapeHtml(p.status || '?')}</span> <span style="color:var(--text-2);">${p.region || ''}</span></div>`).join(''))
+    );
+  } catch (err) {
+    m.innerHTML = shell(`<div style="grid-column:1/-1;font-size:10px;color:#dc2626;padding:16px;">Metrics fetch failed: ${escapeHtml(err.message)}</div>`);
+  }
+}
+try { (function wireOps() {
+  const b = document.getElementById('ops-btn');
+  if (b) b.addEventListener('click', () => showOpsMetrics(false));
+})(); } catch (e) { console.error("[BRINK] wiring guard:", e.message); }
+
 // HIDDEN COMMAND DECK — press ? (Shift+/) to reveal every control
 (function commandDeck() {
   function show() {
@@ -4473,6 +4552,7 @@ $('btn-save-settings').addEventListener('click', saveSettings);
       ['?', 'This command deck'],
       ['Esc', 'Close modals'],
       ['Double-click the B', 'Project Intel board'],
+      ['📊 (topbar)', 'Ops metrics — Claude spend, Cloudflare, Netlify, Supabase'],
       ['TYPED COMMANDS', ''],
       ['show / hide <panel>', 'spotify · metrics · comms · triggers · projects · activity · alerts · stack · webcam · transcript'],
       ['call them in', 'All agents return to The Annex'],
@@ -4501,7 +4581,7 @@ $('btn-save-settings').addEventListener('click', saveSettings);
   document.addEventListener('keydown', (e) => {
     if (e.key === '?' && !e.target.matches('input, textarea, select')) { e.preventDefault(); show(); }
     if (e.key === 'Escape') {
-      ['command-deck', 'project-intel-modal', 'connector-modal', 'insight-modal'].forEach(id => {
+      ['command-deck', 'project-intel-modal', 'connector-modal', 'insight-modal', 'ops-modal', 'command-review-modal'].forEach(id => {
         const el = document.getElementById(id); if (el) el.style.display = 'none';
       });
     }
@@ -6961,10 +7041,10 @@ async function deployWarden(selectedIds, decision) {
     if (btn) { btn.disabled = false; btn.textContent = '🛡 RUN COMMAND REVIEW · SEND REPORTS TO SEAMUS'; }
   }
 }
-(function wireWarden() {
+try { (function wireWarden() {
   const b = document.getElementById('btn-warden');
   if (b) b.addEventListener('click', () => openCommandReview());
-})();
+})(); } catch (e) { console.error("[BRINK] wiring guard:", e.message); }
 
 // v0.29 — trigger buttons removed; avatars, reply line, and voice/typed commands deploy agents.
 
@@ -7805,7 +7885,7 @@ function applyAgentVisuals(refresh) {
 applyAgentVisuals();
 
 // CLICK AN AGENT → they engage you directly, in their own voice. Zero API cost.
-(function wireAgentEngagement() {
+try { (function wireAgentEngagement() {
   const INTROS = {
     'goon-1': 'here. Security guardian. Auth, secrets, injection, exposure — hand me architecture or code and I cut where it bleeds.',
     'goon-2': 'on the case. Bugs, broken workflows, edge cases, contradictions. Show me symptoms or a workflow and I follow the evidence.',
@@ -7827,7 +7907,7 @@ applyAgentVisuals();
       window.lastAskingGoon = { 'goon-1': 'review', 'goon-2': 'tests', 'goon-3': 'command', 'goon-4': 'scout', 'goon-5': 'intel' }[gid];
     });
   });
-})();
+})(); } catch (e) { console.error("[BRINK] wiring guard:", e.message); }
 
 // Dedicated agent channel — agents talk here, never through Seamus's transcript
 function addAgentLine(goonId, text) {
@@ -8086,7 +8166,7 @@ function arwesDecode(el, finalText, duration) {
 })();
 
 // v0.32 one-time seed — Ronin wears the samurai by default
-(function seedRonin() {
+try { (function seedRonin() {
   if (localStorage.getItem('brink_v32_seed')) return;
   const saved = safeParse(localStorage.getItem('brink_agents'), {});
   if (!saved['goon-1'] || !saved['goon-1'].design) {
@@ -8095,13 +8175,42 @@ function arwesDecode(el, finalText, duration) {
   }
   localStorage.setItem('brink_v32_seed', '1');
   setTimeout(() => { if (typeof applyAgentVisuals === 'function') applyAgentVisuals(true); }, 300);
-})();
+})(); } catch (e) { console.error("[BRINK] wiring guard:", e.message); }
 
 // Pull on startup
 syncPull();
 // Periodic re-pull so long-running sessions pick up changes from other PCs
 setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull(); }, 120000);
 
+</script>
+<script>
+// [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
+(function settingsFailsafe() {
+  function forceOpenSettings() {
+    try {
+      if (window.openSettings) { window.openSettings(); return; }
+      // Main wiring dead — open the modal bare-handed
+      var m = document.getElementById('settings-modal');
+      if (m) { m.classList.add('show'); }
+      else alert('[BRINK] settings modal element missing — check header version.');
+    } catch (e) { alert('[BRINK] Settings error: ' + e.message); }
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('#settings-btn, #floating-cog, #bottombar-settings, .settings-gear, [data-open-settings], .topbar-gear');
+    if (t) { e.preventDefault(); forceOpenSettings(); }
+  }, true);
+  // Keyboard: Ctrl+, (comma) — the universal settings chord
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey && e.key === ',') { e.preventDefault(); forceOpenSettings(); }
+  });
+  // Boot wiring report
+  setTimeout(function () {
+    console.log('[BRINK] wiring check — openSettings:', !!window.openSettings,
+      '| agentsBackend:', typeof window.agentsBackend === 'function' || typeof agentsBackend === 'function',
+      '| modal present:', !!document.getElementById('settings-modal'));
+    if (!window.openSettings) console.error('[BRINK] MAIN SCRIPT DIED EARLY — a runtime error above killed wiring. Check the first red error in this console.');
+  }, 2500);
+})();
 </script>
 </body>
 </html>
