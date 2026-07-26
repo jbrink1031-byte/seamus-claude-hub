@@ -1789,7 +1789,7 @@
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.92);
-    z-index: 100010;
+    z-index: 100060;
     display: none;
     align-items: center;
     justify-content: center;
@@ -2341,7 +2341,7 @@
       <div class="brand-mark"></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.37</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.38</div>
       </div>
     </div>
     <div class="status-cluster">
@@ -3449,6 +3449,7 @@
 </div>
 
 <script>
+console.log('[BRINK] script block 1 parsing…');
 // =========================================================
 // GALAXY BACKGROUND — vanilla WebGL port of the React Bits
 // <Galaxy /> component (no ogl / no React dependency).
@@ -3645,6 +3646,7 @@ void main(){
 </script>
 
 <script>
+console.log('[BRINK] script block 2 parsing…');
 /* =========================================================
    BRINK CORE v0.10 · Systematized Task & Analytical Research Knowledge Center
    Personality: Seamus · Galaxy field · Goon ops deck · Baked config
@@ -8185,6 +8187,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 </script>
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
+console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', 'color:#2EA86C;font-weight:bold');
 (function settingsFailsafe() {
   function forceOpenSettings() {
     try {
