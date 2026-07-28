@@ -74,7 +74,7 @@
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-rows: 22px 50px 1fr 26px 24px 28px;
+    grid-template-rows: 20px 46px 1fr 24px 0px 26px;
     height: 100vh;
     overflow: hidden;
   }
@@ -246,6 +246,30 @@
   .transcript-line { margin-bottom: 7px !important; }
   .agent-comms { flex: 1 1 auto !important; display: flex; flex-direction: column; max-height: none !important; }
   .agent-comms > div[id] { flex: 1 1 auto; }
+
+  
+  /* v0.57 — full-bleed vertical usage */
+  .col.center { display: flex; flex-direction: column; min-height: 0; }
+  .orb-stage { flex: 0 0 clamp(240px, 34vh, 360px) !important; padding: 8px 20px !important; }
+  #seamus-core { top: 50% !important; width: min(32vh, 330px) !important; height: min(32vh, 330px) !important; }
+  #transcript { flex: 1 1 auto !important; min-height: 0 !important; overflow-y: auto; }
+  .transcript-text { font-size: 11px !important; line-height: 1.5 !important; }
+  .transcript-tag { font-size: 7px !important; padding: 2px 6px !important; }
+  .goon-deck { flex: 1 1 auto !important; min-height: 0; }
+  .agent-comms { min-height: 0 !important; }
+  /* right column: board + feed split the full height */
+  .col:not(.center):last-child { display: flex; flex-direction: column; }
+  .col:not(.center):last-child .section { display: flex; flex-direction: column; min-height: 0; }
+  .col:not(.center):last-child .section:has(#projects-list) { flex: 1.1 1 0; }
+  .col:not(.center):last-child .section:has(#activity-list) { flex: 1 1 0; }
+  .col:not(.center):last-child .ticker-window { flex: 1 1 auto !important; max-height: none !important; height: auto !important; }
+
+  
+  /* v0.58 — dialogue compact, board dominant, zero dead bands */
+  html, body { height: 100%; }
+  .orb-stage { flex: 1 1 auto !important; }
+  #transcript { flex: 0 0 30% !important; max-height: 32vh; }
+  .col:not(.center):last-child .section:has(#projects-list) { flex: 1.7 1 0 !important; }
 
   /* ===== SECTIONS ===== */
   .section {
@@ -575,8 +599,8 @@
   .panel-hidden { display: none !important; }
 
   /* App grid variants when alert ticker is hidden */
-  .app.no-alerts { grid-template-rows: 22px 50px 1fr 0 24px 28px; }
-  .app.no-stack { grid-template-rows: 22px 50px 1fr 26px 0 28px; }
+  .app.no-alerts { grid-template-rows: 20px 46px 1fr 0 0px 26px; }
+  .app.no-stack { grid-template-rows: 20px 46px 1fr 24px 0 26px; }
   .app.no-alerts.no-stack { grid-template-rows: 50px 1fr 0 0 28px; }
   .app.no-alerts .alert-ticker { display: none; }
   .app.no-stack .stack-ticker { display: none; }
@@ -2399,7 +2423,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.56</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.58</div>
       </div>
     </div>
     <div class="status-cluster">
@@ -6138,7 +6162,17 @@ function decorateBoardItems() {
     item.appendChild(bar);
   });
 }
-setTimeout(decorateBoardItems, 1500);
+setTimeout(() => {
+  decorateBoardItems();
+  const seen = new Set();
+  window.__boardSnapshot = [];
+  document.querySelectorAll('#projects-list > *').forEach(el => {
+    const key = (el.textContent || '').trim().slice(0, 50);
+    if (!key || seen.has(key) || el.style.display === 'none') return;
+    seen.add(key);
+    window.__boardSnapshot.push(el.innerHTML);
+  });
+}, 1400);
 
 // ----- Detail modals -----
 function detailModal(title, color, bodyHTML) {
@@ -6161,12 +6195,22 @@ function detailModal(title, color, bodyHTML) {
   playImpact('open', 0.25);
 }
 function showBoardDetail() {
-  const items = Array.from(document.querySelectorAll('#projects-list > div')).filter(d => d.style.display !== 'none');
-  const half = Math.ceil(items.length / 2);
-  const rows = items.slice(0, half).map(d => `<div style="border-left:3px solid var(--green);padding:8px 12px;margin-bottom:8px;background:rgba(12,16,24,0.55);border-radius:3px;">${d.innerHTML}</div>`).join('');
-  detailModal('⛁ PROJECT BOARD — FULL DETAIL', '#2EA86C', rows || 'No projects on the board.');
+  // v0.57 — snapshot-driven: immune to ticker cloning/scroll state
+  let items = window.__boardSnapshot || [];
+  if (!items.length) {
+    const seen = new Set();
+    document.querySelectorAll('#projects-list > *').forEach(el => {
+      const key = (el.textContent || '').trim().slice(0, 50);
+      if (!key || seen.has(key) || el.style.display === 'none') return;
+      seen.add(key);
+      items.push(el.innerHTML);
+    });
+  }
+  const rows = items.map(html => `<div style="border-left:3px solid var(--green);padding:9px 12px;margin-bottom:9px;background:rgba(12,16,24,0.55);border-radius:3px;">${html}</div>`).join('');
+  detailModal('⛁ PROJECT BOARD — FULL DETAIL', '#2EA86C', rows || 'Board is empty — nothing to expand.');
   setTimeout(() => document.querySelectorAll('#detail-modal .board-actions').forEach(b => b.remove()), 30);
 }
+
 function showFeedDetail() {
   const reports = safeParse(localStorage.getItem('brink_reports'), []);
   const rows = reports.map(r => `<div style="border-left:3px solid #06b6d4;padding:10px 12px;margin-bottom:10px;background:rgba(12,16,24,0.55);border-radius:3px;">
@@ -6175,6 +6219,111 @@ function showFeedDetail() {
   </div>`).join('');
   detailModal('◈ ACTIVITY — FULL AGENT REPORTS', '#06b6d4', rows || 'No agent reports yet. Deploy a specialist and their full reports collect here.');
 }
+
+
+// =========================================================
+// ELITE FORCE POSTURE SYSTEM (v0.58)
+// orders: work · roam · inspect · idle · sleep · wake — full repertoires
+// hover an agent → signature move · agent responds → combat/talk anim ·
+// any action ripples to the neighbors in formation
+// =========================================================
+const AGENT_ORDER = ['goon-1', 'goon-2', 'goon-3', 'goon-4', 'goon-5'];
+const POSTURES = {
+  work:    { 'goon-2': 'aim',   'goon-3': 'dual',  'goon-4': 'attack', 'goon-5': 'talk' },
+  roam:    { 'goon-2': 'walk',  'goon-3': 'run',   'goon-4': 'roar',   'goon-5': 'shop' },
+  inspect: { 'goon-2': 'halt',  'goon-3': 'stance','goon-4': 'idle',   'goon-5': 'complain' },
+  idle:    { 'goon-2': 'patrol','goon-3': 'idle',  'goon-4': 'idle',   'goon-5': 'idle' },
+  hover:   { 'goon-2': 'salute','goon-3': 'dodge', 'goon-4': 'roar',   'goon-5': 'flirt' },
+  respond: { 'goon-2': 'fire',  'goon-3': 'shoot', 'goon-4': 'stomp',  'goon-5': 'talk' },
+};
+function agentAct(gid, action) {
+  try {
+    if (gid === 'goon-2' && window.insectSet) window.insectSet(action);
+    if (gid === 'goon-3' && window.seamusSet) window.seamusSet(action);
+    if (gid === 'goon-4') cyclopsSet(action);
+    if (gid === 'goon-5' && window.oracleSet) window.oracleSet(action);
+  } catch (e) {}
+}
+function reactNeighbors(gid) {
+  const i = AGENT_ORDER.indexOf(gid);
+  [AGENT_ORDER[i - 1], AGENT_ORDER[i + 1]].forEach((n, k) => {
+    if (!n || n === 'goon-1') return;
+    setTimeout(() => agentAct(n, (POSTURES.hover[n] || 'idle')), 260 + k * 180);
+  });
+}
+window.setAgentPosture = function (p) {
+  const set = POSTURES[p === 'wake' ? 'roam' : p] || POSTURES.idle;
+  document.querySelectorAll('.goon.asleep').forEach(g => g.classList.remove('asleep'));
+  if (p === 'sleep') {
+    AGENT_ORDER.forEach(id => { const g = document.getElementById(id); if (g) g.classList.add('asleep'); });
+    agentAct('goon-2', 'patrol'); agentAct('goon-3', 'idle'); agentAct('goon-4', 'idle'); agentAct('goon-5', 'idle');
+    addTranscript('system', 'Squad standing down — the Annex sleeps. Any order wakes them.');
+    return;
+  }
+  Object.keys(set).forEach((id, i) => setTimeout(() => agentAct(id, set[id]), i * 160));
+  addTranscript('system', 'Squad order: ' + p.toUpperCase() + ' — the Annex moves.');
+  if (p === 'work' && typeof seamusAuditProjects === 'function') seamusAuditProjects();
+};
+// hover → signature move (throttled per agent)
+(function wireHoverMoves() {
+  const last = {};
+  AGENT_ORDER.forEach(id => {
+    const g = document.getElementById(id);
+    if (!g || id === 'goon-1') return;
+    g.addEventListener('mouseenter', () => {
+      const now = Date.now();
+      if (now - (last[id] || 0) < 3500) return;
+      last[id] = now;
+      agentAct(id, POSTURES.hover[id]);
+      reactNeighbors(id);
+    });
+  });
+})();
+// responding → combat/talk animation (hook the working→done transitions already routed)
+(function wireRespondMoves() {
+  const orig = window.setGoonState;
+  window.setGoonState = function (goonId, state, statusText) {
+    orig(goonId, state, statusText);
+    if (state === 'done') setTimeout(() => reactNeighbors(goonId), 500);
+  };
+})();
+
+// =========================================================
+// SEAMUS PROJECT AUDIT + LIVE CONNECTOR STRIP (v0.58)
+// 'agents work' → Seamus audits the board and rebuilds the strip
+// The strip reflects what is ACTUALLY wired right now — nothing baked.
+// =========================================================
+function renderConnectorStrip() {
+  const track = document.getElementById('active-track');
+  if (!track) return;
+  const items = [];
+  const add = (on, label) => items.push(`<span style="display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:1.2px;color:${on ? 'var(--text-1)' : 'var(--text-2)'};"><span style="width:6px;height:6px;border-radius:50%;background:${on ? '#2EA86C' : '#555'};box-shadow:${on ? '0 0 6px #2EA86C' : 'none'};"></span>${label}</span>`);
+  add(true, 'Hosted · ' + location.host);
+  add(!!agentsBackend(), 'Managed Agents · 5 stations');
+  add(!!(localStorage.getItem('brink_sync_url') && localStorage.getItem('brink_sync_key')), 'Cross-PC Sync');
+  add(!!localStorage.getItem('seamus_apikey'), 'Claude API');
+  add(!!localStorage.getItem('seamus_eleven_key'), 'ElevenLabs Voice');
+  add(!!localStorage.getItem('seamus_vm_token'), 'Alexa · Voice Monkey');
+  add(!!localStorage.getItem('seamus_spotify_client'), 'Spotify Deck');
+  const reports = safeParse(localStorage.getItem('brink_reports'), []);
+  add(reports.length > 0, 'Agent Reports · ' + reports.length);
+  const row = items.join('<span style="color:rgba(46,168,108,0.35);margin:0 4px;">·</span>');
+  track.innerHTML = row + '<span style="width:60px;"></span>' + row;
+}
+function seamusAuditProjects() {
+  try {
+    const cards = window.__boardSnapshot || [];
+    const txt = cards.join(' ');
+    const days = (txt.match(/(\d+)\s*days/gi) || []).map(s => parseInt(s));
+    const oldest = days.length ? Math.max.apply(null, days) : null;
+    const live = (txt.match(/LIVE/g) || []).length, wip = (txt.match(/WIP/g) || []).length, parked = (txt.match(/PARKED/g) || []).length, shipped = (txt.match(/SHIPPED/g) || []).length;
+    renderConnectorStrip();
+    if (typeof renderActivityFeed === 'function') renderActivityFeed();
+    addTranscript('seamus', `Board audit: ${cards.length} active projects — ${live} live, ${wip} in progress, ${parked} parked, ${shipped} shipped.` + (oldest ? ` Oldest open work: ${oldest} days. Doctrine says it moves first.` : '') + ' Strip and feed refreshed to live state.');
+  } catch (e) { console.warn('[BRINK] audit:', e.message); }
+}
+setTimeout(renderConnectorStrip, 1800);
+setInterval(renderConnectorStrip, 120000);
 
 // HIDDEN COMMAND DECK — press ? (Shift+/) to reveal every control
 (function commandDeck() {
@@ -7690,6 +7839,14 @@ function checkLocalVoiceCommand(text) {
     if (window.setAgentMode) setAgentMode('inspect');
     return true;
   }
+  // v0.58 — ELITE FORCE POSTURE ORDERS
+  const postureM = text.match(/^agents?[,\s]+(work|get to work|roam|inspect|hover|idle|stand down|sleep|rest|wake( up)?)$/i) || text.match(/^(everyone|all agents|squad)[,\s]+(work|roam|inspect|idle|sleep|wake)$/i);
+  if (postureM) {
+    const order = (postureM[1] || postureM[2] || '').toLowerCase();
+    const p = /work/.test(order) ? 'work' : /roam|hover/.test(order) ? 'roam' : /inspect/.test(order) ? 'inspect' : /sleep|rest|stand/.test(order) ? 'sleep' : /wake/.test(order) ? 'wake' : 'idle';
+    if (window.setAgentPosture) setAgentPosture(p);
+    return true;
+  }
 
   // WARDEN TRIGGER — "warden report" / "hub warden" / "project discipline"
   if (/^(hub )?warden( report)?$|^project discipline$|^discipline report$|^send (selected )?reports to seamus$/i.test(text)) {
@@ -8312,6 +8469,8 @@ function setGoonState(goonId, state, statusText) {
 // =========================================================
 function getReports() { return safeParse(localStorage.getItem('brink_reports'), []); }
 function saveAgentReport(goonId, taskKey, assignment, text) {
+  // v0.58 — every report echoes into the Annex channel; the room is never silent
+  try { addAgentLine(goonId, (agentMeta(goonId).name || 'AGENT').toUpperCase() + ': ' + String(text).slice(0, 520) + (String(text).length > 520 ? ' …(⤢ detail for full report)' : '')); } catch (e) {}
   const reports = getReports();
   reports.unshift({
     id: 'R' + Date.now().toString(36).toUpperCase(),
@@ -9629,11 +9788,14 @@ function addAgentLine(goonId, text) {
       if (taskKey) deployGoon(taskKey);
       return;
     }
-    addAgentLine(window.lastAskingGoon ? GOON_TASKS[window.lastAskingGoon].goon : 'goon-1', `YOU: ${v.slice(0, 140)}${v.length > 140 ? '…' : ''}`);
+    addAgentLine(window.lastAskingGoon ? GOON_TASKS[window.lastAskingGoon].goon : 'goon-3', `YOU: ${v.slice(0, 140)}${v.length > 140 ? '…' : ''}`);
     if (window.lastAskingGoon) {
       const k = window.lastAskingGoon;
       window.lastAskingGoon = null;
       deployGoon(k);
+    } else {
+      // v0.58 — no channel, no pending ask → the Command Chief takes it
+      deployGoon('command');
     }
   }
   const btn = document.getElementById('agent-reply-send');
@@ -9891,7 +10053,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.56';
+  var v = 'v0.58';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
