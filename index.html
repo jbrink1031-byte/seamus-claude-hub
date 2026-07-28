@@ -74,7 +74,7 @@
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-rows: 50px 22px 1fr 26px 24px 28px;
+    grid-template-rows: 22px 50px 1fr 26px 24px 28px;
     height: 100vh;
     overflow: hidden;
   }
@@ -227,6 +227,25 @@
 
   /* v0.54 — single status strip: topbar chips folded into the looping ticker */
   .status-item { display: none !important; }
+
+  
+  .brand-mark::after { content: none !important; }
+  .brand-b {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 21px; font-family: 'JetBrains Mono', monospace; color: #5ff0d2; z-index: 2;
+    text-shadow: 0 0 10px rgba(95,240,210,1), 0 0 24px rgba(6,182,212,0.8);
+  }
+  /* v0.56 — connector marquee rides the very top, fading into the brand */
+  #active-ticker {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 190px, #000 96%, transparent);
+            mask-image: linear-gradient(90deg, transparent 0, #000 190px, #000 96%, transparent);
+    border-bottom: none !important;
+  }
+  .transcript-text { font-size: 12px !important; line-height: 1.55 !important; }
+  .transcript-tag { font-size: 8px !important; }
+  .transcript-line { margin-bottom: 7px !important; }
+  .agent-comms { flex: 1 1 auto !important; display: flex; flex-direction: column; max-height: none !important; }
+  .agent-comms > div[id] { flex: 1 1 auto; }
 
   /* ===== SECTIONS ===== */
   .section {
@@ -556,8 +575,8 @@
   .panel-hidden { display: none !important; }
 
   /* App grid variants when alert ticker is hidden */
-  .app.no-alerts { grid-template-rows: 50px 22px 1fr 0 24px 28px; }
-  .app.no-stack { grid-template-rows: 50px 22px 1fr 26px 0 28px; }
+  .app.no-alerts { grid-template-rows: 22px 50px 1fr 0 24px 28px; }
+  .app.no-stack { grid-template-rows: 22px 50px 1fr 26px 0 28px; }
   .app.no-alerts.no-stack { grid-template-rows: 50px 1fr 0 0 28px; }
   .app.no-alerts .alert-ticker { display: none; }
   .app.no-stack .stack-ticker { display: none; }
@@ -2368,14 +2387,19 @@
 
 <div class="app">
 
+  <!-- ===== ACTIVE CONNECTIONS TICKER (top loop) ===== -->
+  <div id="active-ticker" style="height:22px;overflow:hidden;background:rgba(8,11,16,0.35);border-bottom:1px solid rgba(46,168,108,0.25);position:relative;">
+    <div id="active-track" style="display:flex;gap:26px;align-items:center;height:100%;white-space:nowrap;will-change:transform;animation:ticker-scroll 45s linear infinite;padding-left:10px;"></div>
+  </div>
+
   <!-- ===== TOP BAR ===== -->
   <div class="topbar">
     <div class="brand" id="brand-settings-trigger" title="Open SEAMUS Settings" style="cursor: pointer;"
          onclick="try { window.openSettings && window.openSettings(); } catch(e) { alert('Error opening settings: ' + e.message); }">
-      <div class="brand-mark"></div>
+      <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.55</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.56</div>
       </div>
     </div>
     <div class="status-cluster">
@@ -2386,7 +2410,7 @@
       <div class="status-item online" id="status-recon"><div class="status-dot"></div><span>Recon</span></div>
       <div class="status-item online" id="status-jotform"><div class="status-dot"></div><span>Jotform</span></div>
       <div class="status-item warn" id="status-mc"><div class="status-dot"></div><span>MarketCheck</span></div>
-      <button id="ops-btn" title="Ops metrics — Claude, Cloudflare, Netlify, Supabase" style="background:transparent;border:1px solid var(--border);color:var(--text-1);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:13px;margin-right:8px;font-family:inherit;">📊</button>
+      <button id="spotify-top-btn" title="Spotify Deck" onclick="var c=document.getElementById('spotify-panel-toggle'); if(c) c.click();" style="background:transparent;border:1px solid rgba(29,185,84,0.5);color:#1DB954;border-radius:4px;padding:4px 9px;cursor:pointer;margin-right:8px;line-height:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#1DB954" stroke-width="1.6"/><path d="M7 9.5c3.5-1 7-0.7 10 1M7.5 12.5c3-0.8 5.8-0.5 8.4 1M8 15.3c2.4-0.6 4.6-0.4 6.7 0.8" stroke="#1DB954" stroke-width="1.5" stroke-linecap="round"/></svg></button><button id="ops-btn" title="Ops metrics — Claude, Cloudflare, Netlify, Supabase" style="background:transparent;border:1px solid rgba(6,182,212,0.5);border-radius:4px;padding:4px 9px;cursor:pointer;margin-right:8px;line-height:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="12" width="4" height="8" rx="1" fill="#2EA86C"/><rect x="10" y="7" width="4" height="13" rx="1" fill="#06b6d4"/><rect x="16.5" y="3.5" width="4" height="16.5" rx="1" fill="#8b5cf6"/></svg></button>
         <button id="mute-btn" title="Mute/unmute Seamus & agent voices" style="background:transparent;border:1px solid var(--border);color:var(--text-1);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:13px;margin-right:10px;font-family:inherit;">🔊</button>
       <div class="clock" id="clock">--:--:--</div>
     </div>
@@ -2395,10 +2419,7 @@
   </div>
 
   <!-- ===== MAIN ===== -->
-  <!-- ===== ACTIVE CONNECTIONS TICKER (top loop) ===== -->
-  <div id="active-ticker" style="height:22px;overflow:hidden;background:rgba(8,11,16,0.35);border-bottom:1px solid rgba(46,168,108,0.25);position:relative;">
-    <div id="active-track" style="display:flex;gap:26px;align-items:center;height:100%;white-space:nowrap;will-change:transform;animation:ticker-scroll 45s linear infinite;padding-left:10px;"></div>
-  </div>
+  
 
   <div class="main">
 
@@ -2978,13 +2999,6 @@
         </div>
           </div>
         </div>
-
-      <!-- OPS GRID — provider usage tiles -->
-      <div class="section panel-host" data-panel="ops-grid" data-panel-label="Ops Grid">
-        <button class="panel-toggle" title="Hide Ops Grid">×</button>
-        <div class="section-label"><span>Ops · Tool Usage</span><span class="section-label-tag" style="cursor:pointer;" onclick="showOpsMetrics(false)" title="Pop out full metrics">⤢ detail</span></div>
-        <div id="ops-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:2px 0;"></div>
-      </div>
 
       <!-- ACTIVITY FEED -->
       <div class="section flex-fill panel-host" data-panel="activity" data-panel-label="Activity Feed">
@@ -5922,7 +5936,7 @@ gl_FragColor=vec4(col,1.0);
   const U = {};
   ['iTime','iResolution','iMouse','uWispDensity','uTiltScale','uFlowTime','uFogTime','uBeamXFrac','uBeamYFrac','uFlowSpeed','uVLenFactor','uHLenFactor','uFogIntensity','uFogScale','uWSpeed','uWIntensity','uFlowStrength','uDecay','uFalloffStart','uFogFallSpeed','uColor','uFade'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
   // Tuned for the deck — beam center-top, brand cyan
-  const P = { wispDensity: 2.2, mouseTiltStrength: 0.012, horizontalBeamOffset: 0.0, verticalBeamOffset: -0.05, flowSpeed: 0.5, verticalSizing: 3.2, horizontalSizing: 1.35, fogIntensity: 0.55, fogScale: 0.32, wispSpeed: 16.5, wispIntensity: 5.5, flowStrength: 0.32, decay: 1.7, falloffStart: 1.35, fogFallSpeed: 0.7 };
+  const P = { wispDensity: 2.2, mouseTiltStrength: 0.012, horizontalBeamOffset: 0.0, verticalBeamOffset: -0.435, flowSpeed: 0.5, verticalSizing: 5.6, horizontalSizing: 1.5, fogIntensity: 0.55, fogScale: 0.32, wispSpeed: 16.5, wispIntensity: 5.5, flowStrength: 0.32, decay: 1.7, falloffStart: 1.35, fogFallSpeed: 0.7 };
   const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
   let mx = 0, my = 0, flowT = 0, fogT = 0, fade = 0, last = performance.now(), paused = false;
   function size() {
@@ -9877,7 +9891,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.55';
+  var v = 'v0.56';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
