@@ -269,7 +269,8 @@
   html, body { height: 100%; }
   .orb-stage { flex: 1 1 auto !important; }
   #transcript { flex: 0 0 30% !important; max-height: 32vh; }
-  .col:not(.center):last-child .section:has(#projects-list) { flex: 1.7 1 0 !important; }
+  .col:not(.center):last-child .section:has(#projects-list) { flex: 1 1 auto !important; height: 100%; }
+  .col:not(.center):last-child .section:has(#projects-list) .ticker-window { flex: 1 1 auto !important; max-height: none !important; }
 
   
   /* v0.59 — floating HUD dials flanking the sphere (no boxes, just glow) */
@@ -1018,6 +1019,15 @@
 
   .goon svg { width: 76px; height: 100px; }
   .char-crop { pointer-events: none; }
+  .goon canvas, .goon .char-crop, .goon svg { pointer-events: none !important; }
+  .goon { position: relative; cursor: pointer; }
+  .goon::before {
+    content: '⌁ CLICK'; position: absolute; top: 3px; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace; font-size: 6px; letter-spacing: 1px; color: var(--cyan);
+    opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 5; white-space: nowrap;
+  }
+  .goon:hover::before { opacity: 0.85; }
+  .goon.channel-open::before { content: '● LIVE CHANNEL'; opacity: 1; color: #2EA86C; }
   .goon { cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; }
   .goon.channel-open { box-shadow: 0 0 0 1px var(--cyan), 0 0 22px rgba(6,182,212,0.35); transform: translateY(-3px); }
   .goon.asleep { filter: grayscale(0.75) brightness(0.5); }
@@ -2434,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.59</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.60</div>
       </div>
     </div>
     <div class="status-cluster">
@@ -2650,6 +2660,20 @@
         <button id="btn-warden" style="width:100%;margin-top:8px;position:relative;z-index:1;background:rgba(245,158,11,0.10);border:1px solid #f59e0b;color:#f59e0b;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1.5px;padding:7px;border-radius:3px;cursor:pointer;">🛡 RUN COMMAND REVIEW · SEND REPORTS TO SEAMUS</button>
         
       </div>
+
+      <!-- ACTIVITY FEED (moved below agents v0.60) -->
+      <div class="section flex-fill panel-host" data-panel="activity" data-panel-label="Activity Feed">
+        <button class="panel-toggle" title="Hide Activity Feed">×</button>
+        <div class="section-label">
+          <span>Activity Feed</span>
+          <span class="section-label-tag live" id="feed-count" style="cursor:pointer;" onclick="showFeedDetail()" title="Pop out full reports">⤢ detail</span>
+        </div>
+        <div class="ticker-window">
+          <div class="ticker-fade top"></div>
+          <div class="ticker-fade bottom"></div>
+          <div class="ticker-track" id="activity-list"></div>
+        </div>
+          </div>
 
       
 
@@ -3012,19 +3036,7 @@
           </div>
         </div>
 
-      <!-- ACTIVITY FEED -->
-      <div class="section flex-fill panel-host" data-panel="activity" data-panel-label="Activity Feed">
-        <button class="panel-toggle" title="Hide Activity Feed">×</button>
-        <div class="section-label">
-          <span>Activity Feed</span>
-          <span class="section-label-tag live" id="feed-count" style="cursor:pointer;" onclick="showFeedDetail()" title="Pop out full reports">⤢ detail</span>
-        </div>
-        <div class="ticker-window">
-          <div class="ticker-fade top"></div>
-          <div class="ticker-fade bottom"></div>
-          <div class="ticker-track" id="activity-list"></div>
-        </div>
-          </div>
+      
         </div>
       </div>
 
@@ -5986,9 +5998,7 @@ gl_FragColor=vec4(col,1.0);
 // =========================================================
 window.SELECTED_AGENT = null;
 (function agentChannels() {
-  const label = document.querySelector('.agent-comms .section-label span') || document.querySelector('[data-panel="agent-comms"] .section-label span');
-  document.querySelectorAll('.goon').forEach(g => {
-    g.addEventListener('click', () => {
+  function openChannel(g) {
       const id = g.id;
       if (window.SELECTED_AGENT === id) { window.SELECTED_AGENT = null; g.classList.remove('channel-open'); }
       else {
@@ -6001,8 +6011,17 @@ window.SELECTED_AGENT = null;
       if (box) box.placeholder = window.SELECTED_AGENT ? ('Message ' + meta.name + ' directly… (📎 to attach a file)') : 'Reply to agents… (paste content, Enter to send)';
       const lbl = document.getElementById('comms-channel-label');
       if (lbl) lbl.textContent = window.SELECTED_AGENT ? ('CHANNEL · ' + meta.name) : 'DEDICATED CHANNEL';
-    }, true);
+      // fire the agent's hover/greeting animation on selection
+      if (window.SELECTED_AGENT && typeof agentAct === 'function') {
+        const mv = { 'goon-2': 'salute', 'goon-3': 'stance', 'goon-4': 'roar', 'goon-5': 'talk' }[id];
+        if (mv) agentAct(id, mv);
+      }
+  }
+  document.querySelectorAll('.goon').forEach(g => {
+    g.style.pointerEvents = 'auto';
+    g.addEventListener('click', () => openChannel(g));
   });
+  window.openAgentChannel = openChannel;
 })();
 
 // Upload → reply box (Annex chat attachment) v0.52
@@ -10109,7 +10128,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.59';
+  var v = 'v0.60';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
