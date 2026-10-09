@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.62</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.63</div>
       </div>
     </div>
     <div class="status-cluster">
@@ -2455,7 +2455,7 @@
       <div class="status-item online" id="status-recon"><div class="status-dot"></div><span>Recon</span></div>
       <div class="status-item online" id="status-jotform"><div class="status-dot"></div><span>Jotform</span></div>
       <div class="status-item warn" id="status-mc"><div class="status-dot"></div><span>MarketCheck</span></div>
-      <button id="spotify-top-btn" title="Spotify Deck" onclick="var p=document.getElementById('spotify-popout'); if(p) p.style.display = (p.style.display==='none'?'block':'none');" style="background:transparent;border:1px solid rgba(29,185,84,0.5);color:#1DB954;border-radius:4px;padding:4px 9px;cursor:pointer;margin-right:8px;line-height:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#1DB954" stroke-width="1.6"/><path d="M7 9.5c3.5-1 7-0.7 10 1M7.5 12.5c3-0.8 5.8-0.5 8.4 1M8 15.3c2.4-0.6 4.6-0.4 6.7 0.8" stroke="#1DB954" stroke-width="1.5" stroke-linecap="round"/></svg></button><button id="ops-btn" title="Ops metrics — Claude, Cloudflare, Netlify, Supabase" style="background:transparent;border:1px solid rgba(6,182,212,0.5);border-radius:4px;padding:4px 9px;cursor:pointer;margin-right:8px;line-height:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="12" width="4" height="8" rx="1" fill="#2EA86C"/><rect x="10" y="7" width="4" height="13" rx="1" fill="#06b6d4"/><rect x="16.5" y="3.5" width="4" height="16.5" rx="1" fill="#8b5cf6"/></svg></button>
+      <button id="cheat-btn" title="Agent Command Cheat Sheet" onclick="showAgentCheatSheet()" style="background:transparent;border:1px solid rgba(139,92,246,0.5);border-radius:4px;padding:4px 9px;cursor:pointer;margin-right:8px;line-height:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 3h6a2 2 0 012 2v14a2 2 0 01-2 2H9a2 2 0 01-2-2V5a2 2 0 012-2z" stroke="#8b5cf6" stroke-width="1.5"/><path d="M10 8h4M10 11h4M10 14h2.5" stroke="#8b5cf6" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="3" r="1.2" fill="#8b5cf6"/></svg></button><button id="spotify-top-btn" title="Spotify Deck" onclick="var p=document.getElementById('spotify-popout'); if(p) p.style.display = (p.style.display==='none'?'block':'none');" style="background:transparent;border:1px solid rgba(29,185,84,0.5);color:#1DB954;border-radius:4px;padding:4px 9px;cursor:pointer;margin-right:8px;line-height:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#1DB954" stroke-width="1.6"/><path d="M7 9.5c3.5-1 7-0.7 10 1M7.5 12.5c3-0.8 5.8-0.5 8.4 1M8 15.3c2.4-0.6 4.6-0.4 6.7 0.8" stroke="#1DB954" stroke-width="1.5" stroke-linecap="round"/></svg></button><button id="ops-btn" title="Ops metrics — Claude, Cloudflare, Netlify, Supabase" style="background:transparent;border:1px solid rgba(6,182,212,0.5);border-radius:4px;padding:4px 9px;cursor:pointer;margin-right:8px;line-height:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="12" width="4" height="8" rx="1" fill="#2EA86C"/><rect x="10" y="7" width="4" height="13" rx="1" fill="#06b6d4"/><rect x="16.5" y="3.5" width="4" height="16.5" rx="1" fill="#8b5cf6"/></svg></button>
         <button id="mute-btn" title="Mute/unmute Seamus & agent voices" style="background:transparent;border:1px solid var(--border);color:var(--text-1);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:13px;margin-right:10px;font-family:inherit;">🔊</button>
       <div class="clock" id="clock">--:--:--</div>
     </div>
@@ -5988,10 +5988,32 @@ function decorateBoardItems() {
       return b;
     };
     if (url) bar.appendChild(mk('↗ OPEN', 'Open this project', () => window.open(url, '_blank'), '#06b6d4'));
-    bar.appendChild(mk('💬 SEAMUS', 'Hand this to Seamus', () => {
+    bar.appendChild(mk('💬 SEAMUS', 'Hand this project (with its notes) to Seamus', () => {
       const box = document.getElementById('agent-reply') || document.getElementById('floating-text-input');
-      if (box) { box.value = 'Seamus — regarding "' + title + '": '; box.focus(); }
+      if (!box) return;
+      const name = ((item.querySelector('.project-name') || {}).textContent || title).trim();
+      const state = ((item.querySelector('.project-state') || {}).textContent || '').trim();
+      const pill = ((item.querySelector('.project-pill') || {}).textContent || '').trim();
+      const notes = safeParse(localStorage.getItem('brink_project_notes'), {});
+      const note = (notes[name.slice(0, 40)] || '').trim();
+      let ctx = 'Seamus — regarding project "' + name + '"' + (pill ? ' [' + pill + ']' : '') + ':\n';
+      if (state) ctx += '· Status: ' + state + '\n';
+      if (note) ctx += '· Notes: ' + note + '\n';
+      ctx += '\nMy ask: ';
+      box.value = ctx; box.focus();
+      try { box.setSelectionRange(box.value.length, box.value.length); } catch (e) {}
     }, '#2EA86C'));
+    bar.appendChild(mk('📝', 'Add or edit notes for this project (Seamus carries them on 💬)', () => {
+      const name = ((item.querySelector('.project-name') || {}).textContent || title).trim();
+      const key = name.slice(0, 40);
+      const notes = safeParse(localStorage.getItem('brink_project_notes'), {});
+      const next = prompt('Notes for "' + name + '":', notes[key] || '');
+      if (next !== null) {
+        notes[key] = next;
+        localStorage.setItem('brink_project_notes', JSON.stringify(notes));
+        addTranscript('system', 'Notes saved for "' + name + '" — Seamus will carry them on 💬 hand-off.');
+      }
+    }, '#8b5cf6'));
     bar.appendChild(mk('✕', 'Remove from board', () => {
       hidden.push(title.slice(0, 40));
       localStorage.setItem('brink_board_hidden', JSON.stringify(hidden));
@@ -6044,7 +6066,15 @@ function showBoardDetail() {
       items.push(el.innerHTML);
     });
   }
-  const rows = items.map(html => `<div style="border-left:3px solid var(--green);padding:9px 12px;margin-bottom:9px;background:rgba(12,16,24,0.55);border-radius:3px;">${html}</div>`).join('');
+  const notes = safeParse(localStorage.getItem('brink_project_notes'), {});
+  const nameFrom = html => { const m = html.match(/project-name[^>]*>([^<]+)</); return m ? m[1].trim() : ''; };
+  const rows = items.map(html => {
+    const note = (notes[nameFrom(html).slice(0, 40)] || '').trim();
+    const block = note
+      ? `<div style="margin-top:7px;padding:7px 10px;background:rgba(139,92,246,0.1);border-left:2px solid #8b5cf6;border-radius:3px;"><div style="font-size:8px;letter-spacing:1.5px;color:#8b5cf6;font-weight:700;margin-bottom:3px;">📝 NOTES</div><div style="font-size:10px;color:var(--text-1);white-space:pre-wrap;line-height:1.5;">${escapeHtml(note)}</div></div>`
+      : `<div style="margin-top:6px;font-size:9px;color:var(--text-2);font-style:italic;">no notes yet — use 📝 on the card to add context Seamus will carry</div>`;
+    return `<div style="border-left:3px solid var(--green);padding:9px 12px;margin-bottom:9px;background:rgba(12,16,24,0.55);border-radius:3px;">${html}${block}</div>`;
+  }).join('');
   detailModal('⛁ PROJECT BOARD — FULL DETAIL', '#2EA86C', rows || 'Board is empty — nothing to expand.');
   setTimeout(() => document.querySelectorAll('#detail-modal .board-actions').forEach(b => b.remove()), 30);
 }
@@ -6251,6 +6281,43 @@ function renderWorkFiled() {
 }
 setTimeout(renderWorkFiled, 1800);
 setInterval(renderWorkFiled, 60000);
+
+// =========================================================
+// AGENT COMMAND CHEAT SHEET (v0.63) — pop-out reference
+// =========================================================
+function showAgentCheatSheet() {
+  const chip = (c, col) => `<code style="font-size:10px;background:rgba(0,0,0,0.4);border:1px solid ${col || 'var(--border)'};color:var(--text-1);padding:2px 7px;border-radius:3px;">${escapeHtml(c)}</code>`;
+  const row = (color, name, role, cmds) => `
+    <div style="border-left:3px solid ${color};padding:9px 13px;margin-bottom:10px;background:rgba(12,16,24,0.6);border-radius:3px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;">
+        <span style="font-size:12px;font-weight:800;color:${color};letter-spacing:1.5px;">${name}</span>
+        <span style="font-size:8px;color:var(--text-2);letter-spacing:1px;text-transform:uppercase;">${role}</span>
+      </div>
+      <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:5px;">${cmds.map(x => chip(x, color + '44')).join('')}</div>
+    </div>`;
+  const body = `
+    <div style="font-size:10.5px;color:var(--text-2);line-height:1.6;margin-bottom:14px;">
+      Fire from the <b style="color:var(--text-1);">TYPE bar</b> (press <b style="color:var(--cyan);">Space</b>, click the <b style="color:var(--cyan);">B</b>, or TYPE-TO-SEAMUS), or <b style="color:var(--text-1);">click an agent's station</b> to open its channel. Text after a trigger becomes the payload; 📎 attaches a file. <b style="color:var(--cyan);">Escape</b> stops all agents.
+    </div>
+    ${row('#dc2626', 'RONIN', 'Security Guardian', ['ronin <code>', 'run security review', 'security review', 'code review'])}
+    ${row('#f59e0b', 'INSECT COP', 'Bug & Edge-Case Investigator', ['insect cop <code>', 'bug sweep', 'find bugs', 'run tests'])}
+    ${row('#06b6d4', 'POLYPHEMUS', 'Wire Intelligence Scout · web', ['polyphemus <topic>', 'sweep the wire', 'scout <topic>', 'headlines'])}
+    ${row('#8b5cf6', 'ORACLE', 'Intelligence Officer · web', ['oracle <topic>', 'intel briefing on <topic>', 'brief me on <topic>'])}
+    ${row('#2EA86C', 'SEAMUS', 'Ghostwriter · Command Chief', ['command review', 'warden report', 'send reports to seamus', '(default for any unrouted msg)'])}
+    <div style="border-top:1px solid var(--border);margin:12px 0 10px;padding-top:11px;">
+      <div style="font-size:10px;font-weight:800;color:var(--text-1);letter-spacing:2px;margin-bottom:7px;">◇ SQUAD POSTURE ORDERS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;">${['agents work','agents roam','agents inspect','agents idle','agents sleep','wake up'].map(x => chip(x)).join('')}</div>
+    </div>
+    <div style="border-top:1px solid var(--border);padding-top:11px;">
+      <div style="font-size:10px;font-weight:800;color:var(--text-1);letter-spacing:2px;margin-bottom:7px;">◇ WHAT YOU CAN AIM THEM AT</div>
+      <div style="font-size:10px;color:var(--text-2);line-height:1.7;">
+        <b style="color:#2EA86C;">✅ Works:</b> paste code/text · 📎 attach a file · a research <i>topic</i> for Polyphemus &amp; Oracle (web search on).<br>
+        <b style="color:#dc2626;">⚠ Won't work:</b> a repo URL, a Claude.ai chat/project name, or a live site to crawl — agents run in sealed sandboxes and only see what enters the session. Whole-repo work → Claude Code.
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:9px;color:var(--text-2);border-top:1px solid var(--border);padding-top:9px;">Real runs require the <b style="color:var(--text-1);">Managed Agents Backend</b> saved in Settings. Without it, triggers fall back to a lighter direct mode.</div>`;
+  detailModal('⌘ AGENT COMMAND CHEAT SHEET', '#8b5cf6', body);
+}
 
 // HIDDEN COMMAND DECK — press ? (Shift+/) to reveal every control
 (function commandDeck() {
@@ -9945,7 +10012,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.62';
+  var v = 'v0.63';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
