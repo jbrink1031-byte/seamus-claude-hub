@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.68</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.69</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -10024,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.68';
+  var v = 'v0.69';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10096,25 +10096,28 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
   #spider-toggle:hover { box-shadow: 0 0 14px rgba(6,182,212,0.35); }
   #spider-toggle.on { border-color: var(--cyan); box-shadow: 0 0 16px rgba(6,182,212,0.5); }
   #spider-root { display: none; position: fixed; inset: 0; z-index: 90; background: var(--bg-0); color: var(--text-0); font-family: var(--mono); font-size: 12px; overflow: auto; }
+  /* v0.69 — the canvas is a viewport overlay above every panel: legs and file cards cross container borders */
+  #sx-fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 95; }
   body.spider-mode .app { display: none !important; }
   body.spider-mode #spider-root { display: block; }
-  .sx { max-width: 1400px; margin: 0 auto; padding: 14px 24px 40px; display: grid; gap: 12px; }
-  .sx-top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
-  .sx-title { font-size: 15px; font-weight: 800; letter-spacing: .14em; margin: 0; }
+  .sx { height: 100vh; height: 100dvh; box-sizing: border-box; margin: 0 auto; padding: 8px 16px 10px; display: grid; gap: 8px; grid-template-rows: auto auto minmax(0, 1fr) auto; }
+  .sx-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+  .sx-title { font-size: 13px; font-weight: 800; letter-spacing: .14em; margin: 0; }
   .sx-title b { color: var(--cyan); }
-  .sx-sub { color: var(--text-2); font-size: 10px; margin: 0; letter-spacing: .06em; }
-  .sx-back { margin-left: auto; background: transparent; border: 1px solid var(--border-hot); color: var(--text-1); padding: 7px 14px; border-radius: 3px; cursor: pointer; font: 600 10px var(--mono); letter-spacing: .1em; }
+  .sx-sub { color: var(--text-2); font-size: 9px; margin: 0; letter-spacing: .06em; }
+  .sx-back { margin-left: auto; background: transparent; border: 1px solid var(--border-hot); color: var(--text-1); padding: 5px 12px; border-radius: 3px; cursor: pointer; font: 600 10px var(--mono); letter-spacing: .1em; }
   .sx-back:hover { border-color: var(--cyan); color: var(--text-0); }
-  .sx-wall { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
-  .sx-stat { border: 1px solid var(--border); background: rgba(13,17,23,0.7); padding: 8px 10px; border-radius: 3px; }
-  .sx-stat small { display: block; font-size: 8px; letter-spacing: .14em; color: var(--text-2); }
-  .sx-stat span { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
-  .sx-stat em { display: block; font-style: normal; font-size: 8px; color: var(--text-2); margin-top: 2px; }
-  .sx-main { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 12px; }
-  .sx-main.adv { grid-template-columns: 340px minmax(0, 1fr) 190px; }
+  /* the counter strip — one thin line, every stat still there */
+  .sx-wall { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; padding: 3px 10px; border: 1px solid var(--border); background: rgba(13,17,23,0.7); border-radius: 3px; min-height: 18px; }
+  .sx-stat { display: flex; align-items: baseline; gap: 5px; white-space: nowrap; }
+  .sx-stat small { font-size: 7.5px; letter-spacing: .14em; color: var(--text-2); }
+  .sx-stat span { font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text-0); }
+  .sx-stat em { font-style: normal; font-size: 7.5px; color: var(--text-2); }
+  .sx-main { display: grid; grid-template-columns: minmax(0, 1fr) 212px; gap: 10px; min-height: 0; }
+  .sx-main.adv { grid-template-columns: 320px minmax(0, 1fr) 212px; }
   #sx-planner { display: none; }
   .sx-main.adv #sx-planner { display: grid; }
-  .sx-panel { border: 1px solid var(--border); background: rgba(13,17,23,0.72); border-radius: 3px; padding: 12px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .sx-panel { border: 1px solid var(--border); background: rgba(13,17,23,0.72); border-radius: 3px; padding: 10px; display: grid; gap: 8px; align-content: start; min-width: 0; min-height: 0; overflow: auto; }
   .sx-panel h2 { margin: 0; font-size: 9px; font-weight: 700; letter-spacing: .16em; color: var(--text-2); }
   /* --- CRAWL PLANNER (the web) --- */
   .sx-web { position: relative; aspect-ratio: 1; width: 100%; max-width: 316px; margin: 0 auto; }
@@ -10143,7 +10146,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
   .sx-btns { display: flex; flex-wrap: wrap; gap: 6px; }
   #sx-status { color: var(--text-2); font-size: 10px; margin: 0; min-height: 14px; }
   /* --- STAGE --- */
-  .sx-stage { position: relative; height: 520px; border: 1px solid var(--border); background: #0a0d13; overflow: hidden; border-radius: 3px; }
+  .sx-stage { position: relative; align-self: stretch; min-height: 0; border: 1px solid var(--border); background: #0a0d13; overflow: hidden; border-radius: 3px; }
   .sx-feed { position: absolute; left: 0; top: 0; bottom: 0; width: 46%; background: rgba(13,17,23,0.9); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
   .sx-feedbar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; color: var(--text-2); font-size: 10px; border-bottom: 1px solid var(--border); }
   .sx-feedbar i { width: 8px; height: 8px; border-radius: 50%; display: block; }
@@ -10156,32 +10159,38 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
   .sx-row.v { color: var(--text-0); box-shadow: inset 0 0 0 1px rgba(6,182,212,.35); }
   .sx-row.v.hit { background: rgba(6,182,212,.14); }
   .sx-row.v.hit .n { color: var(--cyan); }
-  #sx-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .sx-empty { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: var(--text-2); font-size: 11px; line-height: 1.8; padding: 20px; }
   .sx-empty b { color: var(--text-0); display: block; font-size: 13px; letter-spacing: .12em; }
   /* --- BINS --- */
-  .sx-bins { display: grid; gap: 7px; }
-  .sx-bin { border: 1px solid currentColor; background: rgba(13,17,23,0.8); display: grid; cursor: pointer; transition: box-shadow .15s; }
+  /* bins — narrow column, every bin a live drop-box: count in the header, the latest finds as full cards */
+  .sx-bins { display: flex; flex-direction: column; gap: 6px; min-height: 0; }
+  .sx-bin { flex: 1 1 0; min-height: 0; border: 1px solid currentColor; background: rgba(13,17,23,0.8); display: flex; flex-direction: column; cursor: pointer; transition: box-shadow .15s; overflow: hidden; }
   .sx-bin.flash { box-shadow: 0 0 18px currentColor; }
-  .sx-bin header { background: currentColor; padding: 2px 8px; font-size: 8px; letter-spacing: .1em; }
+  .sx-bin header { background: currentColor; padding: 2px 7px; font-size: 8px; letter-spacing: .1em; display: flex; justify-content: space-between; flex: none; }
   .sx-bin header span { color: #0b0b0d; font-weight: 700; }
-  .sx-bin .n { padding: 2px 8px 0; text-align: right; font-size: 26px; line-height: 1.1; font-weight: 800; font-variant-numeric: tabular-nums; }
-  .sx-bin ul { margin: 0; padding: 2px 8px 6px; list-style: none; font-size: 8px; color: var(--text-2); }
-  .sx-bin li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sx-row2 { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 12px; }
+  .sx-bin header .n { color: #0b0b0d; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .sx-bin ul { margin: 0; padding: 3px 7px 4px; list-style: none; font-size: 8px; color: var(--text-2); display: grid; gap: 3px; overflow: hidden; min-height: 0; }
+  .sx-bin li { border-left: 2px solid currentColor; padding-left: 5px; line-height: 1.35; }
+  .sx-bin li b { display: block; color: var(--text-0); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sx-bin li span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 7.5px; }
+  .sx-bin li span i { font-style: normal; color: currentColor; letter-spacing: .08em; }
+  .sx-bin li.new b { color: var(--amber); }
+  .sx-bin .none { color: var(--text-2); font-size: 8px; padding: 4px 7px; }
+  .sx-row2 { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 10px; max-height: 168px; min-height: 0; }
   .sx-queue { display: grid; gap: 6px; }
   .sx-queue div { border-left: 2px solid currentColor; padding-left: 8px; font-size: 10px; }
   .sx-queue div span { color: var(--text-2); display: block; font-size: 9px; }
-  .sx-list { display: grid; gap: 5px; max-height: 300px; overflow-y: auto; }
+  .sx-list { display: grid; gap: 5px; max-height: 118px; overflow-y: auto; }
   .sx-list a { color: var(--cyan); text-decoration: none; }
   .sx-list div { border-left: 2px solid var(--border); padding: 4px 8px; font-size: 10px; }
   .sx-list div small { display: block; color: var(--text-2); font-size: 8.5px; }
   textarea#sx-import { width: 100%; height: 90px; background: var(--bg-2); border: 1px solid var(--border); color: var(--text-0); font: 10px var(--mono); padding: 6px; border-radius: 3px; resize: vertical; }
-  @media (max-width: 1100px) { .sx-main { grid-template-columns: minmax(0, 1fr); } .sx-bins { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); } .sx-row2 { grid-template-columns: minmax(0, 1fr); } }
-  @media (max-width: 720px) { .sx { padding: 12px 16px 32px; } .sx-stage { height: 440px; } .sx-feed { width: 58%; } }
+  @media (max-width: 1100px) { .sx { height: auto; min-height: 100vh; } .sx-main { grid-template-columns: minmax(0, 1fr); } .sx-stage { height: 480px; } .sx-bins { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } .sx-bin { min-height: 92px; } .sx-row2 { grid-template-columns: minmax(0, 1fr); max-height: none; } }
+  @media (max-width: 720px) { .sx { padding: 10px 12px 24px; } .sx-stage { height: 420px; } .sx-feed { width: 58%; } }
 </style>
 
 <div id="spider-root" aria-hidden="true">
+  <canvas id="sx-fx" aria-label="Max crawling the source feed, slinging findings into their bins"></canvas>
   <div class="sx">
     <header class="sx-top">
       <div>
@@ -10225,7 +10234,6 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
           <div class="sx-feedbar"><i></i><i></i><i></i><span id="sx-feedname">source feed · no run loaded</span></div>
           <div id="sx-rows"></div>
         </div>
-        <canvas id="sx-fx" aria-label="Max crawling the source feed, slinging findings into their bins"></canvas>
         <div class="sx-empty" id="sx-empty"><div><b>NO CRAWL YET</b>Hit <b style="color:var(--green)">CRAWL THE CORE</b> for an instant pass over this hub's own state — or spin an order for the full account.<br>Max only animates what was actually read.</div></div>
       </div>
 
@@ -10436,8 +10444,14 @@ OUTPUT — one JSON document, nothing else:
 
   // ---------- BINS / LIST / QUEUE ----------
   let DOC = null, cnt = {}, shown = {};
+  function card(f) { // what landed: title · KIND source · agent · date · status
+    const s = (DOC && DOC.sources.find(x => x.id === f.source)) || {};
+    const isNew = !!(DOC && (DOC.run.new_sources || []).includes(f.source));
+    return `<li${isNew ? ' class="new"' : ''}><b>${esc(f.title || '')}</b><span><i>${esc((s.kind || '').toUpperCase())}</i> ${esc((s.title || f.source || '').slice(0, 34))}</span><span>${f.agent ? esc(f.agent) + ' · ' : ''}${esc(f.date || '')}${f.status ? ' · ' + esc(f.status) : ''}</span></li>`;
+  }
+  function binList(t) { return (shown[t] || []).slice(-4).reverse().map(card).join('') || '<li class="none">— waiting on silk</li>'; }
   function bins() {
-    $('sx-bins').innerHTML = TYPES.map(t => `<div class="sx-bin" id="bin-${t}" style="color:${TCOL[t]}"><header><span>${t.toUpperCase()}</span></header><div class="n">${cnt[t] || 0}</div><ul>${(shown[t] || []).slice(-3).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>`).join('');
+    $('sx-bins').innerHTML = TYPES.map(t => `<div class="sx-bin" id="bin-${t}" style="color:${TCOL[t]}"><header><span>${t.toUpperCase()}</span><span class="n">${cnt[t] || 0}</span></header><ul>${binList(t)}</ul></div>`).join('');
     TYPES.forEach(t => $('bin-' + t).addEventListener('click', () => list(t)));
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]); }
@@ -10456,7 +10470,7 @@ OUTPUT — one JSON document, nothing else:
 
   // ---------- STAGE: feed rows + walker (ported from v0.4) ----------
   const rows = $('sx-rows'), stage = $('sx-stage'), cv = $('sx-fx'), g = cv.getContext('2d');
-  let W = [], SW = 0, SH = 0, arc = {}, bg = null, PERM = 1, STEP = 900;
+  let W = [], SW = 0, SH = 0, SL = 0, ST = 0, VW = 0, VH = 0, arc = {}, bg = null, PERM = 1, STEP = 900;
   let i = 0, acc = 0, clock = 0, playing = true, speed = 1, last = 0, doneAt = -1, sp, feet, ox = 0, oy = 0, flights = [];
   const LEGS = 10, gcd = (a, b) => b ? gcd(b, a % b) : a;
   function mount(doc, prev) {
@@ -10477,24 +10491,25 @@ OUTPUT — one JSON document, nothing else:
   }
   function measure() {
     W.forEach(w => { w.x = w.el.offsetLeft + 16; w.y = w.el.offsetTop + w.el.offsetHeight / 2; });
-    const dpr = window.devicePixelRatio || 1; SW = stage.clientWidth; SH = stage.clientHeight; if (!SW) return;
-    cv.width = SW * dpr; cv.height = SH * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const dpr = window.devicePixelRatio || 1, sr = stage.getBoundingClientRect(); SW = Math.round(sr.width); SH = Math.round(sr.height); SL = sr.left; ST = sr.top; if (!SW) return;
+    VW = window.innerWidth; VH = window.innerHeight; cv.width = VW * dpr; cv.height = VH * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
     const er = Math.round(SW * .46), R = SH * .9, a = Math.asin((SH / 2 - 10) / R);
     arc = { R, a, cx: er + (SW - er) * .5 + R, cy: SH / 2, left: er };
-    bg = document.createElement('canvas'); bg.width = cv.width; bg.height = cv.height;
+    bg = document.createElement('canvas'); bg.width = SW * dpr; bg.height = SH * dpr;
     const b = bg.getContext('2d'); b.setTransform(dpr, 0, 0, dpr, 0, 0); b.strokeStyle = 'rgba(154,166,184,.07)'; b.lineWidth = 1;
     let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
     for (let k = 0; k < 70; k++) { const th = Math.PI + a - 2 * a * rnd(), x = arc.cx + R * Math.cos(th), y = arc.cy + R * Math.sin(th), y0 = rnd() * SH, x0 = er * (.3 + rnd() * .7); b.beginPath(); b.moveTo(x0, y0); b.bezierCurveTo(x0 + (x - x0) * .5, y0 + (rnd() - .5) * 160, x - (x - x0) * .3, y + (rnd() - .5) * 120, x, y); b.stroke(); }
     b.strokeStyle = 'rgba(230,237,243,.45)'; b.lineWidth = 2; b.beginPath(); b.arc(arc.cx, arc.cy, R - 26, Math.PI - .16, Math.PI - .02); b.stroke();
     // bin anchor points along the arc (one per type), used as sling targets
-    TYPES.forEach((t, k) => { const th = Math.PI + arc.a - 2 * arc.a * (k + .5) / TYPES.length; arc['bin_' + t] = { x: arc.cx + (R - 26) * Math.cos(th), y: arc.cy + (R - 26) * Math.sin(th) }; });
+    TYPES.forEach((t, k) => { const th = Math.PI + arc.a - 2 * arc.a * (k + .5) / TYPES.length; arc['bin_' + t] = { x: arc.cx + (R - 26) * Math.cos(th), y: arc.cy + (R - 26) * Math.sin(th) };
+      const el = $('bin-' + t); if (el) { const br = el.getBoundingClientRect(); if (br.width) arc['bin_' + t] = { x: br.left - SL + 10, y: br.top - ST + Math.min(br.height / 2, 22) }; } }); // cards land in the real bin box
   }
   function tick(j, len) { const n = W.length, th = Math.PI + arc.a - (n > 1 ? 2 * arc.a * ((j * PERM) % n) / (n - 1) : arc.a), c = Math.cos(th), s = Math.sin(th); return { x0: arc.cx + arc.R * c, y0: arc.cy + arc.R * s, x: arc.cx + (arc.R + len) * c, y: arc.cy + (arc.R + len) * s }; }
   function ideal(k) { const an = (k + .5) / LEGS * TAU, r = k % 2 ? 96 : 70; return { x: sp.x + Math.cos(an) * r * 1.25, y: sp.y + Math.sin(an) * r }; }
   function reset() {
     i = 0; acc = 0; clock = 0; doneAt = -1; cnt = {}; shown = {}; flights = []; rows.scrollTop = 0;
     W.forEach(w => { w.el.className = 'sx-row'; w.at = -1; });
-    const f = W[0] || { x: 60, y: 40 }; sp = { x: f.x - 30, y: f.y - 20 };
+    const f = W[0] || { x: 60, y: 40 }; sp = { x: f.x + 22, y: f.y - 20 };
     feet = Array.from({ length: LEGS }, (_, k) => { const p = ideal(k); return { x: p.x, y: p.y, fx: p.x, fy: p.y, tx: p.x, ty: p.y, t: -1e9 }; });
     bins();
   }
@@ -10502,7 +10517,7 @@ OUTPUT — one JSON document, nothing else:
     w.at = clock; w.el.className = 'sx-row v' + (w.found.length ? ' hit' : '');
     w.found.forEach((f, k) => { // the file pull: leg hooks the row, card flies on silk into its bin
       flights.push({ f, from: { x: w.x, y: w.y }, t0: clock + k * 140, dur: 1100 });
-      setTimeout(() => { cnt[f.type] = (cnt[f.type] || 0) + 1; (shown[f.type] = shown[f.type] || []).push(f.title); const b = $('bin-' + f.type); if (b) { b.querySelector('.n').textContent = cnt[f.type]; b.querySelector('ul').innerHTML = shown[f.type].slice(-3).map(x => `<li>${esc(x)}</li>`).join(''); b.classList.add('flash'); setTimeout(() => b.classList.remove('flash'), 320); } }, (k * 140 + 1100) / speed);
+      setTimeout(() => { cnt[f.type] = (cnt[f.type] || 0) + 1; (shown[f.type] = shown[f.type] || []).push(f); const b = $('bin-' + f.type); if (b) { b.querySelector('.n').textContent = cnt[f.type]; b.querySelector('ul').innerHTML = binList(f.type); b.classList.add('flash'); setTimeout(() => b.classList.remove('flash'), 320); } }, (k * 140 + 1100) / speed);
     });
   }
   function frame(ts) {
@@ -10513,7 +10528,7 @@ OUTPUT — one JSON document, nothing else:
       while (acc >= STEP && i < W.length) { visit(W[i]); i++; acc -= STEP; }
       if (i >= W.length) { if (doneAt < 0) doneAt = clock; else if ($('sx-loop').checked && clock - doneAt > 2600) { reset(); } }
       const t = W[Math.min(i, W.length - 1)], k = 1 - Math.exp(-d / 85);
-      sp.x += (t.x - 18 - sp.x) * k; sp.y += (t.y + 14 - sp.y) * k;
+      sp.x += (t.x + 22 - sp.x) * k; sp.y += (t.y + 14 - sp.y) * k;
       rows.scrollTop += (Math.max(0, t.y - rows.clientHeight * .5) - rows.scrollTop) * (1 - Math.exp(-d / 260));
       let stepping = feet.filter(f => clock - f.t < 120).length;
       feet.forEach((f, j) => { const p = ideal(j);
@@ -10528,7 +10543,9 @@ OUTPUT — one JSON document, nothing else:
   const bz = (a, b, c, d, t) => { const u = 1 - t; return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d; };
   function draw() {
     if (!SW) return;
-    g.clearRect(0, 0, SW, SH); if (bg) g.drawImage(bg, 0, 0, SW, SH);
+    g.setTransform(window.devicePixelRatio || 1, 0, 0, window.devicePixelRatio || 1, 0, 0); g.clearRect(0, 0, VW, VH);
+    g.translate(SL, ST); // stage-local coordinates on a viewport canvas: legs and cards may leave the stage
+    if (bg) g.drawImage(bg, 0, 0, SW, SH);
     if (!W.length) return;
     const edTop = rows.offsetTop, edBot = edTop + rows.clientHeight; ox = rows.offsetLeft; oy = edTop - rows.scrollTop;
     const n = W.length;
@@ -10568,6 +10585,7 @@ OUTPUT — one JSON document, nothing else:
   $('sx-restart').addEventListener('click', () => { reset(); playing = true; $('sx-play').textContent = 'PAUSE'; });
   $('sx-speed').addEventListener('input', e => { speed = +e.target.value; });
   let rz; window.addEventListener('resize', () => { if (!visible) return; clearTimeout(rz); rz = setTimeout(() => { measure(); draw(); }, 120); });
+  $('spider-root').addEventListener('scroll', () => { if (!visible) return; clearTimeout(rz); rz = setTimeout(() => { measure(); draw(); }, 60); });
 
   // ---------- CRAWL THE CORE — instant, token-free pass over the hub's own local state ----------
   // Every source and finding below is read literally from localStorage / the live DOM. No inference.
