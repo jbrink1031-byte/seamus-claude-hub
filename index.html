@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.67</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.68</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -10024,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.67';
+  var v = 'v0.68';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10210,12 +10210,12 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
         <div class="sx-cost" id="sx-cost"></div>
         <div class="sx-btns">
           <button class="sx-btn go" id="sx-core" type="button">🕷 CRAWL THE CORE</button><button class="sx-btn" id="sx-order" type="button">SPIN THE ORDER</button>
-          <button class="sx-btn alt" id="sx-importbtn" type="button">IMPORT A RUN</button>
+          <button class="sx-btn alt" id="sx-importbtn" type="button">MERGE A RUN</button><button class="sx-btn" id="sx-export" type="button">EXPORT MERGED</button>
         </div>
         <p id="sx-status" role="status"></p>
         <div id="sx-importzone" hidden>
           <textarea id="sx-import" spellcheck="false" placeholder='paste the run JSON a Claude session produced from the order ({"run":…,"sources":[…],"findings":[…]})'></textarea>
-          <div class="sx-btns" style="margin-top:6px;"><button class="sx-btn go" id="sx-importgo" type="button">LOAD RUN</button><button class="sx-btn" id="sx-importfile" type="button">📎 FILE</button><input id="sx-importinput" type="file" accept=".json" hidden></div>
+          <div class="sx-btns" style="margin-top:6px;"><button class="sx-btn go" id="sx-importgo" type="button">MERGE INTO RUN</button><button class="sx-btn" id="sx-importfile" type="button">📎 FILE</button><input id="sx-importinput" type="file" accept=".json" hidden></div>
         </div>
       </div>
 
@@ -10339,7 +10339,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
   function order() {
     const on = SRC.filter(s => plan.on[s.id]);
     const { total } = estimate();
-    return `MAX CRAWL ORDER — run this in a fresh Claude session attached to the BRINK CORE project.
+    return `MAX CRAWL ORDER — run this in a chat opened INSIDE the project you want crawled (a session can only read its own project's chats; open one chat per project and merge each result into the hub). Skip anything already in the hub's run if given a list.
 
 SCOPE: ${on.map(s => s.name).join(', ') || 'nothing selected'}${plan.on.chats ? ` · ${plan.chats} most recent chats${plan.full ? ', open full transcripts' : ', summaries only'}` : ''}${(plan.on.drive || plan.on.gmail) ? ` · up to ${plan.items} items each for Drive/Gmail` : ''}
 ESTIMATE: ~${fmt(total)} tokens (planner estimate, not a quote).
@@ -10366,9 +10366,32 @@ OUTPUT — one JSON document, nothing else:
   $('sx-importfile').addEventListener('click', () => $('sx-importinput').click());
   $('sx-importinput').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { $('sx-import').value = r.result; loadRun(); }; r.readAsText(f); });
   $('sx-importgo').addEventListener('click', loadRun);
+  $('sx-export').addEventListener('click', exportRun);
 
   // ---------- RUN IMPORT (validated + secret-scanned) ----------
   const SECRETS = [/sk-ant-[A-Za-z0-9_-]{20,}/, /ghp_[A-Za-z0-9]{30,}/, /github_pat_[A-Za-z0-9_]{30,}/, /AKIA[0-9A-Z]{16}/, /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/, /\b\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}\b/, /eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}/];
+  // ---------- MERGE — runs union by source id; findings union by source+title; coverage never regresses ----------
+  function mergeRuns(base, add) {
+    if (!base) return add; if (!add) return base;
+    const S = new Map(); (base.sources || []).forEach(s => S.set(s.id, s));
+    (add.sources || []).forEach(s => { const o = S.get(s.id); if (!o || String(s.date || '') >= String(o.date || '')) S.set(s.id, Object.assign({}, o || {}, s, { findings: 0 })); });
+    const F = new Map(); const key = f => (f.source || '') + '|' + String(f.title || '').toLowerCase().slice(0, 80);
+    (base.findings || []).forEach(f => F.set(key(f), f));
+    (add.findings || []).forEach(f => { const o = F.get(key(f)); F.set(key(f), o ? Object.assign({}, o, f, { id: o.id }) : f); });
+    const findings = [...F.values()].map((f, i) => Object.assign({}, f, { id: 'f-' + String(i + 1).padStart(4, '0') }));
+    const sources = [...S.values()]; sources.forEach(s => { s.findings = findings.filter(f => f.source === s.id).length; });
+    const from = [].concat(base.run.merged_from || [base.run.id], add.run.merged_from || [add.run.id]).filter((x, i, a) => x && a.indexOf(x) === i);
+    const scope = [base.run.scope, add.run.scope].filter(Boolean).join(' + ');
+    const newSrc = (add.sources || []).filter(s => !(base.sources || []).some(b => b.id === s.id)).map(s => s.id);
+    return { run: { id: 'merged:' + new Date().toISOString(), started: base.run.started || add.run.started, finished: add.run.finished || new Date().toISOString(),
+      sources_attempted: sources.length, sources_read: sources.length, sources_skipped: (base.run.sources_skipped || 0) + (add.run.sources_skipped || 0), scope, merged_from: from, new_sources: newSrc }, sources, findings };
+  }
+  function master() { return safe(LS.runs, []).find(r => r && r.run && !String(r.run.id).startsWith('core:')) || null; }
+  function exportRun() {
+    const m = master(); if (!m) { $('sx-status').textContent = 'Nothing to export yet.'; return; }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(m, null, 1)], { type: 'application/json' })); a.download = 'spider-run.json'; a.click();
+    $('sx-status').textContent = 'Exported spider-run.json — hand it to a build session and it ships inside the hub.';
+  }
   function loadRun() {
     const raw = $('sx-import').value.trim(); if (!raw) return;
     let doc; try { doc = JSON.parse(raw); } catch (e) { $('sx-status').textContent = 'Not valid JSON. ' + e.message; return; }
@@ -10376,9 +10399,13 @@ OUTPUT — one JSON document, nothing else:
     const hit = SECRETS.find(re => re.test(raw));
     if (hit) { $('sx-status').textContent = 'Refused: the run contains a secret, email or phone pattern. Strip it and re-import.'; return; }
     doc.findings = doc.findings.filter(f => TYPES.includes(f.type));
-    const runs = safe(LS.runs, []); runs.unshift(doc); put(LS.runs, runs.slice(0, 6));
-    $('sx-importzone').hidden = true; $('sx-status').textContent = `Run loaded: ${doc.sources.length} sources, ${doc.findings.length} findings.`;
-    mount(doc, runs[1] || null);
+    const prev = master();
+    const merged = mergeRuns(prev, doc);
+    const runs = safe(LS.runs, []).filter(r => !(r && r.run && String(r.run.id).startsWith('core:'))); runs.unshift(merged); put(LS.runs, runs.slice(0, 6));
+    $('sx-importzone').hidden = true;
+    const added = (merged.run.new_sources || []).length;
+    $('sx-status').textContent = prev ? `Merged: +${added} new sources, ${merged.sources.length} total · ${merged.findings.length} findings.` : `Run loaded: ${doc.sources.length} sources, ${doc.findings.length} findings.`;
+    mount(merged, prev); playing = true; $('sx-play').textContent = 'PAUSE';
   }
 
   // ---------- STATS WALL ----------
@@ -10394,6 +10421,7 @@ OUTPUT — one JSON document, nothing else:
     const dates = S.map(s => s.date).filter(Boolean).sort();
     const dur = r.started && r.finished ? Math.round((new Date(r.finished) - new Date(r.started)) / 6e4) : null;
     const delta = prev ? F.length - prev.findings.length : null;
+    const newS = (r.new_sources || (prev ? S.filter(s => !(prev.sources || []).some(p => p.id === s.id)).map(s => s.id) : [])).length;
     const stat = (l, v, e) => `<div class="sx-stat"><small>${l}</small><span>${v}</span>${e ? `<em>${e}</em>` : ''}</div>`;
     W.innerHTML = stat('SOURCES', r.sources_read ?? S.length, `${r.sources_attempted ?? S.length} tried · ${r.sources_skipped ?? 0} skipped`)
       + stat('WORDS READ', fmt(words)) + stat('FINDINGS', F.length, TYPES.map(t => `${t[0]}${by(t).length}`).join(' '))
@@ -10402,7 +10430,8 @@ OUTPUT — one JSON document, nothing else:
       + stat('ERRORS OPEN', by('error').filter(f => f.status === 'open').length)
       + stat('BUSIEST SOURCE', busiest ? busiest.findings || 0 : '—', busiest ? busiest.title.slice(0, 22) : '')
       + stat('SPAN', dates.length ? `${dates[0].slice(5)}→${dates[dates.length - 1].slice(5)}` : '—')
-      + stat('DURATION', dur != null ? dur + 'm' : '—') + stat('Δ LAST RUN', delta == null ? '—' : (delta >= 0 ? '+' : '') + delta, prev ? 'findings vs previous' : 'first run');
+      + stat('DURATION', dur != null ? dur + 'm' : '—') + stat('Δ LAST RUN', delta == null ? '—' : (delta >= 0 ? '+' : '') + delta, prev ? 'findings vs previous' : 'first run')
+      + stat('NEW SOURCES', prev || r.new_sources ? newS : '—', 'since last run') + stat('MERGED RUNS', (r.merged_from || [r.id]).length, 'sessions crawled');
   }
 
   // ---------- BINS / LIST / QUEUE ----------
@@ -10439,7 +10468,8 @@ OUTPUT — one JSON document, nothing else:
     const byS = {}; doc.findings.forEach(f => (byS[f.source] = byS[f.source] || []).push(f));
     doc.sources.forEach(s => {
       const d = document.createElement('div'); d.className = 'sx-row';
-      d.innerHTML = `<span class="k">${esc((s.kind || '').toUpperCase())}</span><span class="t">${esc(s.title || s.id)}</span><span class="n">${(byS[s.id] || []).length ? (byS[s.id].length + '●') : '·'}</span>`;
+      const isNew = (doc.run.new_sources || []).includes(s.id);
+      d.innerHTML = `<span class="k">${esc((s.kind || '').toUpperCase())}</span><span class="t">${isNew ? '<b style="color:var(--amber)">✦ </b>' : ''}${esc(s.title || s.id)}</span><span class="n">${(byS[s.id] || []).length ? (byS[s.id].length + '●') : '·'}</span>`;
       rows.appendChild(d); W.push({ el: d, src: s, found: byS[s.id] || [], at: -1 });
     });
     PERM = Math.max(1, Math.round(W.length * .618)); while (gcd(PERM, W.length || 1) > 1) PERM++;
@@ -10597,9 +10627,12 @@ OUTPUT — one JSON document, nothing else:
     .then(doc => {
       if (!doc || !doc.run || !Array.isArray(doc.sources) || !Array.isArray(doc.findings)) return;
       doc.findings = doc.findings.filter(f => TYPES.includes(f.type));
-      SERVER_RUN = doc;
-      const prev = safe(LS.runs, []).find(r => r.run && r.run.id !== doc.run.id && !String(r.run.id).startsWith('core:')) || null;
-      if (!W.length || (DOC && String(DOC.run.id).startsWith('core:'))) { mount(doc, prev); if (visible) playing = true; }
+      const local = master();
+      const already = local && (local.run.merged_from || [local.run.id]).includes(doc.run.id);
+      SERVER_RUN = already ? local : (local ? mergeRuns(doc, local) : doc);
+      if (!already) { const runs = safe(LS.runs, []).filter(r => !(r && r.run && String(r.run.id).startsWith('core:'))); runs.unshift(SERVER_RUN); put(LS.runs, runs.slice(0, 6)); }
+      const prev = local && !already ? local : (safe(LS.runs, [])[1] || null);
+      if (!W.length || (DOC && String(DOC.run.id).startsWith('core:'))) { mount(SERVER_RUN, prev); if (visible) playing = true; }
       $('sx-status').textContent = 'Account run ' + doc.run.id + ' · ' + doc.sources.length + ' sources · ' + doc.findings.length + ' findings · ' + (doc.run.scope || '');
     }).catch(() => {});
   if (safe(LS.mode, 'hub') === 'spider') show(true);
