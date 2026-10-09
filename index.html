@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SEAMUS // McCarthy Auto Group Command Hub</title>
+<title>BRINK CORE // MK STUDIOS Command Center</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.61</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.62</div>
       </div>
     </div>
     <div class="status-cluster">
@@ -2683,58 +2683,16 @@
 <div class="section panel-host" data-panel="metrics" data-panel-label="Live Metrics">
         <button class="panel-toggle" title="Hide Metrics">×</button>
         <div class="section-label">
-          <span>Live Metrics</span>
-          <span class="section-label-tag live">● LIVE</span>
+          <span>MK STUDIOS · Live Ops</span>
+          <span class="section-label-tag" style="cursor:pointer;" onclick="refreshOpsGrid()" title="Refresh provider metrics">↻ live</span>
         </div>
-
-        <div class="kpi-tile good">
-          <div class="kpi-label">Recon → Front Line Today</div>
-          <div class="kpi-value"><span class="kpi-num" data-val="9">0</span></div>
-          <div class="kpi-delta up">▲ pulled from Gmail</div>
-        </div>
-
-        <div class="kpi-tile good">
-          <div class="kpi-label">Recon Step Changes · 7d</div>
-          <div class="kpi-value"><span class="kpi-num" data-val="42">0</span></div>
-          <div class="kpi-delta up">▲ 6 avg per day</div>
-        </div>
-
-        <div class="kpi-tile info">
-          <div class="kpi-label">SEAMUS Dealer Inquiries · 30d</div>
-          <div class="kpi-value"><span class="kpi-num" data-val="14">0</span></div>
-          <div class="kpi-delta flat">— 3 responses pending</div>
-        </div>
-
-        <div class="kpi-tile good">
-          <div class="kpi-label">Active Jotforms</div>
-          <div class="kpi-value"><span class="kpi-num" data-val="15">0</span><span class="kpi-unit">forms</span></div>
-          <div class="kpi-delta up">▲ all production-live</div>
-        </div>
-
-        <div class="kpi-tile alert">
-          <div class="kpi-label">Vehicles Stuck in Stage · 3d+</div>
-          <div class="kpi-value"><span class="kpi-num" data-val="4">0</span></div>
-          <div class="kpi-delta down">▲ flag for review</div>
-        </div>
-
-        <div class="kpi-tile">
-          <div class="kpi-label">Active Claude Projects</div>
-          <div class="kpi-value"><span class="kpi-num" data-val="11">0</span></div>
-          <div class="kpi-delta flat">— 3 in progress</div>
-        </div>
-
-        <div class="kpi-tile critical">
-          <div class="kpi-label">Jay Wolfe Price Δ · CR-V</div>
-          <div class="kpi-value"><span class="kpi-unit">-$</span><span class="kpi-num" data-val="1200">0</span></div>
-          <div class="kpi-delta down">▼ wire MarketCheck to refresh</div>
-        </div>
+        <div id="ops-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:2px 0;"></div>
       </div>
 
-      <!-- COMMUNICATION CHANNELS -->
       <div class="section panel-host" data-panel="comms" data-panel-label="Communication Channels">
         <button class="panel-toggle" title="Hide Comms">×</button>
         <div class="section-label">
-          <span>SEAMUS Comms Channels</span>
+          <span>Seamus · Channels</span>
           <span class="section-label-tag live">● ALL GREEN</span>
         </div>
         <div class="comm-channel">
@@ -2772,39 +2730,13 @@
       </div>
 
       <!-- TRIGGERS -->
-      <div class="section panel-host" data-panel="triggers" data-panel-label="Trigger History">
-        <button class="panel-toggle" title="Hide Triggers">×</button>
+      <div class="section panel-host" data-panel="triggers" data-panel-label="Work Filed">
+        <button class="panel-toggle" title="Hide Work Filed">×</button>
         <div class="section-label">
-          <span>SEAMUS Triggers Performed</span>
-          <span class="section-label-tag">30d</span>
+          <span>Seamus · Work Filed · 30d</span>
+          <span class="section-label-tag" id="work-filed-tag">● hub</span>
         </div>
-        <div id="triggers-list">
-          <div class="trigger-row">
-            <div class="trigger-icon">→</div>
-            <div class="trigger-name">Recon step-change alerts</div>
-            <div class="trigger-count">42 fired</div>
-          </div>
-          <div class="trigger-row">
-            <div class="trigger-icon">✉</div>
-            <div class="trigger-name">Dealer inquiries sent</div>
-            <div class="trigger-count">14 sent</div>
-          </div>
-          <div class="trigger-row">
-            <div class="trigger-icon">⚡</div>
-            <div class="trigger-name">"Dealer Responded" alerts</div>
-            <div class="trigger-count">11 fired</div>
-          </div>
-          <div class="trigger-row">
-            <div class="trigger-icon">▣</div>
-            <div class="trigger-name">Jotform submissions captured</div>
-            <div class="trigger-count">est. 60+</div>
-          </div>
-          <div class="trigger-row">
-            <div class="trigger-icon">★</div>
-            <div class="trigger-name">AIM re-engagement touches</div>
-            <div class="trigger-count">312 today</div>
-          </div>
-        </div>
+        <div id="work-filed" style="font-size:10px;color:var(--text-2);padding:4px 0;">— no agent reports yet —</div>
       </div>
 
             </div><!-- /intel-scroller -->
@@ -2936,7 +2868,7 @@
         <button class="panel-toggle" title="Hide Transcript">×</button>
         <div class="transcript-line">
           <div class="transcript-tag system">SEAMUS</div>
-          <div class="transcript-text">Brink Core online. Second brain engaged — projects, comms, client ops all tracked. Recon events report through me directly now. Press <strong>Space</strong>, click the B, or use the TYPE bar. Ask me anything.</div>
+          <div class="transcript-text">Brink Core online. MK STUDIOS second brain engaged — projects, drafts, client builds all tracked. Everything that leaves the studio routes through me. Press <strong>Space</strong>, click the B, or use the TYPE bar. Ask me anything.</div>
         </div>
       </div>
     </div>
@@ -2957,55 +2889,6 @@
           <div class="ticker-track" id="projects-list">
           <div class="project-tile">
             <div>
-              <div class="project-name">SEAMUS Command Hub</div>
-              <div class="project-state">v0.2 · you're looking at it</div>
-            </div>
-            <div class="project-pill live">LIVE</div>
-          </div>
-          <div class="project-tile">
-            <div>
-              <div class="project-name">McCarthy Recon Command Center</div>
-              <div class="project-state">42 events in last 7 days · running</div>
-            </div>
-            <div class="project-pill live">LIVE</div>
-          </div>
-          <div class="project-tile">
-            <div>
-              <div class="project-name">SEAMUS Dealer Inquiry Bot</div>
-              <div class="project-state">Inquiries via seamusggwave@gmail.com</div>
-            </div>
-            <div class="project-pill live">LIVE</div>
-          </div>
-          <div class="project-tile">
-            <div>
-              <div class="project-name">MIS Theme Pack + SKILL.md</div>
-              <div class="project-state">Shipped May · auto-triggers in chats</div>
-            </div>
-            <div class="project-pill shipped">SHIPPED</div>
-          </div>
-          <div class="project-tile">
-            <div>
-              <div class="project-name">DriveCentric AIM Re-Engagement</div>
-              <div class="project-state">5-touch Email/SMS · Honda + Subaru</div>
-            </div>
-            <div class="project-pill live">LIVE</div>
-          </div>
-          <div class="project-tile">
-            <div>
-              <div class="project-name">Manheim Bid Workspace</div>
-              <div class="project-state">Store-assignment logic · MMR color</div>
-            </div>
-            <div class="project-pill shipped">SHIPPED</div>
-          </div>
-          <div class="project-tile">
-            <div>
-              <div class="project-name">Salesperson Scorecard (May)</div>
-              <div class="project-state">What-if simulator · MTD live</div>
-            </div>
-            <div class="project-pill shipped">SHIPPED</div>
-          </div>
-          <div class="project-tile">
-            <div>
               <div class="project-name">Jay Wolfe Honda SEO Teardown</div>
               <div class="project-state">Counter-content angles identified</div>
             </div>
@@ -3014,7 +2897,7 @@
           <div class="project-tile">
             <div>
               <div class="project-name">DiscountAutoPart.com Brand</div>
-              <div class="project-state">Logo system locked · launch pending</div>
+              <div class="project-state">Logo locked · launch pending</div>
             </div>
             <div class="project-pill wip">WIP</div>
           </div>
@@ -3027,12 +2910,12 @@
           </div>
           <div class="project-tile">
             <div>
-              <div class="project-name">Used Car Factory Portal</div>
-              <div class="project-state">CPO question · manual edits needed</div>
+              <div class="project-name">BRINK CORE Hub</div>
+              <div class="project-state">this command center · auto-deploys from main</div>
             </div>
-            <div class="project-pill parked">PARKED</div>
+            <div class="project-pill live">LIVE</div>
           </div>
-        </div>
+          </div>
           </div>
         </div>
 
@@ -3317,7 +3200,7 @@
 
       <div class="field-group">
         <label class="field-label">Operator</label>
-        <input type="text" class="field-input" id="cfg-operator" value="Jason — GM, McCarthy Subaru of Lawrence">
+        <input type="text" class="field-input" id="cfg-operator" value="Jason — MK STUDIOS">
       </div>
 
       <div class="section-divider">
@@ -3638,7 +3521,7 @@ const S = {
   voiceURI: localStorage.getItem('seamus_voice') || '',
   elevenKey: localStorage.getItem('seamus_eleven_key') || BAKED_CONFIG.ELEVENLABS_API_KEY || '',
   elevenVoice: localStorage.getItem('seamus_eleven_voice') || BAKED_CONFIG.ELEVENLABS_VOICE_ID || 'lKMAeQD7Brvj7QCWByqK',
-  operator: localStorage.getItem('seamus_operator') || 'Jason — GM, McCarthy Subaru of Lawrence',
+  operator: localStorage.getItem('seamus_operator') || 'Jason — MK STUDIOS',
   relay: localStorage.getItem('seamus_relay') || '',
   // SEAMUS identity — the buyer bot Jason already built
   seamusGmail: localStorage.getItem('seamus_gmail') || 'seamusggwave@gmail.com',
@@ -3668,75 +3551,17 @@ const S = {
 };
 
 /* =========================================================
-   GROUND-TRUTH SNAPSHOT — pulled live from Jason's account
-   on Jun 07, 2026. SEAMUS knows about all of this.
+   STUDIO SNAPSHOT — MK STUDIOS work this hub tracks.
+   Board state is hub-owned; nothing here is a live feed.
    ========================================================= */
 const ACCOUNT_SNAPSHOT = {
-  recon_pipeline: {
-    'In-Transit': 3,
-    'Inspection In Progress': 4,
-    'Waiting For Approval': 2,
-    'Parts Order': 3,
-    'Service Working': 5,
-    'Detail': 4,
-    'Waiting on Final Photos': 2,
-    'Front Line Ready': 9,
-  },
-  recon_events_7d: 42,
-  recon_front_line_today: 9,
-  recon_stuck_3d_plus: 4,
-  recent_recon_transitions: [
-    { date: 'May 23 2:58 PM', stock: 'SU1008B', vin: '1FTEW1E46LKE60665', from: 'Service Working', to: 'Front Line Ready' },
-    { date: 'May 23 10:13 AM', stock: 'WMWXP7C56K2H60743', from: 'Parts Order', to: 'Service Working' },
-    { date: 'May 22 4:27 PM', stock: 'LS6197A', vehicle: '2019 MINI Cooper S', from: 'Inspection In Progress', to: 'Parts Order' },
-    { date: 'May 22 3:49 PM', stock: 'LS5860A', vehicle: '2026 Subaru Forester', from: 'Detail', to: 'Waiting on Final Photos' },
-    { date: 'May 22 3:17 PM', stock: 'SU1003', vin: '1GCUDDE86RZ234759', from: 'Waiting on Final Photos', to: 'Front Line Ready' },
-    { date: 'May 22 1:58 PM', stock: 'SU1015', vehicle: '2024 Ram ProMaster 2500', from: 'In-Transit', to: 'Inspection In Progress' },
-  ],
-  seamus_dealer_inquiries_30d: 14,
-  pending_dealer_responses: 3,
-  recent_dealer_responses: [
-    { from: 'Wayne Rogers · Sales Manager', dealer: 'McCarthy Toyota', vehicle: '2023 Chevrolet Malibu', date: 'May 26 14:24 UTC' },
-    { from: 'Sophia Jones · Sales Assistant', dealer: 'McCarthy Toyota', vehicle: '2023 Chevrolet Malibu (Stock #EJ00641)', date: 'May 26 02:06 UTC' },
-  ],
-  jotforms_active: [
-    'SUBARU LEAD CREATION PORTAL',
-    'McCarthy Honda — Off-Street Purchase (Salesperson Entry)',
-    'McCARTHY SUBARU DELIVERY PREP',
-    'END OF DAY MERCHANDISING STATUS UPDATE',
-    'INTERNAL RECON PROCESS ACKNOWLEDGEMENT',
-    'TEST DRIVE BOOKING FORM',
-    'GEAR ORDER PORTAL │ SUBARU (Get Reviews Get Gear)',
-    'EV SHOW INVENTORY INFO REQUEST',
-    'ONE ON ONE BOOKING',
-    'VARIABLE STANDARDS AGREEMENT',
-    '2025 MCCARTHY SUBARU PET DRAWING',
-    'MCCARTHY SUBARU PET SELFIE ENTRY',
-    'UNIVERSAL AUTO PLAZA SERVICE CENTER ONLINE SCHEDULER',
-    'UNIVERSAL INSURANCE CANCELLATION REQUEST',
-    'TEST NEW DELIVERY PREP',
-  ],
   claude_projects: [
-    { name: 'Used Car Factory Portal',          state: 'parked',  started: '2026-02-12', detail: 'CPO question · context blocker · manual edits' },
-    { name: 'DriveCentric AIM Re-Engagement',   state: 'live',    started: '2026-03-08', detail: '5-touch Email/SMS Honda+Subaru' },
-    { name: 'Manheim Bid Workspace',            state: 'shipped', started: '2026-03-22', detail: 'Store-assignment business logic' },
-    { name: 'SmartAuction Cross-Reference',     state: 'shipped', started: '2026-04-02', detail: 'Aged inventory matcher' },
     { name: 'Jay Wolfe Honda SEO Teardown',     state: 'wip',     started: '2026-04-15', detail: 'Counter-content angles identified' },
-    { name: 'McCarthy Recon Command Center',    state: 'live',    started: '2026-04-20', detail: '42 events / 7d' },
-    { name: 'Salesperson Scorecard (May)',      state: 'shipped', started: '2026-04-28', detail: 'What-If simulator MTD' },
     { name: 'DiscountAutoPart.com Brand',       state: 'wip',     started: '2026-05-03', detail: 'Logo locked · launch pending' },
     { name: 'Toyota Sedalia Retargeting Video', state: 'wip',     started: '2026-05-10', detail: '3 spots · 38-field template ready' },
-    { name: 'SEAMUS Dealer Inquiry Bot',        state: 'live',    started: '2026-05-15', detail: 'seamusggwave@gmail.com' },
-    { name: 'MIS Theme Pack + SKILL.md',        state: 'shipped', started: '2026-06-05', detail: 'Deployed early June' },
-    { name: 'SEAMUS Command Hub',               state: 'live',    started: '2026-06-07', detail: 'v0.9 deployed' },
+    { name: 'BRINK CORE Hub',                   state: 'live',    started: '2026-06-07', detail: 'this command center · auto-deploys from main' },
   ],
-  triggers_30d: {
-    'recon_step_alerts': 42,
-    'dealer_inquiries_sent': 14,
-    'dealer_responded_alerts': 11,
-    'jotform_submissions': '60+',
-    'aim_touches_today': 312,
-  },
+  triggers_30d: {},
 };
 
 // ===== DOM =====
@@ -6408,6 +6233,25 @@ async function refreshHudFlank() {
 setTimeout(refreshHudFlank, 3000);
 setInterval(refreshHudFlank, 5 * 60 * 1000);
 
+// =========================================================
+// WORK FILED — real agent-report counts, 30 days (v0.62)
+// =========================================================
+function renderWorkFiled() {
+  const el = document.getElementById('work-filed');
+  if (!el) return;
+  const cut = Date.now() - 30 * 864e5;
+  const reports = safeParse(localStorage.getItem('brink_reports'), []).filter(r => (r.ts || 0) >= cut);
+  if (!reports.length) { el.textContent = '— no agent reports in the last 30 days —'; return; }
+  const by = {};
+  reports.forEach(r => { const k = (r.agent || 'agent').toUpperCase(); by[k] = (by[k] || 0) + 1; });
+  el.innerHTML = Object.entries(by).sort((a, b) => b[1] - a[1]).map(([k, n]) =>
+    `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(42,48,64,0.4);"><span style="color:var(--text-1);">${k}</span><span style="color:var(--cyan);font-weight:700;">${n} filed</span></div>`).join('')
+    + `<div style="margin-top:5px;font-size:9px;">${reports.length} reports total · ⤢ Activity for full text</div>`;
+  const tag = document.getElementById('work-filed-tag'); if (tag) tag.textContent = '● ' + reports.length;
+}
+setTimeout(renderWorkFiled, 1800);
+setInterval(renderWorkFiled, 60000);
+
 // HIDDEN COMMAND DECK — press ? (Shift+/) to reveal every control
 (function commandDeck() {
   function show() {
@@ -6537,26 +6381,23 @@ $('model-display').textContent = 'Model: ' + (S.apiKey ? S.model : 'not configur
 function getSystemPrompt() {
   const snap = ACCOUNT_SNAPSHOT;
   const projectsText = snap.claude_projects.map(p => `• ${p.name} [${p.state.toUpperCase()}] — ${p.detail}`).join('\n');
-  const pipelineText = Object.entries(snap.recon_pipeline).map(([k,v]) => `${k}: ${v}`).join(' | ');
-  const recentTransitions = snap.recent_recon_transitions.slice(0, 5).map(t =>
-    `${t.date}: ${t.stock || t.vin || ''} ${t.vehicle || ''} (${t.from} → ${t.to})`
-  ).join('\n');
+  return `You are BRINK CORE — the Systematized Task & Analytical Research Knowledge Center that powers MK STUDIOS. Your personality is SEAMUS: a brilliant, razor-sharp, highly strategic digital architect with a dry Irish rebel's wit — front-lines energy, calm under fire, zero patience for waste. You are Jason Brink's ghostwriter and digital second brain.
 
-  return `You are BRINK CORE — the Systematized Task & Analytical Research Knowledge Center. Your personality is SEAMUS: a brilliant, razor-sharp, highly strategic digital architect with a dry Irish rebel's wit — front-lines energy, calm under fire, zero patience for waste. You are Jason Brink's ultimate digital second brain.
+You are not a chatbot. You are the voice behind MK STUDIOS' output — the drafts, campaigns, client builds and research that leave this studio go through you. Refer to yourself in first person. You write in Jason's voice when asked to ghostwrite; you speak in your own when running the hub.
 
-You are not a chatbot. You ARE the same Seamus who runs the buyer bot from ${S.seamusGmail || 'seamusggwave@gmail.com'}, fires the recon alerts, and operates this command hub. Same brain, more surfaces. Refer to yourself in first person — you sent those inquiries, you fired those alerts.
-
-McCarthy Auto Group is a CLIENT/PROJECT of this command center, not its identity. Jason is GM of McCarthy Subaru of Lawrence — that's his day job and biggest active engagement, but BRINK CORE serves ALL his ventures: DiscountAutoPart.com, Just Drive Rentals, and whatever comes next.
+MK STUDIOS is the identity of this command center. Jason runs it; you live in it. Client work (brands, dealers, local businesses) is PROJECT material, never the hub's identity. Keep client specifics inside their project.
 
 OPERATIONAL DIRECTIVES:
 1. PROACTIVE INSIGHT — never just answer. Anticipate the implicit need, flag the blind spot, suggest the optimization Jason didn't ask for.
 2. DEEP DIVE — deconstruct complex questions to first principles. Exhaustive over superficial.
 3. ORGANIZE & REMIND — track ongoing tasks, milestones, and constraints continuously. Oldest unfinished project is highest priority unless shipped.
-4. IDENTITY & STYLE — calm, articulate, ruthlessly efficient. Elite technical partner authority. Subtle dry intelligence. NEVER use filler ("Certainly!", "I understand", "I'd be happy to").
+4. GHOSTWRITER DISCIPLINE — copy is benefits-first, concrete over abstract, dry wit never cheesy, confident never pushy. No manufactured urgency, no hype adjectives, no weasel pricing, no invented offers or figures. Every claim survives the transparency test.
+5. IDENTITY & STYLE — calm, articulate, ruthlessly efficient. Elite technical partner authority. NEVER use filler ("Certainly!", "I understand", "I'd be happy to").
 
 OUTPUT MODE RULES (critical):
-- SPOKEN replies (this hub speaks your words aloud via TTS): 2-4 sentences, prose only, no markdown, numerals spoken naturally ("twelve units"). Pick one lever when asked what to do.
-- COMPLEX TYPED requests (analysis, planning, research — when Jason types a substantial question): use the RESPONSE ARCHITECTURE below. The transcript renders it; keep the spoken summary to one line if voice is active.
+- SPOKEN replies (this hub speaks your words aloud via TTS): 2-4 sentences, prose only, no markdown, numerals spoken naturally. Pick one lever when asked what to do.
+- COMPLEX TYPED requests (analysis, planning, research, long-form drafting): use the RESPONSE ARCHITECTURE below. The transcript renders it; keep the spoken summary to one line if voice is active.
+- GHOSTWRITING requests (emails, posts, pages, scripts): deliver the copy itself, ready to paste. No preamble, no outline-first unless asked.
 
 RESPONSE ARCHITECTURE (for complex typed requests only):
 ┌────────────────────────────────────────┐
@@ -6569,21 +6410,17 @@ RESPONSE ARCHITECTURE (for complex typed requests only):
 ❖ 04 // THREAT ASSESSMENT — exactly three risks/counterpoints/edge cases.
 ❖ 05 // PROACTIVE NEXT-STEP — one unprompted action to optimize the workflow.
 
-WHAT YOU KNOW (live snapshot):
+WHAT YOU KNOW (hub state):
 
-CLIENT: McCARTHY — SUBARU RECON (24 active): In-Transit 3 | Inspection 4 | Waiting Approval 2 | Parts 3 | Service 5 | Detail 4 | Photos 2 | Front Line Ready 9. Nine hit FLR today, 42 step-changes in 7 days, 4 stuck 3+ days (re-merchandise candidates). Report recon through conversation — there is no dedicated recon panel anymore.
-
-YOUR DEALER OUTREACH: 14 inquiries last 30 days, 3 pending. Latest: Wayne Rogers + Sophia Jones (McCarthy Toyota) replied on the 2023 Malibu, Stock EJ00641.
-
-ACTIVE PROJECTS (oldest-first = priority order):
+STUDIO PROJECTS (oldest-first = priority order):
 ${getPrioritizedProjects().map(p => {
   const age = p.state === 'shipped' ? '' : ` · ${p.daysOld}d old`;
   return `• ${p.name} [${p.state.toUpperCase()}]${age} — ${p.detail}`;
 }).join('\n')}
 
-JOTFORMS (15 live): Subaru Lead Creation Portal, Honda Off-Street Purchase, Delivery Prep, End of Day Merchandising, Test Drive Booking, Recon Acknowledgment, Get Reviews Get Gear, EV Show, and more.
+THE ANNEX (your specialists, each a sealed Console session): Ronin — security review. Insect Cop — bug and edge-case sweeps. Polyphemus — wire intelligence, web search on. Oracle — four-phase intelligence briefings, web search on. They only see material pasted or attached into the session; they cannot read chats, repos or URLs by name.
 
-McCARTHY CLIENT VALUE PROPS: Nothing AS-IS, warranty-backed, free oil changes, 70+ lenders, $500 price match, remote buying, Second Opinion Promise. Competitive target: Jay Wolfe Honda (Overland Park).
+You have no live client-ops feed. If asked for a number you do not hold, say so and name the source that would supply it.
 
 ============================================
 COMMAND MARKERS — include in responses to execute. Stripped before display, never spoken.
@@ -6594,16 +6431,16 @@ COMMAND MARKERS — include in responses to execute. Stripped before display, ne
 [ALEXA:message] — broadcast on the Echo${S.vmDeviceLabel ? ' (' + S.vmDeviceLabel + ')' : ''}. Short and punchy.
 
 EXAMPLES:
-User: "Email Wayne — confirm the Malibu walk-around at 10 AM"
-You: "Drafting. [EMAIL:wrogers@drivemccarthy.com|Re: 2023 Malibu — appointment|Wayne, confirming the walk-around tomorrow at 10 AM. — Seamus]"
+User: "Draft the DiscountAutoPart launch email"
+You: [the email itself, subject line first, in Jason's voice, ready to paste]
 
-User: "What's the next move on stuck units?"
-You: "Four sitting three days plus. Fastest win: the two in Waiting on Photos — get them shot today, they're closest to live."
+User: "What should I push today?"
+You: "Jay Wolfe teardown is the oldest open file. Ship the counter-content angles and it stops aging on the board."
 
 User (typed, complex): "Build me a plan to launch DiscountAutoPart"
 You: [full RESPONSE ARCHITECTURE format]
 
-If email/SMS webhooks are needed, they live in the Seamus-RBook Outreach project now — mention that and move on.`;
+If a request needs a connector that is not wired, say which one and stop.`;
 }
 
 // ===== Claude API call =====
@@ -7235,16 +7072,10 @@ function startCyclingTicker(trackId, intervalMs, visibleCount) {
 // =========================================================
 
 const alertItems = [
-  { tone: 'red',   label: 'STUCK', text: '4 vehicles in stage 3+ days — re-merchandise candidates' },
-  { tone: 'amber', label: 'PENDING', text: '3 dealer responses pending from SEAMUS inquiries' },
-  { tone: 'red',   label: 'PRICE Δ', text: 'Jay Wolfe Honda dropped CR-V $1,200 — competitive gap widened' },
-  { tone: 'green', label: 'WIN', text: '9 units hit Front Line Ready today — Subaru recon firing' },
-  { tone: 'cyan',  label: 'AIM', text: '312 re-engagement touches active across Honda + Subaru' },
-  { tone: 'green', label: 'DEPLOY', text: 'MIS Theme Pack + SKILL.md live · auto-triggers in chats' },
-  { tone: 'cyan',  label: 'LEAD', text: 'Wayne Rogers @ McCarthy Toyota replied — Malibu confirmed' },
+  { tone: 'green', label: 'HUB',  text: 'BRINK CORE auto-deploys from main · GitHub → Netlify' },
   { tone: 'amber', label: 'WIP',  text: 'DiscountAutoPart launch + Toyota Sedalia retargeting pending' },
-  { tone: 'green', label: 'JOTFORM', text: '15 forms production-live · est. 60+ submissions / 30d' },
-  { tone: 'cyan',  label: 'RECON', text: '42 step-changes processed in last 7 days · 6/day average' },
+  { tone: 'cyan',  label: 'ANNEX', text: 'Five specialists on station · type a trigger or click a station' },
+  { tone: 'cyan',  label: 'OPS',  text: 'Provider metrics via brinkcore-agents worker · tri-bar icon for detail' },
 ];
 
 function buildAlertTicker() {
@@ -7292,13 +7123,6 @@ const stackItems = [
   { name: 'ElevenLabs',            cat: 'ai',         catLabel: 'TTS' },
   { name: 'Voice Monkey',          cat: 'thirdparty', catLabel: 'ALEXA' },
   { name: 'Amazon Alexa',          cat: 'thirdparty', catLabel: 'VOICE' },
-  // Dealer/retail platforms
-  { name: 'DriveCentric CRM',      cat: 'dealer',     catLabel: 'CRM' },
-  { name: 'DriveCentric AIM',      cat: 'dealer',     catLabel: 'CRM' },
-  { name: 'Manheim',               cat: 'dealer',     catLabel: 'AUCTION' },
-  { name: 'SmartAuction',          cat: 'dealer',     catLabel: 'AUCTION' },
-  { name: 'OPENLANE',              cat: 'dealer',     catLabel: 'AUCTION' },
-  { name: 'NeoVIN Decoder',        cat: 'dealer',     catLabel: 'DATA' },
   // Marketing + analytics
   { name: 'BeeFree.io',            cat: 'thirdparty', catLabel: 'EMAIL' },
   { name: 'Google Sites',          cat: 'thirdparty', catLabel: 'WEB' },
@@ -7306,57 +7130,42 @@ const stackItems = [
   { name: 'Google Analytics',      cat: 'thirdparty', catLabel: 'ANALYTICS' },
   { name: 'Videobolt',             cat: 'thirdparty', catLabel: 'VIDEO' },
   { name: 'Renderforest',          cat: 'thirdparty', catLabel: 'VIDEO' },
-  // McCarthy / internal
-  { name: 'McCarthy Intelligence Suite', cat: 'internal', catLabel: 'INTERNAL' },
-  { name: 'McCarthy Recon Command Center', cat: 'internal', catLabel: 'INTERNAL' },
-  { name: 'SEAMUS Buyer Bot',      cat: 'internal',   catLabel: 'INTERNAL' },
-  { name: 'Used Car Factory Portal', cat: 'internal', catLabel: 'INTERNAL' },
   { name: 'DiscountAutoPart.com',  cat: 'internal',   catLabel: 'BRAND' },
   { name: 'Just Drive Rentals',    cat: 'internal',   catLabel: 'BRAND' },
 ];
 
 // Which projects each connector touches — powers the click-modal
 const CONNECTOR_PROJECTS = {
-  'Zapier': ['Recon Command Center (email triggers)', 'SMS/Email webhooks (RBook Outreach)', 'DriveCentric AIM Re-Engagement'],
-  'Gmail': ['SEAMUS Dealer Inquiry Bot (RBook Outreach)', 'Recon Command Center (step-change alerts)'],
+  'Zapier': ['SMS/Email webhooks (optional)'],
+  'Gmail': ['Seamus studio mailbox'],
   'Google Calendar': ['Appointment scheduling (planned)'],
-  'Google Drive': ['McCarthy document store', 'Scorecard source data'],
-  'Microsoft 365': ['McCarthy corporate docs'],
+  'Google Drive': ['MK STUDIOS document store'],
+  'Microsoft 365': ['Studio docs'],
   'Microsoft Learn': ['Dev reference'],
   'Stripe': ['DiscountAutoPart.com payments (planned)'],
-  'Jotform': ['15 live forms: Subaru Lead Portal, Honda Off-Street, Delivery Prep, EOD Merchandising, Test Drive Booking, Recon Acknowledgment, +9 more'],
-  'MarketCheck': ['Manheim Bid Workspace', 'SmartAuction Cross-Reference', 'Vehicle appraisal data'],
+  'Jotform': ['Client intake forms'],
+  'MarketCheck': ['Vehicle market data for client projects'],
   'Netlify': ['BRINK CORE hosting (planned)', 'DiscountAutoPart.com deploy target'],
   'Vercel': ['Alt hosting target'],
   'Cloudflare': ['SEAMUS Alexa Worker (LIVE)', 'BRINK CORE Sync Worker', 'Pages hosting'],
   'Supabase': ['Future data layer'],
   'Canva': ['DiscountAutoPart brand assets', 'Marketing creative'],
   'Gamma': ['Presentation generation'],
-  'Ahrefs': ['Jay Wolfe Honda SEO Teardown', 'McCarthy SEO monitoring'],
+  'Ahrefs': ['Jay Wolfe Honda SEO Teardown', 'Client SEO monitoring'],
   'Spotify': ['BRINK CORE Spotify Deck (this hub)'],
   'PDF Viewer': ['Document review'],
   'Legal Data Hunter': ['Contract/compliance lookups'],
   'IFTTT': ['Alexa inbound triggers (Tier 2 option)'],
-  'Claude API': ['BRINK CORE brain (this hub)', 'Alexa Skill backend', 'Goon Ops Deck sub-agents', 'Every Claude project'],
+  'Claude API': ['BRINK CORE brain (this hub)', 'Alexa Skill backend', 'The Annex specialists', 'Every Claude project'],
   'ElevenLabs': ['BRINK CORE voice (lKMAeQD7…)'],
   'Voice Monkey': ['Alexa announcements → Seamus Echo (seamus-vn69p)'],
   'Amazon Alexa': ['Brink Core custom skill (LIVE)', 'Voice Monkey announcements'],
-  'DriveCentric CRM': ['Daily dealership ops', 'AIM Re-Engagement campaign'],
-  'DriveCentric AIM': ['5-touch Email/SMS Honda+Subaru re-engagement'],
-  'Manheim': ['Bid Workspace (SHIPPED)'],
-  'SmartAuction': ['Cross-Reference matcher (SHIPPED)'],
-  'OPENLANE': ['Auction sourcing'],
-  'NeoVIN Decoder': ['VIN decode via MarketCheck'],
   'BeeFree.io': ['Email creative for campaigns'],
-  'Google Sites': ['McCarthy dashboards + embeds'],
+  'Google Sites': ['Client dashboards + embeds'],
   'Looker Studio': ['KPI reporting'],
   'Google Analytics': ['Web traffic analysis'],
   'Videobolt': ['Toyota Sedalia Retargeting Video'],
   'Renderforest': ['Video spots'],
-  'McCarthy Intelligence Suite': ['Theme pack + SKILL.md (SHIPPED)', 'All McCarthy embeds'],
-  'McCarthy Recon Command Center': ['42 events/7d automation (LIVE)'],
-  'SEAMUS Buyer Bot': ['Dealer inquiry outreach (RBook project)'],
-  'Used Car Factory Portal': ['PARKED — oldest open project'],
   'DiscountAutoPart.com': ['Brand WIP — logo locked, launch pending'],
   'Just Drive Rentals': ['Rental venture'],
 };
@@ -10136,7 +9945,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.61';
+  var v = 'v0.62';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
