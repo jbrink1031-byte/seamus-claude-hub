@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.64</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.65</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -6305,6 +6305,7 @@ function showAgentCheatSheet() {
     ${row('#06b6d4', 'POLYPHEMUS', 'Wire Intelligence Scout · web', ['polyphemus <topic>', 'sweep the wire', 'scout <topic>', 'headlines'])}
     ${row('#8b5cf6', 'ORACLE', 'Intelligence Officer · web', ['oracle <topic>', 'intel briefing on <topic>', 'brief me on <topic>'])}
     ${row('#2EA86C', 'SEAMUS', 'Ghostwriter · Command Chief', ['command review', 'warden report', 'send reports to seamus', '(default for any unrouted msg)'])}
+    ${row('#06b6d4', 'MAX', "Seamus's spider · crawl view", ['max', 'crawl the core', 'max loop on', 'max loop off', 'max home'])}
     <div style="border-top:1px solid var(--border);margin:12px 0 10px;padding-top:11px;">
       <div style="font-size:10px;font-weight:800;color:var(--text-1);letter-spacing:2px;margin-bottom:7px;">◇ SQUAD POSTURE ORDERS</div>
       <div style="display:flex;flex-wrap:wrap;gap:5px;">${['agents work','agents roam','agents inspect','agents idle','agents sleep','wake up'].map(x => chip(x)).join('')}</div>
@@ -7795,6 +7796,16 @@ function checkLocalVoiceCommand(text) {
     if (window.setAgentMode) setAgentMode('roam');
     return true;
   }
+  // v0.65 — Max the spider
+  if (/^(max|spider|max crawl|crawl the core|release the spider|spider view)$/i.test(text)) {
+    if (window.toggleSpider && !document.body.classList.contains('spider-mode')) toggleSpider();
+    setTimeout(() => window.spiderCoreCrawl && spiderCoreCrawl(), 400);
+    addTranscript('system', 'Max is out. Crawling the core.');
+    return true;
+  }
+  const loopM = text.match(/^(?:max|spider)\s+loop\s+(on|off)$/i);
+  if (loopM) { if (window.spiderLoop) spiderLoop(loopM[1].toLowerCase() === 'on'); addTranscript('system', 'Max loop ' + loopM[1].toUpperCase() + '.'); return true; }
+  if (/^(max (go )?home|spider home|back to (the )?core)$/i.test(text)) { if (document.body.classList.contains('spider-mode') && window.toggleSpider) toggleSpider(); return true; }
   if (/^(inspect (the )?(hub|panels)|inspection detail)$/i.test(text)) {
     if (window.setAgentMode) setAgentMode('inspect');
     return true;
@@ -10013,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.64';
+  var v = 'v0.65';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10195,7 +10206,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
         </div>
         <div class="sx-cost" id="sx-cost"></div>
         <div class="sx-btns">
-          <button class="sx-btn go" id="sx-order" type="button">SPIN THE ORDER</button>
+          <button class="sx-btn go" id="sx-core" type="button">🕷 CRAWL THE CORE</button><button class="sx-btn" id="sx-order" type="button">SPIN THE ORDER</button>
           <button class="sx-btn alt" id="sx-importbtn" type="button">IMPORT A RUN</button>
         </div>
         <p id="sx-status" role="status"></p>
@@ -10212,7 +10223,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
           <div id="sx-rows"></div>
         </div>
         <canvas id="sx-fx" aria-label="Max crawling the source feed, slinging findings into their bins"></canvas>
-        <div class="sx-empty" id="sx-empty"><div><b>NO CRAWL YET</b>Build an order on the left, run it in a Claude session, import the run.<br>Max only animates what was actually read.</div></div>
+        <div class="sx-empty" id="sx-empty"><div><b>NO CRAWL YET</b>Hit <b style="color:var(--green)">CRAWL THE CORE</b> for an instant pass over this hub's own state — or spin an order for the full account.<br>Max only animates what was actually read.</div></div>
       </div>
 
       <!-- BINS -->
@@ -10222,7 +10233,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
     <section class="sx-row2">
       <div class="sx-panel"><h2 id="sx-listtitle">● FINDINGS · click a bin</h2><div class="sx-list" id="sx-list"></div></div>
       <div class="sx-panel"><h2>● AGENT QUEUE · open tasks by assignee</h2><div class="sx-queue" id="sx-queue"></div>
-        <div class="sx-btns" style="margin-top:4px;"><button class="sx-btn" id="sx-play" type="button">PAUSE</button><button class="sx-btn" id="sx-restart" type="button">REPLAY</button><label style="font-size:10px;color:var(--text-2);display:flex;align-items:center;gap:6px;">speed <input id="sx-speed" type="range" min="0.5" max="3" step="0.5" value="1" style="width:70px;accent-color:var(--cyan)"></label></div>
+        <div class="sx-btns" style="margin-top:4px;"><button class="sx-btn" id="sx-play" type="button">PAUSE</button><button class="sx-btn" id="sx-restart" type="button">REPLAY</button><label style="font-size:10px;color:var(--text-2);display:flex;align-items:center;gap:6px;"><input id="sx-loop" type="checkbox" style="accent-color:var(--cyan)"> loop</label><label style="font-size:10px;color:var(--text-2);display:flex;align-items:center;gap:6px;">speed <input id="sx-speed" type="range" min="0.5" max="3" step="0.5" value="1" style="width:70px;accent-color:var(--cyan)"></label></div>
       </div>
     </section>
   </div>
@@ -10255,7 +10266,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
     root.setAttribute('aria-hidden', on ? 'false' : 'true');
     const t = $('spider-toggle'); if (t) t.classList.toggle('on', on);
     put(LS.mode, on ? 'spider' : 'hub');
-    if (on) { measure(); if (!raf) raf = requestAnimationFrame(frame); }
+    if (on) { measure(); if (!raf) raf = requestAnimationFrame(frame); if (!W.length) setTimeout(coreCrawl, 250); }
     else if (raf) { cancelAnimationFrame(raf); raf = 0; }
   }
   window.toggleSpider = () => show(!visible);
@@ -10466,7 +10477,7 @@ OUTPUT — one JSON document, nothing else:
     if (playing && W.length) {
       const d = dt * speed; clock += d; acc += d;
       while (acc >= STEP && i < W.length) { visit(W[i]); i++; acc -= STEP; }
-      if (i >= W.length) { if (doneAt < 0) doneAt = clock; }
+      if (i >= W.length) { if (doneAt < 0) doneAt = clock; else if ($('sx-loop').checked && clock - doneAt > 3200) reset(); }
       const t = W[Math.min(i, W.length - 1)], k = 1 - Math.exp(-d / 85);
       sp.x += (t.x - 18 - sp.x) * k; sp.y += (t.y + 14 - sp.y) * k;
       rows.scrollTop += (Math.max(0, t.y - rows.clientHeight * .5) - rows.scrollTop) * (1 - Math.exp(-d / 260));
@@ -10524,6 +10535,54 @@ OUTPUT — one JSON document, nothing else:
   $('sx-speed').addEventListener('input', e => { speed = +e.target.value; });
   let rz; window.addEventListener('resize', () => { if (!visible) return; clearTimeout(rz); rz = setTimeout(() => { measure(); draw(); }, 120); });
 
+  // ---------- CRAWL THE CORE — instant, token-free pass over the hub's own local state ----------
+  // Every source and finding below is read literally from localStorage / the live DOM. No inference.
+  function redact(s) { let t = String(s || ''); SECRETS.forEach(re => { t = t.replace(new RegExp(re.source, re.flags + (re.flags.includes('g') ? '' : 'g')), '[redacted]'); }); return t; }
+  function coreCrawl() {
+    const started = new Date();
+    const S = [], F = []; let n = 0;
+    const fid = () => 'f-' + String(++n).padStart(4, '0');
+    const notes = safe('brink_project_notes', {});
+    // board projects
+    const projects = (typeof getPrioritizedProjects === 'function') ? getPrioritizedProjects() : (typeof ACCOUNT_SNAPSHOT !== 'undefined' ? ACCOUNT_SNAPSHOT.claude_projects : []);
+    projects.forEach((pj, k) => {
+      const id = 'board:' + k, note = (notes[pj.name.slice(0, 40)] || '').trim();
+      const words = (pj.name + ' ' + (pj.detail || '') + ' ' + note).split(/\s+/).length;
+      let found = 0;
+      if (pj.state === 'wip' || pj.state === 'parked') { F.push({ id: fid(), type: 'task', title: pj.name + ' is ' + pj.state.toUpperCase(), detail: redact(pj.detail || ''), source: id, date: pj.started, status: 'open', agent: 'Seamus' }); found++; }
+      if (pj.state === 'shipped' || pj.state === 'live') { F.push({ id: fid(), type: 'outcome', title: pj.name + ' · ' + pj.state.toUpperCase(), detail: redact(pj.detail || ''), source: id, date: pj.started, status: 'done', agent: '' }); found++; }
+      if (note) { note.split(/\n+/).forEach(line => { line = line.trim(); if (!line) return; const q = /\?\s*$/.test(line); F.push({ id: fid(), type: q ? 'question' : 'idea', title: redact(line.slice(0, 80)), detail: redact(line), source: id, date: started.toISOString().slice(0, 10), status: 'open', agent: q ? 'Oracle' : 'Seamus' }); found++; }); }
+      S.push({ id, kind: 'doc', title: pj.name, url: '', date: pj.started, words, findings: found });
+    });
+    // agent reports
+    safe('brink_reports', []).slice(0, 40).forEach((r, k) => {
+      const id = 'report:' + k, text = String(r.text || ''), title = ((r.agent || 'agent') + ' · ' + (r.task || 'report')).slice(0, 60);
+      let found = 0; const date = new Date(r.ts || Date.now()).toISOString().slice(0, 10);
+      const first = (text.split('\n').find(l => l.trim()) || title).trim().slice(0, 90);
+      if (/secret|credential|exposed|token|leak|inject/i.test(text)) { F.push({ id: fid(), type: 'error', title: redact(first), detail: 'security item in ' + title, source: id, date, status: 'open', agent: 'Ronin' }); found++; }
+      else if (/bug|error|fail|broken|regress|crash/i.test(text)) { F.push({ id: fid(), type: 'error', title: redact(first), detail: 'defect item in ' + title, source: id, date, status: 'open', agent: 'Insect Cop' }); found++; }
+      if (/recommend|should|next step|action/i.test(text)) { F.push({ id: fid(), type: 'practice', title: redact(first), detail: 'recommendation in ' + title, source: id, date, status: 'unknown', agent: 'Seamus' }); found++; }
+      S.push({ id, kind: 'chat', title, url: '', date, words: text.split(/\s+/).length, findings: found });
+    });
+    // wired capabilities (settings presence only — never values)
+    const caps = [['seamus_apikey', 'Claude API'], ['seamus_eleven_key', 'ElevenLabs voice'], ['brink_agents_url', 'Managed Agents backend'], ['brink_sync_url', 'Cross-PC sync'], ['seamus_spotify_client', 'Spotify deck']];
+    caps.forEach(([k, name]) => { let on = false; try { on = !!localStorage.getItem(k); } catch (e) {}
+      const id = 'connector:' + k; let found = 0;
+      if (on) { F.push({ id: fid(), type: 'skill', title: name + ' is wired', detail: 'credential present in the vault (value not read)', source: id, date: started.toISOString().slice(0, 10), status: 'done', agent: '' }); found++; }
+      else { F.push({ id: fid(), type: 'task', title: 'Wire ' + name, detail: 'no credential saved in Settings', source: id, date: started.toISOString().slice(0, 10), status: 'open', agent: 'Seamus' }); found++; }
+      S.push({ id, kind: 'connector', title: name, url: '', date: started.toISOString().slice(0, 10), words: 6, findings: found }); });
+    const finished = new Date();
+    const doc = { run: { id: 'core:' + started.toISOString(), started: started.toISOString(), finished: finished.toISOString(), sources_attempted: S.length, sources_read: S.length, sources_skipped: 0, scope: 'core' }, sources: S, findings: F };
+    const runs = safe(LS.runs, []); runs.unshift(doc); put(LS.runs, runs.slice(0, 6));
+    $('sx-status').textContent = `Core crawl: ${S.length} sources, ${F.length} findings — zero tokens spent. For the full account, SPIN THE ORDER.`;
+    mount(doc, runs[1] || null); playing = true; $('sx-play').textContent = 'PAUSE';
+  }
+  window.spiderCoreCrawl = coreCrawl;
+  $('sx-core').addEventListener('click', coreCrawl);
+  // loop
+  const loopBox = $('sx-loop'); loopBox.checked = !!safe('brink_spider_loop', false);
+  loopBox.addEventListener('change', () => put('brink_spider_loop', loopBox.checked));
+  window.spiderLoop = on => { loopBox.checked = !!on; put('brink_spider_loop', !!on); };
   // boot
   drawWeb(); renderCost();
   const runs = safe(LS.runs, []);
