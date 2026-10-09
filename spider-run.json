@@ -1,12 +1,40 @@
 {
  "run": {
-  "id": "2026-10-09T21:20Z",
+  "id": "merged:2026-10-09T23:43:24Z",
   "started": "2026-10-09T21:11:00Z",
-  "finished": "2026-10-09T21:20:00Z",
-  "sources_attempted": 40,
-  "sources_read": 39,
-  "sources_skipped": 1,
-  "scope": "project chats + account memory + project doc + published artifacts (session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions are not reachable from here)"
+  "finished": "2026-10-09T23:43:23Z",
+  "sources_attempted": 62,
+  "sources_read": 62,
+  "sources_skipped": 52,
+  "scope": "project chats + account memory + project doc + published artifacts (session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions are not reachable from here) + scheduled cloud crawl 2026-10-09: account memory + BRINK CORE project doc + published artifacts + Drive/Gmail/Dropbox listings (titles only). Chat tools were not present in this session, so no chats were read; other projects and Claude Code sessions not reachable",
+  "merged_from": [
+   "2026-10-09T21:20Z",
+   "2026-10-09T23:43:23Z"
+  ],
+  "new_sources": [
+   "memory:preferences",
+   "memory:team-management",
+   "memory:brink-core-index",
+   "connector:drive:1uLSvvPGUkieBXw9YZgZ0s5YFMgjwn-Xxb3KEBBOEw9I",
+   "connector:drive:195roFr70o3RJF05epuQTn0QzQF85LKNFqxkfXTIUNXA",
+   "connector:drive:1wZMYnXlMFEUNeBzWO_0s2qSAPLdnMzBeFfv1fdlVpig",
+   "connector:drive:1AiFUqhxLQ0-agQEWpuXfq7q5hj1h3WRO",
+   "connector:drive:1fgq7HRetLhyzzybhnpSsCkFyqVX3G3C_OiNuSRvqpGk",
+   "connector:drive:1ETUG-iiFq8VfQn6aySm_lprr_b9d9njhwM3_RmvArjE",
+   "connector:drive:1U-NGQKRuEQYR-m0NZUUj1k_sWMiaLec6Ke36rzd_Tvc",
+   "connector:drive:1F_tIvWZ60-g5afJUBUZ8zBMq2zcfe_n2LsANXSvPRNU",
+   "connector:drive:1ADwQXseNPXEO_9M6aTkQivkOrPglczvo8-LGEZEgG5w",
+   "connector:drive:1bK1XpeBph629DaVx49FSyVZF1oC9AlzHIvieeg1BrA0",
+   "connector:drive:1ewHf_FOeOG7LTl7I2BVFo_VafiEkMzur",
+   "connector:drive:1G9fBmTfeUu03SV0b2iXV5UF38g-PN-ls",
+   "connector:drive:1HRlPlET8Be5PZ1WWuP2smS-Fel8AlXTj",
+   "connector:drive:1WH53bX9X6HNb8wrdP7IjShdOHta3PpyK",
+   "connector:gmail:1a10a960e038f3c4",
+   "connector:dropbox:Ulk5Ehs9rygAAAAAAAOLDw",
+   "connector:dropbox:Ulk5Ehs9rygAAAAAAAN0fQ",
+   "connector:dropbox:Ulk5Ehs9rygAAAAAAAN1PA",
+   "connector:dropbox:qg1Qg6ZjyhAAAAAAAAAAAQ"
+  ]
  },
  "sources": [
   {
@@ -151,7 +179,7 @@
    "url": "",
    "date": "2026-10-09",
    "words": 420,
-   "findings": 2
+   "findings": 5
   },
   {
    "id": "artifact:B7FCNNu9z4SduXqth9rkAw",
@@ -366,6 +394,204 @@
    "title": "1 personal artifact skipped (family material)",
    "url": "",
    "date": "2026-10-02",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "memory:preferences",
+   "kind": "memory",
+   "title": "Response preferences",
+   "url": "",
+   "date": "2026-07-17",
+   "words": 80,
+   "findings": 1
+  },
+  {
+   "id": "memory:team-management",
+   "kind": "memory",
+   "title": "Team management approach",
+   "url": "",
+   "date": "2026-07-17",
+   "words": 50,
+   "findings": 1
+  },
+  {
+   "id": "memory:brink-core-index",
+   "kind": "memory",
+   "title": "BRINK CORE project memory index",
+   "url": "",
+   "date": "2026-09-08",
+   "words": 20,
+   "findings": 0
+  },
+  {
+   "id": "connector:drive:1uLSvvPGUkieBXw9YZgZ0s5YFMgjwn-Xxb3KEBBOEw9I",
+   "kind": "connector",
+   "title": "Drive: MAX MOTORS KB",
+   "url": "",
+   "date": "2026-10-07",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:drive:195roFr70o3RJF05epuQTn0QzQF85LKNFqxkfXTIUNXA",
+   "kind": "connector",
+   "title": "Drive: Max Motors – Master CallRail Tracking Number Directory",
+   "url": "",
+   "date": "2026-10-08",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "connector:drive:1wZMYnXlMFEUNeBzWO_0s2qSAPLdnMzBeFfv1fdlVpig",
+   "kind": "connector",
+   "title": "Drive: Max Motors – Tracking Numbers (Social Media + GBP)",
+   "url": "",
+   "date": "2026-10-08",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:drive:1AiFUqhxLQ0-agQEWpuXfq7q5hj1h3WRO",
+   "kind": "connector",
+   "title": "Drive folder: Max Recon — Founder Docs (Sept 2026)",
+   "url": "",
+   "date": "2026-10-07",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "connector:drive:1fgq7HRetLhyzzybhnpSsCkFyqVX3G3C_OiNuSRvqpGk",
+   "kind": "connector",
+   "title": "Drive: 1. Max Recon Command Center — Plain-English Overview (updated 2026-10-07)",
+   "url": "",
+   "date": "2026-10-07",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "connector:drive:1ETUG-iiFq8VfQn6aySm_lprr_b9d9njhwM3_RmvArjE",
+   "kind": "connector",
+   "title": "Drive: 1. Max Recon Command Center — Plain-English Overview",
+   "url": "",
+   "date": "2026-09-27",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:drive:1U-NGQKRuEQYR-m0NZUUj1k_sWMiaLec6Ke36rzd_Tvc",
+   "kind": "connector",
+   "title": "Drive: 2. Integration Discovery — Questions for Their Webmaster / Developer",
+   "url": "",
+   "date": "2026-09-27",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:drive:1F_tIvWZ60-g5afJUBUZ8zBMq2zcfe_n2LsANXSvPRNU",
+   "kind": "connector",
+   "title": "Drive: 3. 500-Rooftop Dealer Conversation — Prep & Playbook",
+   "url": "",
+   "date": "2026-09-27",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:drive:1ADwQXseNPXEO_9M6aTkQivkOrPglczvo8-LGEZEgG5w",
+   "kind": "connector",
+   "title": "Drive: 4. From Project to Product — Commercialization Runbook (Early Work)",
+   "url": "",
+   "date": "2026-09-27",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:drive:1bK1XpeBph629DaVx49FSyVZF1oC9AlzHIvieeg1BrA0",
+   "kind": "connector",
+   "title": "Drive: 5. \"How did you build it?\" — The Short Answer",
+   "url": "",
+   "date": "2026-10-07",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:drive:1ewHf_FOeOG7LTl7I2BVFo_VafiEkMzur",
+   "kind": "connector",
+   "title": "Drive folder: Max Credit App FB Posts · Oct 2026",
+   "url": "",
+   "date": "2026-10-06",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "connector:drive:1G9fBmTfeUu03SV0b2iXV5UF38g-PN-ls",
+   "kind": "connector",
+   "title": "Drive folder: MK STUDIOS (legacy service docs)",
+   "url": "",
+   "date": "2021-08-30",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "connector:drive:1HRlPlET8Be5PZ1WWuP2smS-Fel8AlXTj",
+   "kind": "connector",
+   "title": "Drive: Pitlane — How It's Wired.html",
+   "url": "",
+   "date": "2026-06-23",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:drive:1WH53bX9X6HNb8wrdP7IjShdOHta3PpyK",
+   "kind": "connector",
+   "title": "Drive folder: PITLANE FILES",
+   "url": "",
+   "date": "2026-09-06",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:gmail:1a10a960e038f3c4",
+   "kind": "connector",
+   "title": "Gmail thread: Max Recon Tracker Update!",
+   "url": "",
+   "date": "2026-10-05",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "connector:dropbox:Ulk5Ehs9rygAAAAAAAOLDw",
+   "kind": "connector",
+   "title": "Dropbox: max-transit-carryover.zip",
+   "url": "",
+   "date": "2026-10-07",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "connector:dropbox:Ulk5Ehs9rygAAAAAAAN0fQ",
+   "kind": "connector",
+   "title": "Dropbox: BrinkCore_DocVault.html",
+   "url": "",
+   "date": "2026-10-05",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:dropbox:Ulk5Ehs9rygAAAAAAAN1PA",
+   "kind": "connector",
+   "title": "Dropbox: RECON-COMMAND-CENTER-Blueprint.md",
+   "url": "",
+   "date": "2026-10-05",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "connector:dropbox:qg1Qg6ZjyhAAAAAAAAAAAQ",
+   "kind": "connector",
+   "title": "Dropbox folder: MK STUDIOS",
+   "url": "",
+   "date": "2022-07-04",
    "words": 0,
    "findings": 0
   }
@@ -850,6 +1076,126 @@
    "date": "2026-07-30",
    "status": "open",
    "agent": "Oracle"
+  },
+  {
+   "id": "f-0049",
+   "type": "task",
+   "title": "Repo is public and serves the work digest — flip to private",
+   "detail": "State doc marks this urgent, operator decision: GitHub → Settings → Danger Zone → Change visibility. GitHub still reported visibility public at this crawl.",
+   "source": "doc:brink-core-state",
+   "date": "2026-10-09",
+   "status": "open",
+   "agent": "Ronin"
+  },
+  {
+   "id": "f-0050",
+   "type": "task",
+   "title": "Crawl the other projects and merge their runs",
+   "detail": "State doc: open a chat in each project (Max Motors, Digital Intelligence Hub, …), paste the crawl order, bring the JSON back → merge → export → commit.",
+   "source": "doc:brink-core-state",
+   "date": "2026-10-09",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0051",
+   "type": "task",
+   "title": "State doc is one version behind the repo",
+   "detail": "Doc states v0.68 at main 2691244; repo main log shows v0.69 at 6424bc0.",
+   "source": "doc:brink-core-state",
+   "date": "2026-10-09",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0052",
+   "type": "practice",
+   "title": "Outputs: concise, copy/paste-ready, structured, tied to ROI or results",
+   "detail": "Anticipate next steps; avoid vague answers, generic marketing language and outdated processes.",
+   "source": "memory:preferences",
+   "date": "2026-07-17",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0053",
+   "type": "practice",
+   "title": "Team standards: CRM discipline, pre-call planning, accountability, data-backed selling",
+   "detail": "CRM usage is listed as non-negotiable.",
+   "source": "memory:team-management",
+   "date": "2026-07-17",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0054",
+   "type": "outcome",
+   "title": "Max Recon Command Center plain-English overview updated",
+   "detail": "File title carries \"updated 2026-10-07\"; the 2026-09-27 original sits beside it in the same folder. Body not opened.",
+   "source": "connector:drive:1fgq7HRetLhyzzybhnpSsCkFyqVX3G3C_OiNuSRvqpGk",
+   "date": "2026-10-07",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0055",
+   "type": "outcome",
+   "title": "Max Recon founder doc set on file",
+   "detail": "Folder holds: overview, integration discovery questions, 500-rooftop dealer conversation playbook, commercialization runbook, \"How did you build it?\" short answer. Titles only.",
+   "source": "connector:drive:1AiFUqhxLQ0-agQEWpuXfq7q5hj1h3WRO",
+   "date": "2026-10-07",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0056",
+   "type": "outcome",
+   "title": "Six credit-app Facebook post docs filed for Oct 2026",
+   "detail": "One per page: CDJR Clinton, group page, Nevada Chevrolet + GMC, Nevada Ford + CDJR, Butler Ford + CDJR, Ford of Richmond. Posting status not stated.",
+   "source": "connector:drive:1ewHf_FOeOG7LTl7I2BVFo_VafiEkMzur",
+   "date": "2026-10-06",
+   "status": "unknown",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0057",
+   "type": "outcome",
+   "title": "Master CallRail tracking number directory created",
+   "detail": "Created 2026-10-08 alongside a separate Social Media + GBP tracking numbers doc. Bodies not opened.",
+   "source": "connector:drive:195roFr70o3RJF05epuQTn0QzQF85LKNFqxkfXTIUNXA",
+   "date": "2026-10-08",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0058",
+   "type": "practice",
+   "title": "Approved UCI must follow every recon approval",
+   "detail": "Max Recon Tracker update sent to sales and fixed ops calls the approved UCI copy mission-critical once a vehicle is approved for reconditioning. Preview only; thread not opened.",
+   "source": "connector:gmail:1a10a960e038f3c4",
+   "date": "2026-10-05",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0059",
+   "type": "outcome",
+   "title": "Max Transit carryover package saved to Dropbox",
+   "detail": "max-transit-carryover.zip at the Dropbox root, modified 2026-10-07. Not opened.",
+   "source": "connector:dropbox:Ulk5Ehs9rygAAAAAAAOLDw",
+   "date": "2026-10-07",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0060",
+   "type": "outcome",
+   "title": "Legacy MK STUDIOS service docs on file",
+   "detail": "Drive folder holds full-services and SEO-services docs, last modified 2021. Titles only.",
+   "source": "connector:drive:1G9fBmTfeUu03SV0b2iXV5UF38g-PN-ls",
+   "date": "2021-08-30",
+   "status": "done",
+   "agent": "Seamus"
   }
  ]
 }
