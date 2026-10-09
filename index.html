@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.65</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.66</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -10024,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.65';
+  var v = 'v0.66';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10110,7 +10110,10 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
   .sx-stat small { display: block; font-size: 8px; letter-spacing: .14em; color: var(--text-2); }
   .sx-stat span { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
   .sx-stat em { display: block; font-style: normal; font-size: 8px; color: var(--text-2); margin-top: 2px; }
-  .sx-main { display: grid; grid-template-columns: 340px minmax(0, 1fr) 190px; gap: 12px; }
+  .sx-main { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 12px; }
+  .sx-main.adv { grid-template-columns: 340px minmax(0, 1fr) 190px; }
+  #sx-planner { display: none; }
+  .sx-main.adv #sx-planner { display: grid; }
   .sx-panel { border: 1px solid var(--border); background: rgba(13,17,23,0.72); border-radius: 3px; padding: 12px; display: grid; gap: 10px; align-content: start; min-width: 0; }
   .sx-panel h2 { margin: 0; font-size: 9px; font-weight: 700; letter-spacing: .16em; color: var(--text-2); }
   /* --- CRAWL PLANNER (the web) --- */
@@ -10183,16 +10186,16 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
     <header class="sx-top">
       <div>
         <h1 class="sx-title">MAX <b>// SEAMUS'S SPIDER</b></h1>
-        <p class="sx-sub">on-demand crawl of the account · every number below is computed from a run you imported · nothing is typed by hand</p>
+        <p class="sx-sub">Max crawls the core the moment he's out · legs hook a source, the find rides the silk into its bin · every number is computed from what he read</p>
       </div>
-      <button class="sx-back" id="sx-back" type="button">← BACK TO THE CORE</button>
+      <button class="sx-btn" id="sx-adv" type="button" style="margin-left:auto;">⚙ FULL-ACCOUNT CRAWL</button><button class="sx-back" id="sx-back" type="button" style="margin-left:0;">← BACK TO THE CORE</button>
     </header>
 
     <section class="sx-wall" id="sx-wall"></section>
 
-    <section class="sx-main">
-      <!-- CRAWL PLANNER -->
-      <div class="sx-panel">
+    <section class="sx-main" id="sx-main">
+      <!-- CRAWL PLANNER (advanced · full-account order) -->
+      <div class="sx-panel" id="sx-planner">
         <h2>● CRAWL PLANNER · pick what Max reads · see the bill before you spend</h2>
         <div class="sx-web" id="sx-web">
           <svg viewBox="0 0 316 316" id="sx-websvg"></svg>
@@ -10423,7 +10426,7 @@ OUTPUT — one JSON document, nothing else:
 
   // ---------- STAGE: feed rows + walker (ported from v0.4) ----------
   const rows = $('sx-rows'), stage = $('sx-stage'), cv = $('sx-fx'), g = cv.getContext('2d');
-  let W = [], SW = 0, SH = 0, arc = {}, bg = null, PERM = 1, STEP = 520;
+  let W = [], SW = 0, SH = 0, arc = {}, bg = null, PERM = 1, STEP = 900;
   let i = 0, acc = 0, clock = 0, playing = true, speed = 1, last = 0, doneAt = -1, sp, feet, ox = 0, oy = 0, flights = [];
   const LEGS = 10, gcd = (a, b) => b ? gcd(b, a % b) : a;
   function mount(doc, prev) {
@@ -10456,7 +10459,7 @@ OUTPUT — one JSON document, nothing else:
     TYPES.forEach((t, k) => { const th = Math.PI + arc.a - 2 * arc.a * (k + .5) / TYPES.length; arc['bin_' + t] = { x: arc.cx + (R - 26) * Math.cos(th), y: arc.cy + (R - 26) * Math.sin(th) }; });
   }
   function tick(j, len) { const n = W.length, th = Math.PI + arc.a - (n > 1 ? 2 * arc.a * ((j * PERM) % n) / (n - 1) : arc.a), c = Math.cos(th), s = Math.sin(th); return { x0: arc.cx + arc.R * c, y0: arc.cy + arc.R * s, x: arc.cx + (arc.R + len) * c, y: arc.cy + (arc.R + len) * s }; }
-  function ideal(k) { const an = (k + .5) / LEGS * TAU, r = k % 2 ? 74 : 54; return { x: sp.x + Math.cos(an) * r * 1.25, y: sp.y + Math.sin(an) * r }; }
+  function ideal(k) { const an = (k + .5) / LEGS * TAU, r = k % 2 ? 96 : 70; return { x: sp.x + Math.cos(an) * r * 1.25, y: sp.y + Math.sin(an) * r }; }
   function reset() {
     i = 0; acc = 0; clock = 0; doneAt = -1; cnt = {}; shown = {}; flights = []; rows.scrollTop = 0;
     W.forEach(w => { w.el.className = 'sx-row'; w.at = -1; });
@@ -10477,7 +10480,7 @@ OUTPUT — one JSON document, nothing else:
     if (playing && W.length) {
       const d = dt * speed; clock += d; acc += d;
       while (acc >= STEP && i < W.length) { visit(W[i]); i++; acc -= STEP; }
-      if (i >= W.length) { if (doneAt < 0) doneAt = clock; else if ($('sx-loop').checked && clock - doneAt > 3200) reset(); }
+      if (i >= W.length) { if (doneAt < 0) doneAt = clock; else if ($('sx-loop').checked && clock - doneAt > 2600) { reset(); } }
       const t = W[Math.min(i, W.length - 1)], k = 1 - Math.exp(-d / 85);
       sp.x += (t.x - 18 - sp.x) * k; sp.y += (t.y + 14 - sp.y) * k;
       rows.scrollTop += (Math.max(0, t.y - rows.clientHeight * .5) - rows.scrollTop) * (1 - Math.exp(-d / 260));
@@ -10524,10 +10527,10 @@ OUTPUT — one JSON document, nothing else:
     feet.forEach((f, k) => { const fx = ox + f.x, fy = oy + f.y - (f.lift || 0), an = Math.atan2(fy - by, fx - bx), mx = (bx + fx) / 2, my = (by + fy) / 2 - 14 - (f.lift || 0);
       g.strokeStyle = '#06b6d4'; g.globalAlpha = .85; g.lineWidth = 1.1; g.setLineDash(k % 3 ? [] : [2, 3]); g.beginPath(); g.moveTo(bx + Math.cos(an) * 15, by + Math.sin(an) * 18); g.quadraticCurveTo(mx, my, fx, fy); g.stroke(); g.setLineDash([]);
       g.globalAlpha = 1; g.fillStyle = '#e6edf3'; g.beginPath(); g.arc(fx, fy, 1.7, 0, TAU); g.fill(); });
-    g.fillStyle = 'rgba(10,38,46,.92)'; g.strokeStyle = '#06b6d4'; g.lineWidth = 1.2; g.beginPath(); g.ellipse(bx, by, 15, 18, 0, 0, TAU); g.fill(); g.stroke();
-    g.strokeStyle = 'rgba(6,182,212,.5)'; g.lineWidth = .7; g.beginPath(); g.ellipse(bx, by, 10, 12.5, 0, 0, TAU); g.stroke();
-    const core = g.createRadialGradient(bx, by, 0, bx, by, 9); core.addColorStop(0, '#5ff0d2'); core.addColorStop(.5, 'rgba(46,168,108,.8)'); core.addColorStop(1, 'rgba(46,168,108,0)');
-    g.fillStyle = core; g.beginPath(); g.arc(bx, by, 9, 0, TAU); g.fill();
+    g.fillStyle = 'rgba(10,38,46,.92)'; g.strokeStyle = '#06b6d4'; g.lineWidth = 1.2; g.beginPath(); g.ellipse(bx, by, 20, 24, 0, 0, TAU); g.fill(); g.stroke();
+    g.strokeStyle = 'rgba(6,182,212,.5)'; g.lineWidth = .7; g.beginPath(); g.ellipse(bx, by, 13, 16.5, 0, 0, TAU); g.stroke();
+    const core = g.createRadialGradient(bx, by, 0, bx, by, 12); core.addColorStop(0, '#5ff0d2'); core.addColorStop(.5, 'rgba(46,168,108,.8)'); core.addColorStop(1, 'rgba(46,168,108,0)');
+    g.fillStyle = core; g.beginPath(); g.arc(bx, by, 12, 0, TAU); g.fill();
   }
   // controls
   $('sx-play').addEventListener('click', () => { playing = !playing; $('sx-play').textContent = playing ? 'PAUSE' : 'PLAY'; });
@@ -10580,7 +10583,8 @@ OUTPUT — one JSON document, nothing else:
   window.spiderCoreCrawl = coreCrawl;
   $('sx-core').addEventListener('click', coreCrawl);
   // loop
-  const loopBox = $('sx-loop'); loopBox.checked = !!safe('brink_spider_loop', false);
+  const loopBox = $('sx-loop'); loopBox.checked = safe('brink_spider_loop', true) !== false;
+  $('sx-adv').addEventListener('click', () => { const m = $('sx-main'); m.classList.toggle('adv'); $('sx-adv').textContent = m.classList.contains('adv') ? '⚙ HIDE PLANNER' : '⚙ FULL-ACCOUNT CRAWL'; setTimeout(() => { measure(); draw(); }, 60); });
   loopBox.addEventListener('change', () => put('brink_spider_loop', loopBox.checked));
   window.spiderLoop = on => { loopBox.checked = !!on; put('brink_spider_loop', !!on); };
   // boot
