@@ -1,0 +1,855 @@
+{
+ "run": {
+  "id": "2026-10-09T21:20Z",
+  "started": "2026-10-09T21:11:00Z",
+  "finished": "2026-10-09T21:20:00Z",
+  "sources_attempted": 40,
+  "sources_read": 39,
+  "sources_skipped": 1,
+  "scope": "project chats + account memory + project doc + published artifacts (session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions are not reachable from here)"
+ },
+ "sources": [
+  {
+   "id": "chat:cdef50cf",
+   "kind": "chat",
+   "title": "Scary cyclops 2D character with fighting animations",
+   "url": "https://claude.ai/chat/cdef50cf-1f00-4a6f-9d8f-faca9236a11c",
+   "date": "2026-07-26",
+   "words": 520,
+   "findings": 3
+  },
+  {
+   "id": "chat:8ef8a807",
+   "kind": "chat",
+   "title": "Claude code vs traditional approaches",
+   "url": "https://claude.ai/chat/8ef8a807-d584-47c0-99de-60742009b427",
+   "date": "2026-07-19",
+   "words": 610,
+   "findings": 5
+  },
+  {
+   "id": "chat:f9180709",
+   "kind": "chat",
+   "title": "Brink Core project template",
+   "url": "https://claude.ai/chat/f9180709-382c-4c72-8ffd-9e81814069a2",
+   "date": "2026-07-17",
+   "words": 380,
+   "findings": 2
+  },
+  {
+   "id": "chat:a75d02c9",
+   "kind": "chat",
+   "title": "INSECT COP",
+   "url": "https://claude.ai/chat/a75d02c9-55aa-429e-83a9-000670741a31",
+   "date": "2026-07-17",
+   "words": 540,
+   "findings": 2
+  },
+  {
+   "id": "memory:claude-code-automation",
+   "kind": "memory",
+   "title": "Claude Code automation environment",
+   "url": "",
+   "date": "2026-07-19",
+   "words": 160,
+   "findings": 3
+  },
+  {
+   "id": "memory:hollow-point-game",
+   "kind": "memory",
+   "title": "HOLLOW POINT — browser game for coworkers",
+   "url": "",
+   "date": "2026-09-01",
+   "words": 1900,
+   "findings": 6
+  },
+  {
+   "id": "memory:mk-studios-llc",
+   "kind": "memory",
+   "title": "MK STUDIOS LLC formation",
+   "url": "",
+   "date": "2026-07-23",
+   "words": 40,
+   "findings": 1
+  },
+  {
+   "id": "memory:proposal-portal",
+   "kind": "memory",
+   "title": "Personalized Proposal Portal",
+   "url": "",
+   "date": "2026-07-19",
+   "words": 110,
+   "findings": 2
+  },
+  {
+   "id": "memory:social-posting-tool",
+   "kind": "memory",
+   "title": "GBP/social automated posting tool",
+   "url": "",
+   "date": "2026-07-19",
+   "words": 70,
+   "findings": 1
+  },
+  {
+   "id": "memory:tech-stack",
+   "kind": "memory",
+   "title": "Tech stack",
+   "url": "",
+   "date": "2026-07-23",
+   "words": 90,
+   "findings": 1
+  },
+  {
+   "id": "memory:marketing-and-seo",
+   "kind": "memory",
+   "title": "Marketing voice and SEO strategy",
+   "url": "",
+   "date": "2026-07-17",
+   "words": 100,
+   "findings": 1
+  },
+  {
+   "id": "memory:operating-philosophy",
+   "kind": "memory",
+   "title": "Operating philosophy",
+   "url": "",
+   "date": "2026-07-17",
+   "words": 170,
+   "findings": 1
+  },
+  {
+   "id": "memory:kpis",
+   "kind": "memory",
+   "title": "KPIs tracked",
+   "url": "",
+   "date": "2026-07-17",
+   "words": 60,
+   "findings": 1
+  },
+  {
+   "id": "memory:brink-core-overview",
+   "kind": "memory",
+   "title": "BRINK CORE project overview",
+   "url": "",
+   "date": "2026-10-09",
+   "words": 600,
+   "findings": 3
+  },
+  {
+   "id": "memory:ways-of-working",
+   "kind": "memory",
+   "title": "Build rituals and verification gates",
+   "url": "",
+   "date": "2026-09-08",
+   "words": 350,
+   "findings": 1
+  },
+  {
+   "id": "doc:brink-core-state",
+   "kind": "doc",
+   "title": "brink-core-state.md (project doc)",
+   "url": "",
+   "date": "2026-10-09",
+   "words": 420,
+   "findings": 2
+  },
+  {
+   "id": "artifact:B7FCNNu9z4SduXqth9rkAw",
+   "kind": "artifact",
+   "title": "Code.gs Paste Page",
+   "url": "https://claude.ai/artifact/B7FCNNu9z4SduXqth9rkAw",
+   "date": "2026-10-09",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:Nk5dxdNdaYxf2epV5PZgS6",
+   "kind": "artifact",
+   "title": "Spider-Max",
+   "url": "https://claude.ai/artifact/Nk5dxdNdaYxf2epV5PZgS6",
+   "date": "2026-10-09",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:MUDHQp7X2n6SZm9UcFvnbV",
+   "kind": "artifact",
+   "title": "Max Blast Console",
+   "url": "https://claude.ai/artifact/MUDHQp7X2n6SZm9UcFvnbV",
+   "date": "2026-10-07",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:A112FwqGDFUiHS2Ew5Evb7",
+   "kind": "artifact",
+   "title": "#MaxMotorsFamily Spotlight",
+   "url": "https://claude.ai/artifact/A112FwqGDFUiHS2Ew5Evb7",
+   "date": "2026-10-02",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:VqVEucQGnDjku2MkkZUKGZ",
+   "kind": "artifact",
+   "title": "Rooftop 500 Runbook",
+   "url": "https://claude.ai/artifact/VqVEucQGnDjku2MkkZUKGZ",
+   "date": "2026-09-23",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:L4px9Tcq64xtrjLXhw1E3s",
+   "kind": "artifact",
+   "title": "Go-Live Runbook",
+   "url": "https://claude.ai/artifact/L4px9Tcq64xtrjLXhw1E3s",
+   "date": "2026-10-09",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:XHMpMFvpEEroZD2nn1sppE",
+   "kind": "artifact",
+   "title": "Booking Desk Quickstart",
+   "url": "https://claude.ai/artifact/XHMpMFvpEEroZD2nn1sppE",
+   "date": "2026-09-23",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:9qiEQSydBUPixmBAG3KePH",
+   "kind": "artifact",
+   "title": "TikTok Audit Checklist",
+   "url": "https://claude.ai/artifact/9qiEQSydBUPixmBAG3KePH",
+   "date": "2026-09-23",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:8LfG58ZfGnPQWXpUEEkzC6",
+   "kind": "artifact",
+   "title": "Max Dispatcher Policies",
+   "url": "https://claude.ai/artifact/8LfG58ZfGnPQWXpUEEkzC6",
+   "date": "2026-09-11",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:L5BsHSjqXQxSnvBPXTorXq",
+   "kind": "artifact",
+   "title": "Go-Live Packet",
+   "url": "https://claude.ai/artifact/L5BsHSjqXQxSnvBPXTorXq",
+   "date": "2026-08-25",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:1SCb7MvT8jjAVHj1m54x1Y",
+   "kind": "artifact",
+   "title": "Local Listings Audit",
+   "url": "https://claude.ai/artifact/1SCb7MvT8jjAVHj1m54x1Y",
+   "date": "2026-09-05",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:9gbEjRWTaGwF5m7bjhJi1P",
+   "kind": "artifact",
+   "title": "Marketplace Playbook",
+   "url": "https://claude.ai/artifact/9gbEjRWTaGwF5m7bjhJi1P",
+   "date": "2026-08-22",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:TpPRGAYyomsA8Hw15sinnE",
+   "kind": "artifact",
+   "title": "Facebook Go-Live",
+   "url": "https://claude.ai/artifact/TpPRGAYyomsA8Hw15sinnE",
+   "date": "2026-08-22",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:YF5jQH8VXEfKPMAtFanVA3",
+   "kind": "artifact",
+   "title": "Validator Field Preview",
+   "url": "https://claude.ai/artifact/YF5jQH8VXEfKPMAtFanVA3",
+   "date": "2026-08-18",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:LvWJVv3rqgK9YjuStCY7Jy",
+   "kind": "artifact",
+   "title": "Max Image Studio — Operator Runbook",
+   "url": "https://claude.ai/artifact/LvWJVv3rqgK9YjuStCY7Jy",
+   "date": "2026-08-11",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:2yxKKb5PTsS71C5dJGKjUq",
+   "kind": "artifact",
+   "title": "The Max Dispatcher — Go-Live Walkthrough",
+   "url": "https://claude.ai/artifact/2yxKKb5PTsS71C5dJGKjUq",
+   "date": "2026-07-20",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:F3qxX6ZJt9wo7azwF2fuSA",
+   "kind": "artifact",
+   "title": "Open Questions — Operational Excellence Checklist",
+   "url": "https://claude.ai/artifact/F3qxX6ZJt9wo7azwF2fuSA",
+   "date": "2026-07-30",
+   "words": 0,
+   "findings": 1
+  },
+  {
+   "id": "artifact:4yG4Ecs6R5NzkVyg2jtGQ5",
+   "kind": "artifact",
+   "title": "SUPERCHIP — Interactive Scope Hub",
+   "url": "https://claude.ai/artifact/4yG4Ecs6R5NzkVyg2jtGQ5",
+   "date": "2026-07-29",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:EmFXg1XTd5E32o7C8QfSVy",
+   "kind": "artifact",
+   "title": "SUPERCHIP — Manager Delegation Hubs",
+   "url": "https://claude.ai/artifact/EmFXg1XTd5E32o7C8QfSVy",
+   "date": "2026-07-29",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:7k3NVwkSAzxRU1wJvv754H",
+   "kind": "artifact",
+   "title": "SUPERCHIP — Opportunity Report",
+   "url": "https://claude.ai/artifact/7k3NVwkSAzxRU1wJvv754H",
+   "date": "2026-07-29",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:RmvZZhGk86ph7GCLfJ9zhw",
+   "kind": "artifact",
+   "title": "Max Motors — Store Command Center",
+   "url": "https://claude.ai/artifact/RmvZZhGk86ph7GCLfJ9zhw",
+   "date": "2026-07-23",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:4mqhwYinkijRHNcBWpjEAF",
+   "kind": "artifact",
+   "title": "SUPERCHIP — Onboarding Guide",
+   "url": "https://claude.ai/artifact/4mqhwYinkijRHNcBWpjEAF",
+   "date": "2026-07-26",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:6hpBkzb9y1jhmBrJL7zoEJ",
+   "kind": "artifact",
+   "title": "The Max Dispatcher — Preview",
+   "url": "https://claude.ai/artifact/6hpBkzb9y1jhmBrJL7zoEJ",
+   "date": "2026-07-22",
+   "words": 0,
+   "findings": 0
+  },
+  {
+   "id": "artifact:skipped-family",
+   "kind": "artifact",
+   "title": "1 personal artifact skipped (family material)",
+   "url": "",
+   "date": "2026-10-02",
+   "words": 0,
+   "findings": 0
+  }
+ ],
+ "findings": [
+  {
+   "id": "f-0001",
+   "type": "outcome",
+   "title": "Four procedural 2D characters shipped as standalone canvas files",
+   "detail": "Cyclops, Seamus, Oracle, Officer K'thrax — each with switchable animation states, effects toggles, PNG frame save",
+   "source": "chat:cdef50cf",
+   "date": "2026-07-26",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0002",
+   "type": "task",
+   "title": "Sprite-sheet export pipeline with JSON atlases not built",
+   "detail": "Blocked on game-engine target; every delivery ended asking Unity / Godot / Phaser / GameMaker",
+   "source": "chat:cdef50cf",
+   "date": "2026-07-26",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0003",
+   "type": "question",
+   "title": "Which game engine is the target?",
+   "detail": "Unity, Godot, Phaser or GameMaker — never answered; gates the sprite export work",
+   "source": "chat:cdef50cf",
+   "date": "2026-07-26",
+   "status": "open",
+   "agent": "Oracle"
+  },
+  {
+   "id": "f-0004",
+   "type": "practice",
+   "title": "Embed vs application decides chat vs Claude Code",
+   "detail": "Single-file deliverables stay in chat; multi-file repos with deps, OAuth, DB, scheduled functions go to Claude Code",
+   "source": "chat:8ef8a807",
+   "date": "2026-07-19",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0005",
+   "type": "outcome",
+   "title": "GBP/social posting tool architected",
+   "detail": "Netlify Functions + Scheduled Functions, Supabase, queue-based posting, GBP API approval as Gate 0",
+   "source": "chat:8ef8a807",
+   "date": "2026-07-19",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0006",
+   "type": "task",
+   "title": "Build the GBP/social campaign posting tool in Claude Code",
+   "detail": "Architected, not built; Gate 0 is GBP API approval",
+   "source": "chat:8ef8a807",
+   "date": "2026-07-19",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0007",
+   "type": "skill",
+   "title": "Chat-vs-Claude-Code evaluation template",
+   "detail": "Reusable scored verdict template for routing future projects",
+   "source": "chat:8ef8a807",
+   "date": "2026-07-19",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0008",
+   "type": "error",
+   "title": "Claude Code desktop: Enter key did not send the prompt",
+   "detail": "Diagnosed as missing folder selection or a known Enter-key bug; Ctrl+Enter / CLI workaround",
+   "source": "chat:8ef8a807",
+   "date": "2026-07-19",
+   "status": "unknown",
+   "agent": "Insect Cop"
+  },
+  {
+   "id": "f-0009",
+   "type": "skill",
+   "title": "BRINK-OS.md operating-philosophy file",
+   "detail": "Under-100-line companion to CLAUDE.md: prioritization funnel, execution rules, PARA, hard rules, persistence clause",
+   "source": "chat:f9180709",
+   "date": "2026-07-17",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0010",
+   "type": "idea",
+   "title": "Slash-command version of BRINK-OS.md",
+   "detail": "Offered as follow-up to load the file on demand; not taken up",
+   "source": "chat:f9180709",
+   "date": "2026-07-17",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0011",
+   "type": "skill",
+   "title": "bug-hunt.md five-phase adversarial bug-hunt command",
+   "detail": "Recon → friction mining → parallel reviewer lenses → verifier subagents → ranked BUG_HUNT_REPORT.md",
+   "source": "chat:a75d02c9",
+   "date": "2026-07-17",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0012",
+   "type": "practice",
+   "title": "Five AI-code security traps hardcoded as a mandatory checklist",
+   "detail": "Client-exposed secrets, no rate limiting on auth, open DB permissions, public non-prod with prod data, PII without privacy policy",
+   "source": "chat:a75d02c9",
+   "date": "2026-07-17",
+   "status": "done",
+   "agent": "Ronin"
+  },
+  {
+   "id": "f-0013",
+   "type": "error",
+   "title": "COMMAND CENTER workflow skill stalled on Dropbox selective-sync conflict",
+   "detail": "Custom workflow skill left partially built; decided to finish it in Claude Code",
+   "source": "memory:claude-code-automation",
+   "date": "2026-07-19",
+   "status": "open",
+   "agent": "Insect Cop"
+  },
+  {
+   "id": "f-0014",
+   "type": "task",
+   "title": "Finish COMMAND CENTER workflow skill in Claude Code",
+   "detail": "Stalled with a known blocker that Claude Code removes",
+   "source": "memory:claude-code-automation",
+   "date": "2026-07-19",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0015",
+   "type": "skill",
+   "title": "stop-slop and house-voice skills in the MCPmarket plugin",
+   "detail": "Marketing-copy voice skill plus slop filter; apifind.py API discovery toolkit alongside",
+   "source": "memory:claude-code-automation",
+   "date": "2026-07-19",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0016",
+   "type": "outcome",
+   "title": "HOLLOW POINT feature drop v5 shipped and harness-verified",
+   "detail": "Lasso swing, tripod gatling, The Posse (six scripted allies), doubled enemy counts, music panel, game speed",
+   "source": "memory:hollow-point-game",
+   "date": "2026-09-01",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0017",
+   "type": "outcome",
+   "title": "Free radio streaming, real CC0 gunshot SFX, Max Payne bullet cam",
+   "detail": "Radio Browser stations with auto-skip; ~34KB inlined OGG shots; scripted slow-mo kill replay",
+   "source": "memory:hollow-point-game",
+   "date": "2026-09-01",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0018",
+   "type": "error",
+   "title": "FPS cannot be profiled in the Node harness — real-browser check still pending",
+   "detail": "Material upgrades deferred because golden hour must be protected and frame rate is unmeasured",
+   "source": "memory:hollow-point-game",
+   "date": "2026-09-01",
+   "status": "open",
+   "agent": "Insect Cop"
+  },
+  {
+   "id": "f-0019",
+   "type": "practice",
+   "title": "No real Max Motors branding in the game — fictional HOLLOW & SONS marque only",
+   "detail": "Real names/logos and OEM names reversed; town names stay; do not reintroduce",
+   "source": "memory:hollow-point-game",
+   "date": "2026-09-01",
+   "status": "done",
+   "agent": "Ronin"
+  },
+  {
+   "id": "f-0020",
+   "type": "task",
+   "title": "three.js modern upgrade + pmndrs postprocessing needs a Claude Code session",
+   "detail": "Future graphics path discussed; Poly Haven HDRIs, Kenney/Quaternius packs, Mixamo",
+   "source": "memory:hollow-point-game",
+   "date": "2026-09-01",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0021",
+   "type": "idea",
+   "title": "Sequel hook planted: 'JACK HOLLOW WILL RETURN IN DOOMSDAY'",
+   "detail": "Credits tag over the homeworld approach screen",
+   "source": "memory:hollow-point-game",
+   "date": "2026-09-01",
+   "status": "open",
+   "agent": ""
+  },
+  {
+   "id": "f-0022",
+   "type": "task",
+   "title": "Form the MK STUDIOS LLC — starting from the beginning",
+   "detail": "Marketing company entity not yet formed",
+   "source": "memory:mk-studios-llc",
+   "date": "2026-07-23",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0023",
+   "type": "task",
+   "title": "Migrate the Proposal Portal off Google Sites to Netlify",
+   "detail": "Interactive, data-rich deal proposal pages; Netlify is the embedding source going forward",
+   "source": "memory:proposal-portal",
+   "date": "2026-07-19",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0024",
+   "type": "practice",
+   "title": "Clarity builds trust. Trust builds gross. The Portal builds both.",
+   "detail": "Core line for the Portal",
+   "source": "memory:proposal-portal",
+   "date": "2026-07-19",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0025",
+   "type": "task",
+   "title": "Unfinished posting-tool chat in the Digital Intelligence hub",
+   "detail": "User-customizable campaigns that trigger automatic posting; routed to Claude Code",
+   "source": "memory:social-posting-tool",
+   "date": "2026-07-19",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0026",
+   "type": "practice",
+   "title": "CallRail → Zapier → Microsoft email pipeline delivers transcribed calls with summaries",
+   "detail": "Shared-admin accounts on CallRail and Zapier",
+   "source": "memory:tech-stack",
+   "date": "2026-07-23",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0027",
+   "type": "practice",
+   "title": "Voice: professional, dry wit, never cheesy, confident not pushy; Apple-style power words",
+   "detail": "Avoid dealership clichés and fluff; conversion-first, FAQ schema, H1–H5 hierarchy",
+   "source": "memory:marketing-and-seo",
+   "date": "2026-07-17",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0028",
+   "type": "practice",
+   "title": "Three anchors: clarity→trust→gross · modern retail or die · centralized accountability",
+   "detail": "Transparent data-backed communication; digital-first; salespeople own activity, management owns gross",
+   "source": "memory:operating-philosophy",
+   "date": "2026-07-17",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0029",
+   "type": "practice",
+   "title": "Models incremental 1% gains across lead → set → show → close",
+   "detail": "Plus CRM activity and business-hour response time",
+   "source": "memory:kpis",
+   "date": "2026-07-17",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0030",
+   "type": "question",
+   "title": "Which Supabase org holds the 'BRINK CORE' project?",
+   "detail": "Carryover ref not visible from the connected org; confirm before wiring findings storage",
+   "source": "memory:brink-core-overview",
+   "date": "2026-10-09",
+   "status": "open",
+   "agent": "Oracle"
+  },
+  {
+   "id": "f-0031",
+   "type": "task",
+   "title": "Owner-only sign-in + private repo before any shared crawl store",
+   "detail": "Decided today; site is public and repo is public",
+   "source": "memory:brink-core-overview",
+   "date": "2026-10-09",
+   "status": "open",
+   "agent": "Ronin"
+  },
+  {
+   "id": "f-0032",
+   "type": "task",
+   "title": "Ronin character still on stock art",
+   "detail": "Needs ronin-character.html; four others ported",
+   "source": "memory:brink-core-overview",
+   "date": "2026-10-09",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0033",
+   "type": "practice",
+   "title": "Stale-deploy trap: confirm the Netlify site is linked to the repo",
+   "detail": "Unlinked deploys silently go nowhere; verify the live stamp after every push",
+   "source": "memory:ways-of-working",
+   "date": "2026-09-08",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0034",
+   "type": "task",
+   "title": "Rotate WORKER_KEY and sync key — both chat-exposed",
+   "detail": "Listed open in today's state doc",
+   "source": "doc:brink-core-state",
+   "date": "2026-10-09",
+   "status": "open",
+   "agent": "Ronin"
+  },
+  {
+   "id": "f-0035",
+   "type": "task",
+   "title": "Version-control the worker files under /workers",
+   "detail": "brinkcore-agents + sync worker are loose files",
+   "source": "doc:brink-core-state",
+   "date": "2026-10-09",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0036",
+   "type": "outcome",
+   "title": "Spider-Max v0.4 prototype published",
+   "detail": "Procedural walker that became Max in BRINK CORE",
+   "source": "artifact:Nk5dxdNdaYxf2epV5PZgS6",
+   "date": "2026-10-09",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0037",
+   "type": "outcome",
+   "title": "Rooftop 500 Runbook published",
+   "detail": "Operational doc live as an artifact",
+   "source": "artifact:VqVEucQGnDjku2MkkZUKGZ",
+   "date": "2026-09-23",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0038",
+   "type": "outcome",
+   "title": "Go-Live Runbook published",
+   "detail": "Operational doc live as an artifact",
+   "source": "artifact:L4px9Tcq64xtrjLXhw1E3s",
+   "date": "2026-10-09",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0039",
+   "type": "outcome",
+   "title": "Booking Desk Quickstart published",
+   "detail": "Operational doc live as an artifact",
+   "source": "artifact:XHMpMFvpEEroZD2nn1sppE",
+   "date": "2026-09-23",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0040",
+   "type": "task",
+   "title": "TikTok Audit Checklist — act on findings",
+   "detail": "Audit artifact exists; follow-through not tracked in the hub",
+   "source": "artifact:9qiEQSydBUPixmBAG3KePH",
+   "date": "2026-09-23",
+   "status": "unknown",
+   "agent": "Polyphemus"
+  },
+  {
+   "id": "f-0041",
+   "type": "outcome",
+   "title": "Max Dispatcher Policies published",
+   "detail": "Operational doc live as an artifact",
+   "source": "artifact:8LfG58ZfGnPQWXpUEEkzC6",
+   "date": "2026-09-11",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0042",
+   "type": "outcome",
+   "title": "Go-Live Packet published",
+   "detail": "Operational doc live as an artifact",
+   "source": "artifact:L5BsHSjqXQxSnvBPXTorXq",
+   "date": "2026-08-25",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0043",
+   "type": "task",
+   "title": "Local Listings Audit — act on findings",
+   "detail": "Audit artifact exists; follow-through not tracked in the hub",
+   "source": "artifact:1SCb7MvT8jjAVHj1m54x1Y",
+   "date": "2026-09-05",
+   "status": "unknown",
+   "agent": "Polyphemus"
+  },
+  {
+   "id": "f-0044",
+   "type": "outcome",
+   "title": "Marketplace Playbook published",
+   "detail": "Operational doc live as an artifact",
+   "source": "artifact:9gbEjRWTaGwF5m7bjhJi1P",
+   "date": "2026-08-22",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0045",
+   "type": "outcome",
+   "title": "Facebook Go-Live published",
+   "detail": "Operational doc live as an artifact",
+   "source": "artifact:TpPRGAYyomsA8Hw15sinnE",
+   "date": "2026-08-22",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0046",
+   "type": "outcome",
+   "title": "Max Image Studio — Operator Runbook published",
+   "detail": "Operational doc live as an artifact",
+   "source": "artifact:LvWJVv3rqgK9YjuStCY7Jy",
+   "date": "2026-08-11",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0047",
+   "type": "outcome",
+   "title": "The Max Dispatcher — Go-Live Walkthrough published",
+   "detail": "Operational doc live as an artifact",
+   "source": "artifact:2yxKKb5PTsS71C5dJGKjUq",
+   "date": "2026-07-20",
+   "status": "done",
+   "agent": ""
+  },
+  {
+   "id": "f-0048",
+   "type": "question",
+   "title": "Operational Excellence open questions still parked",
+   "detail": "Checklist artifact from July; unresolved items not tracked in the hub",
+   "source": "artifact:F3qxX6ZJt9wo7azwF2fuSA",
+   "date": "2026-07-30",
+   "status": "open",
+   "agent": "Oracle"
+  }
+ ]
+}

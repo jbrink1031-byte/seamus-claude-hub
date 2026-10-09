@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.66</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.67</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -10024,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.66';
+  var v = 'v0.67';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10186,7 +10186,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
     <header class="sx-top">
       <div>
         <h1 class="sx-title">MAX <b>// SEAMUS'S SPIDER</b></h1>
-        <p class="sx-sub">Max crawls the core the moment he's out · legs hook a source, the find rides the silk into its bin · every number is computed from what he read</p>
+        <p class="sx-sub">Max crawls your account run the moment he's out · legs hook a source, the find rides the silk into its bin · every number is computed from what was actually read</p>
       </div>
       <button class="sx-btn" id="sx-adv" type="button" style="margin-left:auto;">⚙ FULL-ACCOUNT CRAWL</button><button class="sx-back" id="sx-back" type="button" style="margin-left:0;">← BACK TO THE CORE</button>
     </header>
@@ -10252,6 +10252,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
 (function SpiderMax() {
   const $ = id => document.getElementById(id);
   const root = $('spider-root'); if (!root) return;
+  var SERVER_RUN;
   const TAU = Math.PI * 2;
   const TYPES = ['idea', 'outcome', 'skill', 'practice', 'error', 'question', 'task'];
   const TCOL = { idea: '#06b6d4', outcome: '#2EA86C', skill: '#8b5cf6', practice: '#38bdf8', error: '#DC2626', question: '#F59E0B', task: '#e6edf3' };
@@ -10269,7 +10270,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
     root.setAttribute('aria-hidden', on ? 'false' : 'true');
     const t = $('spider-toggle'); if (t) t.classList.toggle('on', on);
     put(LS.mode, on ? 'spider' : 'hub');
-    if (on) { measure(); if (!raf) raf = requestAnimationFrame(frame); if (!W.length) setTimeout(coreCrawl, 250); }
+    if (on) { measure(); if (!raf) raf = requestAnimationFrame(frame); if (!W.length) setTimeout(() => { if (SERVER_RUN) { mount(SERVER_RUN, null); playing = true; } else coreCrawl(); }, 250); }
     else if (raf) { cancelAnimationFrame(raf); raf = 0; }
   }
   window.toggleSpider = () => show(!visible);
@@ -10587,10 +10588,20 @@ OUTPUT — one JSON document, nothing else:
   $('sx-adv').addEventListener('click', () => { const m = $('sx-main'); m.classList.toggle('adv'); $('sx-adv').textContent = m.classList.contains('adv') ? '⚙ HIDE PLANNER' : '⚙ FULL-ACCOUNT CRAWL'; setTimeout(() => { measure(); draw(); }, 60); });
   loopBox.addEventListener('change', () => put('brink_spider_loop', loopBox.checked));
   window.spiderLoop = on => { loopBox.checked = !!on; put('brink_spider_loop', !!on); };
-  // boot
+  // boot — the account run ships with the hub (spider-run.json, written by a Claude session crawl)
+  SERVER_RUN = null;
   drawWeb(); renderCost();
-  const runs = safe(LS.runs, []);
-  mount(runs[0] || null, runs[1] || null);
+  { const runs = safe(LS.runs, []); mount(runs[0] || null, runs[1] || null); }
+  fetch('spider-run.json?v=' + encodeURIComponent((document.querySelector('.brand-sub') || {}).textContent || ''), { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(doc => {
+      if (!doc || !doc.run || !Array.isArray(doc.sources) || !Array.isArray(doc.findings)) return;
+      doc.findings = doc.findings.filter(f => TYPES.includes(f.type));
+      SERVER_RUN = doc;
+      const prev = safe(LS.runs, []).find(r => r.run && r.run.id !== doc.run.id && !String(r.run.id).startsWith('core:')) || null;
+      if (!W.length || (DOC && String(DOC.run.id).startsWith('core:'))) { mount(doc, prev); if (visible) playing = true; }
+      $('sx-status').textContent = 'Account run ' + doc.run.id + ' · ' + doc.sources.length + ' sources · ' + doc.findings.length + ' findings · ' + (doc.run.scope || '');
+    }).catch(() => {});
   if (safe(LS.mode, 'hub') === 'spider') show(true);
 })();
 </script>
