@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.72</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.73</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -10024,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.72';
+  var v = 'v0.73';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10163,8 +10163,9 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
   .sx-empty b { color: var(--text-0); display: block; font-size: 13px; letter-spacing: .12em; }
   /* --- BINS --- */
   /* bins — narrow column, every bin a live drop-box: count in the header, the latest finds as full cards */
-  .sx-bins { display: flex; flex-direction: column; gap: 6px; min-height: 0; }
-  .sx-bin { position: relative; flex: 1 1 0; min-height: 0; border: 1px solid currentColor; background: rgba(13,17,23,0.82); display: flex; flex-direction: column; cursor: pointer; overflow: hidden; isolation: isolate; transition: box-shadow .35s ease, border-color .35s ease; box-shadow: 0 0 calc(2px + var(--charge,0) * 20px) color-mix(in srgb, currentColor calc(12% + var(--charge,0) * 46%), transparent); }
+  .sx-bins { display: flex; flex-direction: column; gap: 6px; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 2px; scrollbar-width: thin; }
+  .sx-bins::-webkit-scrollbar { width: 7px; } .sx-bins::-webkit-scrollbar-thumb { background: var(--border-hot); border-radius: 4px; }
+  .sx-bin { position: relative; flex: 0 0 auto; min-height: 78px; border: 1px solid currentColor; background: rgba(13,17,23,0.82); display: flex; flex-direction: column; cursor: pointer; overflow: hidden; isolation: isolate; transition: box-shadow .35s ease, border-color .35s ease; box-shadow: 0 0 calc(2px + var(--charge,0) * 20px) color-mix(in srgb, currentColor calc(12% + var(--charge,0) * 46%), transparent); }
   /* charge fill — a hive cell / capacitor rising from the floor as finds land */
   .sx-bin::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to top, color-mix(in srgb, currentColor 42%, transparent) 0%, color-mix(in srgb, currentColor 15%, transparent) calc(var(--chpct,0%) * .55), transparent var(--chpct,0%)); transition: background .6s cubic-bezier(.2,.8,.3,1); }
   /* chitin scanlines — insect/tech, faster + brighter the fuller the bin */
@@ -10469,7 +10470,7 @@ OUTPUT — one JSON document, nothing else:
     const isNew = !!(DOC && (DOC.run.new_sources || []).includes(f.source));
     return `<li${isNew ? ' class="new"' : ''}><b>${esc(f.title || '')}</b><span><i>${esc((s.kind || '').toUpperCase())}</i> ${esc((s.title || f.source || '').slice(0, 34))}</span><span>${f.agent ? esc(f.agent) + ' · ' : ''}${esc(f.date || '')}${f.status ? ' · ' + esc(f.status) : ''}</span></li>`;
   }
-  function binList(t) { return (shown[t] || []).slice(-5).reverse().map(card).join('') || '<li class="none">— waiting on silk</li>'; }
+  function binList(t) { return (shown[t] || []).slice(-8).reverse().map(card).join('') || '<li class="none">— waiting on silk</li>'; }
   function chargeBin(el, cc) { if (!el) return; const ch = Math.min(1, cc / 10); // the cell fills, glows and quickens as it receives
     el.style.setProperty('--charge', ch.toFixed(3)); el.style.setProperty('--chpct', Math.round(ch * 100) + '%');
     el.style.setProperty('--scandur', (6 - ch * 3.6).toFixed(2) + 's'); el.style.setProperty('--sheendur', (8 - ch * 4.4).toFixed(2) + 's'); }
@@ -10646,6 +10647,7 @@ OUTPUT — one JSON document, nothing else:
   $('sx-speed').addEventListener('input', e => { speed = +e.target.value; });
   let rz; window.addEventListener('resize', () => { if (!visible) return; clearTimeout(rz); rz = setTimeout(() => { measure(); draw(); }, 120); });
   $('spider-root').addEventListener('scroll', () => { if (!visible) return; clearTimeout(rz); rz = setTimeout(() => { measure(); draw(); }, 60); });
+  $('sx-bins').addEventListener('scroll', () => { if (!visible) return; clearTimeout(rz); rz = setTimeout(() => { measure(); draw(); }, 60); }); // keep bin drop-targets aligned while the column scrolls
 
   // ---------- CRAWL THE CORE — instant, token-free pass over the hub's own local state ----------
   // Every source and finding below is read literally from localStorage / the live DOM. No inference.
