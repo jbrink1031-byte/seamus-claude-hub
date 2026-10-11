@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.70</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.71</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -10024,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.70';
+  var v = 'v0.71';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10262,8 +10262,9 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
 
     <section class="sx-row2">
       <div class="sx-panel"><h2 id="sx-listtitle">● FINDINGS · click a bin</h2><div class="sx-list" id="sx-list"></div></div>
-      <div class="sx-panel"><h2>● AGENT QUEUE · open tasks by assignee</h2><div class="sx-queue" id="sx-queue"></div>
-        <div class="sx-btns" style="margin-top:4px;"><button class="sx-btn" id="sx-play" type="button">PAUSE</button><button class="sx-btn" id="sx-restart" type="button">REPLAY</button><label style="font-size:10px;color:var(--text-2);display:flex;align-items:center;gap:6px;"><input id="sx-loop" type="checkbox" style="accent-color:var(--cyan)"> loop</label><label style="font-size:10px;color:var(--text-2);display:flex;align-items:center;gap:6px;">speed <input id="sx-speed" type="range" min="0.5" max="3" step="0.5" value="1" style="width:70px;accent-color:var(--cyan)"></label></div>
+      <div class="sx-panel"><h2>● AGENT QUEUE · open tasks by assignee</h2>
+        <div class="sx-btns" style="margin:0 0 2px;align-items:center;"><label style="font-size:10px;color:var(--text-1);display:flex;align-items:center;gap:6px;">speed <input id="sx-speed" type="range" min="0.5" max="3" step="0.5" value="1" style="width:92px;accent-color:var(--cyan)"></label><label style="font-size:10px;color:var(--text-2);display:flex;align-items:center;gap:6px;"><input id="sx-loop" type="checkbox" style="accent-color:var(--cyan)"> loop</label><button class="sx-btn" id="sx-play" type="button">PAUSE</button><button class="sx-btn" id="sx-restart" type="button">REPLAY</button></div>
+        <div class="sx-queue" id="sx-queue"></div>
       </div>
     </section>
   </div>
