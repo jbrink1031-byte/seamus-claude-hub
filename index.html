@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.69</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.70</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -10024,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.69';
+  var v = 'v0.70';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10164,11 +10164,21 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
   /* --- BINS --- */
   /* bins — narrow column, every bin a live drop-box: count in the header, the latest finds as full cards */
   .sx-bins { display: flex; flex-direction: column; gap: 6px; min-height: 0; }
-  .sx-bin { flex: 1 1 0; min-height: 0; border: 1px solid currentColor; background: rgba(13,17,23,0.8); display: flex; flex-direction: column; cursor: pointer; transition: box-shadow .15s; overflow: hidden; }
+  .sx-bin { position: relative; flex: 1 1 0; min-height: 0; border: 1px solid currentColor; background: rgba(13,17,23,0.82); display: flex; flex-direction: column; cursor: pointer; overflow: hidden; isolation: isolate; transition: box-shadow .35s ease, border-color .35s ease; box-shadow: 0 0 calc(2px + var(--charge,0) * 20px) color-mix(in srgb, currentColor calc(12% + var(--charge,0) * 46%), transparent); }
+  /* charge fill — a hive cell / capacitor rising from the floor as finds land */
+  .sx-bin::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to top, color-mix(in srgb, currentColor 42%, transparent) 0%, color-mix(in srgb, currentColor 15%, transparent) calc(var(--chpct,0%) * .55), transparent var(--chpct,0%)); transition: background .6s cubic-bezier(.2,.8,.3,1); }
+  /* chitin scanlines — insect/tech, faster + brighter the fuller the bin */
+  .sx-bin::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent 0 5px, color-mix(in srgb, currentColor 10%, transparent) 5px 6px); opacity: calc(.14 + var(--charge,0) * .5); animation: sx-scan var(--scandur, 6s) linear infinite; }
+  .sx-bin > * { position: relative; z-index: 1; }
+  @keyframes sx-scan { from { background-position: 0 0; } to { background-position: 0 -60px; } }
   .sx-bin.flash { box-shadow: 0 0 18px currentColor; }
-  .sx-bin header { background: currentColor; padding: 2px 7px; font-size: 8px; letter-spacing: .1em; display: flex; justify-content: space-between; flex: none; }
+  .sx-bin header { position: relative; overflow: hidden; isolation: isolate; background: currentColor; padding: 2px 7px; font-size: 8px; letter-spacing: .1em; display: flex; justify-content: space-between; flex: none; }
+  .sx-bin header span, .sx-bin header .n { position: relative; z-index: 1; }
+  /* energy sheen sweeping the header, faster as the bin fills */
+  .sx-bin header::after { content: ''; position: absolute; inset: -1px; z-index: 0; background: linear-gradient(100deg, transparent 18%, rgba(255,255,255,.55) 50%, transparent 82%); transform: translateX(-120%); animation: sx-sheen var(--sheendur, 8s) linear infinite; }
+  @keyframes sx-sheen { 0% { transform: translateX(-120%); } 55%,100% { transform: translateX(120%); } }
   .sx-bin header span { color: #0b0b0d; font-weight: 700; }
-  .sx-bin header .n { color: #0b0b0d; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .sx-bin header .n { color: #0b0b0d; font-weight: 800; font-variant-numeric: tabular-nums; display: inline-block; transform-origin: right center; text-shadow: 0 0 5px color-mix(in srgb, currentColor 60%, transparent); }
   .sx-bin ul { margin: 0; padding: 3px 7px 4px; list-style: none; font-size: 8px; color: var(--text-2); display: grid; gap: 3px; overflow: hidden; min-height: 0; }
   .sx-bin li { border-left: 2px solid currentColor; padding-left: 5px; line-height: 1.35; }
   .sx-bin li b { display: block; color: var(--text-0); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -10176,6 +10186,15 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
   .sx-bin li span i { font-style: normal; color: currentColor; letter-spacing: .08em; }
   .sx-bin li.new b { color: var(--amber); }
   .sx-bin .none { color: var(--text-2); font-size: 8px; padding: 4px 7px; }
+  .sx-bin.flash { box-shadow: 0 0 22px currentColor; }
+  /* a find just dropped — box surges, newest card slides in, count pops */
+  .sx-bin.drop { animation: sx-drop .52s ease-out; }
+  @keyframes sx-drop { 0% { box-shadow: inset 0 0 26px color-mix(in srgb, currentColor 60%, transparent), 0 0 24px color-mix(in srgb, currentColor 75%, transparent); border-color: color-mix(in srgb, currentColor 90%, white); } 100% { box-shadow: 0 0 calc(2px + var(--charge,0) * 20px) color-mix(in srgb, currentColor calc(12% + var(--charge,0) * 46%), transparent); border-color: currentColor; } }
+  .sx-bin.drop .n { animation: sx-pop .46s cubic-bezier(.2,1.5,.35,1); }
+  @keyframes sx-pop { 0% { transform: scale(1); } 34% { transform: scale(1.75); } 100% { transform: scale(1); } }
+  .sx-bin.drop ul li:first-child { animation: sx-slide .42s ease-out; }
+  @keyframes sx-slide { 0% { transform: translateX(10px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .sx-bin::after, .sx-bin header::after { animation: none; } }
   .sx-row2 { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 10px; max-height: 168px; min-height: 0; }
   .sx-queue { display: grid; gap: 6px; }
   .sx-queue div { border-left: 2px solid currentColor; padding-left: 8px; font-size: 10px; }
@@ -10450,9 +10469,12 @@ OUTPUT — one JSON document, nothing else:
     return `<li${isNew ? ' class="new"' : ''}><b>${esc(f.title || '')}</b><span><i>${esc((s.kind || '').toUpperCase())}</i> ${esc((s.title || f.source || '').slice(0, 34))}</span><span>${f.agent ? esc(f.agent) + ' · ' : ''}${esc(f.date || '')}${f.status ? ' · ' + esc(f.status) : ''}</span></li>`;
   }
   function binList(t) { return (shown[t] || []).slice(-4).reverse().map(card).join('') || '<li class="none">— waiting on silk</li>'; }
+  function chargeBin(el, cc) { if (!el) return; const ch = Math.min(1, cc / 10); // the cell fills, glows and quickens as it receives
+    el.style.setProperty('--charge', ch.toFixed(3)); el.style.setProperty('--chpct', Math.round(ch * 100) + '%');
+    el.style.setProperty('--scandur', (6 - ch * 3.6).toFixed(2) + 's'); el.style.setProperty('--sheendur', (8 - ch * 4.4).toFixed(2) + 's'); }
   function bins() {
     $('sx-bins').innerHTML = TYPES.map(t => `<div class="sx-bin" id="bin-${t}" style="color:${TCOL[t]}"><header><span>${t.toUpperCase()}</span><span class="n">${cnt[t] || 0}</span></header><ul>${binList(t)}</ul></div>`).join('');
-    TYPES.forEach(t => $('bin-' + t).addEventListener('click', () => list(t)));
+    TYPES.forEach(t => { const el = $('bin-' + t); el.addEventListener('click', () => list(t)); chargeBin(el, cnt[t] || 0); });
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]); }
   function list(t) {
@@ -10471,7 +10493,7 @@ OUTPUT — one JSON document, nothing else:
   // ---------- STAGE: feed rows + walker (ported from v0.4) ----------
   const rows = $('sx-rows'), stage = $('sx-stage'), cv = $('sx-fx'), g = cv.getContext('2d');
   let W = [], SW = 0, SH = 0, SL = 0, ST = 0, VW = 0, VH = 0, arc = {}, bg = null, PERM = 1, STEP = 900;
-  let i = 0, acc = 0, clock = 0, playing = true, speed = 1, last = 0, doneAt = -1, sp, feet, ox = 0, oy = 0, flights = [];
+  let i = 0, acc = 0, clock = 0, playing = true, speed = 1, last = 0, doneAt = -1, sp, feet, ox = 0, oy = 0, flights = [], bursts = [];
   const LEGS = 10, gcd = (a, b) => b ? gcd(b, a % b) : a;
   function mount(doc, prev) {
     DOC = doc; wall(doc, prev); cnt = {}; shown = {}; bins(); queue(); $('sx-list').innerHTML = ''; $('sx-listtitle').textContent = '● FINDINGS · click a bin';
@@ -10507,17 +10529,25 @@ OUTPUT — one JSON document, nothing else:
   function tick(j, len) { const n = W.length, th = Math.PI + arc.a - (n > 1 ? 2 * arc.a * ((j * PERM) % n) / (n - 1) : arc.a), c = Math.cos(th), s = Math.sin(th); return { x0: arc.cx + arc.R * c, y0: arc.cy + arc.R * s, x: arc.cx + (arc.R + len) * c, y: arc.cy + (arc.R + len) * s }; }
   function ideal(k) { const an = (k + .5) / LEGS * TAU, r = k % 2 ? 96 : 70; return { x: sp.x + Math.cos(an) * r * 1.25, y: sp.y + Math.sin(an) * r }; }
   function reset() {
-    i = 0; acc = 0; clock = 0; doneAt = -1; cnt = {}; shown = {}; flights = []; rows.scrollTop = 0;
+    i = 0; acc = 0; clock = 0; doneAt = -1; cnt = {}; shown = {}; flights = []; bursts = []; rows.scrollTop = 0;
     W.forEach(w => { w.el.className = 'sx-row'; w.at = -1; });
     const f = W[0] || { x: 60, y: 40 }; sp = { x: f.x + 22, y: f.y - 20 };
     feet = Array.from({ length: LEGS }, (_, k) => { const p = ideal(k); return { x: p.x, y: p.y, fx: p.x, fy: p.y, tx: p.x, ty: p.y, t: -1e9 }; });
     bins();
   }
+  const IMP = 0.56; // where on the reach the claw taps the bin and lets go
   function visit(w) {
     w.at = clock; w.el.className = 'sx-row v' + (w.found.length ? ' hit' : '');
-    w.found.forEach((f, k) => { // the file pull: leg hooks the row, card flies on silk into its bin
-      flights.push({ f, from: { x: w.x, y: w.y }, t0: clock + k * 140, dur: 1100 });
-      setTimeout(() => { cnt[f.type] = (cnt[f.type] || 0) + 1; (shown[f.type] = shown[f.type] || []).push(f); const b = $('bin-' + f.type); if (b) { b.querySelector('.n').textContent = cnt[f.type]; b.querySelector('ul').innerHTML = binList(f.type); b.classList.add('flash'); setTimeout(() => b.classList.remove('flash'), 320); } }, (k * 140 + 1100) / speed);
+    w.found.forEach((f, k) => { // a dedicated leg reaches from the body across to the bin and PLACES the card
+      flights.push({ f, from: { x: w.x, y: w.y }, t0: clock + k * 165, dur: 1180 });
+      setTimeout(() => {
+        cnt[f.type] = (cnt[f.type] || 0) + 1; (shown[f.type] = shown[f.type] || []).push(f);
+        const b = $('bin-' + f.type);
+        if (b) { b.querySelector('.n').textContent = cnt[f.type]; b.querySelector('ul').innerHTML = binList(f.type); chargeBin(b, cnt[f.type]);
+          b.classList.remove('drop'); void b.offsetWidth; b.classList.add('drop'); setTimeout(() => b.classList.remove('drop'), 540); }
+        const B = arc['bin_' + f.type] || { x: arc.cx, y: arc.cy };
+        bursts.push({ x: B.x, y: B.y, t0: clock, col: TCOL[f.type] });
+      }, (k * 165 + 1180 * IMP) / speed);
     });
   }
   function frame(ts) {
@@ -10557,16 +10587,38 @@ OUTPUT — one JSON document, nothing else:
       g.strokeStyle = w.found.length ? '#06b6d4' : '#5a6577'; g.globalAlpha = w.found.length ? Math.max(.18, .8 - age / 1400) : Math.max(0, .6 - age / 900); g.lineWidth = age < 300 ? 1.5 : 1;
       g.beginPath(); g.moveTo(sx, sy); g.bezierCurveTo(sx + (T.x - sx) * .45, sy, T.x - (T.x - sx) * .3, T.y + (sy - T.y) * .15, T.x, T.y); g.stroke(); }
     g.globalAlpha = 1;
-    // file cards in flight: row → spider body → bin anchor
+    // FILE DELIVERY — a dedicated insect leg reaches from the body to the bin and physically places the card
     const bx = ox + sp.x, by = oy + sp.y;
-    flights = flights.filter(fl => clock - fl.t0 < fl.dur + 200);
+    flights = flights.filter(fl => clock - fl.t0 < fl.dur + 140);
     for (const fl of flights) { const e = Math.min(1, Math.max(0, (clock - fl.t0) / fl.dur)); if (e <= 0) continue;
-      const B = arc['bin_' + fl.f.type] || { x: arc.cx, y: arc.cy }, fx = ox + fl.from.x, fy = oy + fl.from.y;
-      const x = e < .4 ? bz(fx, fx + 20, bx - 20, bx, e / .4) : bz(bx, bx + (B.x - bx) * .3, B.x - 40, B.x, (e - .4) / .6);
-      const y = e < .4 ? bz(fy, fy - 30, by - 20, by, e / .4) : bz(by, by - 60, B.y - 30, B.y, (e - .4) / .6);
-      g.strokeStyle = 'rgba(6,182,212,.5)'; g.lineWidth = .8; g.beginPath(); g.moveTo(e < .4 ? bx : B.x, e < .4 ? by : B.y); g.lineTo(x, y); g.stroke();
-      const lab = (fl.f.title || fl.f.type).slice(0, 18), tw = g.measureText(lab).width + 10;
-      g.fillStyle = TCOL[fl.f.type]; g.fillRect(x - tw / 2, y - 7, tw, 14); g.fillStyle = '#0b0b0d'; g.fillText(lab, x - tw / 2 + 5, y + .5); }
+      const B = arc['bin_' + fl.f.type] || { x: arc.cx, y: arc.cy }, col = TCOL[fl.f.type];
+      let tx, ty, carrying;
+      if (e < IMP) { const r = e / IMP, s = r * r * (3 - 2 * r); carrying = true; // reach out, card on the claw
+        tx = bz(bx, bx + (B.x - bx) * .25, B.x - 34, B.x, s); ty = bz(by, by - 78, B.y - 48, B.y, s);
+      } else { const r = (e - IMP) / (1 - IMP), s = r * r; carrying = false; // card released; the leg folds back
+        tx = bz(B.x, B.x - 32, bx + (B.x - bx) * .2, bx, s); ty = bz(B.y, B.y - 46, by - 54, by, s); }
+      const dx = tx - bx, dy = ty - by, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L, bend = Math.min(96, 24 + L * .22);
+      const kx = bx + dx * .5 + nx * bend, ky = by + dy * .5 + ny * bend - 16; // insect knee, kicked out perpendicular
+      g.globalAlpha = carrying ? .96 : .5; g.lineCap = 'round';
+      g.strokeStyle = col; g.lineWidth = 2.6; g.beginPath(); g.moveTo(bx, by); g.lineTo(kx, ky); g.stroke();
+      g.lineWidth = 1.7; g.beginPath(); g.moveTo(kx, ky); g.lineTo(tx, ty); g.stroke();
+      g.fillStyle = col; g.beginPath(); g.arc(kx, ky, 2.6, 0, TAU); g.fill();
+      const ta = Math.atan2(ty - ky, tx - kx); g.lineWidth = 1.2; g.beginPath(); // the claw
+      g.moveTo(tx, ty); g.lineTo(tx - Math.cos(ta - .5) * 6, ty - Math.sin(ta - .5) * 6);
+      g.moveTo(tx, ty); g.lineTo(tx - Math.cos(ta + .5) * 6, ty - Math.sin(ta + .5) * 6); g.stroke();
+      g.lineCap = 'butt';
+      if (carrying) { g.globalAlpha = 1; const lab = (fl.f.title || fl.f.type).slice(0, 16), tw = g.measureText(lab).width + 10;
+        g.fillStyle = col; g.fillRect(tx - tw / 2, ty - 17, tw, 13); g.fillStyle = '#0b0b0d'; g.fillText(lab, tx - tw / 2 + 5, ty - 10.5);
+        g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = .6; g.strokeRect(tx - tw / 2, ty - 17, tw, 13); } }
+    g.globalAlpha = 1;
+    // impact bursts where the card lands in the bin — shock ring + radiating sparks (tech/insect)
+    bursts = bursts.filter(b => clock - b.t0 < 540);
+    for (const b of bursts) { const e = (clock - b.t0) / 540;
+      g.strokeStyle = b.col; g.globalAlpha = (1 - e) * .85; g.lineWidth = 2 - e * 1.4;
+      g.beginPath(); g.arc(b.x, b.y, 4 + e * 28, 0, TAU); g.stroke();
+      g.lineWidth = 1; for (let s = 0; s < 6; s++) { const an = s / 6 * TAU + e * 1.6, r0 = 6 + e * 12, r1 = 11 + e * 28;
+        g.beginPath(); g.moveTo(b.x + Math.cos(an) * r0, b.y + Math.sin(an) * r0); g.lineTo(b.x + Math.cos(an) * r1, b.y + Math.sin(an) * r1); g.stroke(); } }
+    g.globalAlpha = 1;
     // the spider
     const glow = g.createRadialGradient(bx, by, 2, bx, by, 64); glow.addColorStop(0, 'rgba(6,182,212,.34)'); glow.addColorStop(1, 'rgba(6,182,212,0)');
     g.fillStyle = glow; g.beginPath(); g.arc(bx, by, 64, 0, TAU); g.fill();
