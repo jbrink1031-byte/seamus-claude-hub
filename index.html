@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.73</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.74</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -10024,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.73';
+  var v = 'v0.74';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10495,8 +10495,9 @@ OUTPUT — one JSON document, nothing else:
   // ---------- STAGE: feed rows + walker (ported from v0.4) ----------
   const rows = $('sx-rows'), stage = $('sx-stage'), cv = $('sx-fx'), g = cv.getContext('2d');
   let W = [], SW = 0, SH = 0, SL = 0, ST = 0, VW = 0, VH = 0, arc = {}, bg = null, PERM = 1, STEP = 900;
-  let i = 0, acc = 0, clock = 0, playing = true, speed = 1, last = 0, doneAt = -1, sp, feet, ox = 0, oy = 0, flights = [], bursts = [];
-  const LEGS = 10, gcd = (a, b) => b ? gcd(b, a % b) : a;
+  let clock = 0, playing = true, speed = 1, last = 0, doneAt = -1, sp, spv = { x: 0, y: 0 }, heading = 0, ox = 0, oy = 0, bursts = [];
+  let legs = [], jobs = [], job = null, carried = null, wob = 0, roam = null, roamUntil = 0;
+  const NLEG = 8, L1 = 24, L2 = 30, gcd = (a, b) => b ? gcd(b, a % b) : a;
   function mount(doc, prev) {
     DOC = doc; wall(doc, prev); cnt = {}; shown = {}; bins(); queue(); $('sx-list').innerHTML = ''; $('sx-listtitle').textContent = '● FINDINGS · click a bin';
     $('sx-empty').style.display = doc ? 'none' : 'grid';
@@ -10529,46 +10530,69 @@ OUTPUT — one JSON document, nothing else:
       const el = $('bin-' + t); if (el) { const br = el.getBoundingClientRect(); if (br.width) arc['bin_' + t] = { x: br.left - SL + 10, y: br.top - ST + Math.min(br.height / 2, 22) }; } }); // cards land in the real bin box
   }
   function tick(j, len) { const n = W.length, th = Math.PI + arc.a - (n > 1 ? 2 * arc.a * ((j * PERM) % n) / (n - 1) : arc.a), c = Math.cos(th), s = Math.sin(th); return { x0: arc.cx + arc.R * c, y0: arc.cy + arc.R * s, x: arc.cx + (arc.R + len) * c, y: arc.cy + (arc.R + len) * s }; }
-  function ideal(k) { const an = (k + .5) / LEGS * TAU, r = k % 2 ? 96 : 70; return { x: sp.x + Math.cos(an) * r * 1.25, y: sp.y + Math.sin(an) * r }; }
+  // ---- spider geometry + targets (all stage-local coordinates) ----
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+  function legBaseAng(k) { const side = k < 4 ? 1 : -1, rank = k % 4; return heading + side * (0.42 + rank * 0.5); }
+  function legStance(k) { const rank = k % 4, reach = (L1 + L2) * (0.74 + rank * 0.05), a = legBaseAng(k); return { x: sp.x + Math.cos(a) * reach, y: sp.y + Math.sin(a) * reach }; }
+  function grabPt(w) { const ol = rows.offsetLeft, ot = rows.offsetTop - rows.scrollTop; return { x: ol + w.x + 8, y: clamp(ot + w.y, rows.offsetTop + 12, rows.offsetTop + rows.clientHeight - 12) }; }
+  function binPt(f) { const B = arc['bin_' + f.type] || { x: arc.cx || SW * .8, y: arc.cy || SH * .5 }; return { x: B.x + 12, y: B.y + 16 }; }
+  function scrollRow(w, d) { const want = Math.max(0, w.el.offsetTop - rows.clientHeight * .5); rows.scrollTop += (want - rows.scrollTop) * (1 - Math.exp(-d / 240)); }
+  function pickRoam() { return { x: 50 + Math.random() * Math.max(100, SW - 100), y: 40 + Math.random() * Math.max(80, SH - 80) }; }
   function reset() {
-    i = 0; acc = 0; clock = 0; doneAt = -1; cnt = {}; shown = {}; flights = []; bursts = []; rows.scrollTop = 0;
+    clock = 0; doneAt = -1; cnt = {}; shown = {}; bursts = []; job = null; carried = null; rows.scrollTop = 0;
     W.forEach(w => { w.el.className = 'sx-row'; w.at = -1; });
-    const f = W[0] || { x: 60, y: 40 }; sp = { x: f.x + 22, y: f.y - 20 };
-    feet = Array.from({ length: LEGS }, (_, k) => { const p = ideal(k); return { x: p.x, y: p.y, fx: p.x, fy: p.y, tx: p.x, ty: p.y, t: -1e9 }; });
+    jobs = []; W.forEach(w => { if (w.found.length) w.found.forEach(f => jobs.push({ f, w })); else jobs.push({ f: null, w }); }); // one job per finding (+ a read-touch for empty rows)
+    for (let k = jobs.length - 1; k > 0; k--) { const r = Math.floor(Math.random() * (k + 1)), tmp = jobs[k]; jobs[k] = jobs[r]; jobs[r] = tmp; } // shuffle → erratic, all-over-the-board order
+    sp = { x: (SW || 800) * .42, y: (SH || 400) * .5 }; spv = { x: 0, y: 0 }; heading = 0; roam = pickRoam(); roamUntil = 700;
+    legs = Array.from({ length: NLEG }, (_, k) => { const q = legStance(k); return { x: q.x, y: q.y, fx: q.x, fy: q.y, tx: q.x, ty: q.y, t: -1e9, lift: 0, carry: false }; });
     bins();
   }
-  const IMP = 0.56; // where on the reach the claw taps the bin and lets go
-  function visit(w) {
-    w.at = clock; w.el.className = 'sx-row v' + (w.found.length ? ' hit' : '');
-    w.found.forEach((f, k) => { // a dedicated leg reaches from the body across to the bin and PLACES the card
-      flights.push({ f, from: { x: w.x, y: w.y }, t0: clock + k * 165, dur: 1180 });
-      setTimeout(() => {
-        cnt[f.type] = (cnt[f.type] || 0) + 1; (shown[f.type] = shown[f.type] || []).push(f);
-        const b = $('bin-' + f.type);
-        if (b) { b.querySelector('.n').textContent = cnt[f.type]; b.querySelector('ul').innerHTML = binList(f.type); chargeBin(b, cnt[f.type]);
-          b.classList.remove('drop'); void b.offsetWidth; b.classList.add('drop'); setTimeout(() => b.classList.remove('drop'), 540); }
-        const B = arc['bin_' + f.type] || { x: arc.cx, y: arc.cy };
-        bursts.push({ x: B.x, y: B.y, t0: clock, col: TCOL[f.type] });
-      }, (k * 165 + 1180 * IMP) / speed);
-    });
+  function fileLanded(f) { // the insert: the bin takes the file, count ticks, cell surges, burst fires
+    cnt[f.type] = (cnt[f.type] || 0) + 1; (shown[f.type] = shown[f.type] || []).push(f);
+    const b = $('bin-' + f.type);
+    if (b) { b.querySelector('.n').textContent = cnt[f.type]; b.querySelector('ul').innerHTML = binList(f.type); chargeBin(b, cnt[f.type]);
+      b.classList.remove('drop'); void b.offsetWidth; b.classList.add('drop'); setTimeout(() => b.classList.remove('drop'), 540); }
+    const B = arc['bin_' + f.type] || { x: arc.cx, y: arc.cy }; bursts.push({ x: B.x, y: B.y, t0: clock, col: TCOL[f.type] });
   }
   function frame(ts) {
     if (!visible) { raf = 0; return; }
     const dt = Math.min(100, ts - last || 16); last = ts;
     if (playing && W.length) {
-      const d = dt * speed; clock += d; acc += d;
-      while (acc >= STEP && i < W.length) { visit(W[i]); i++; acc -= STEP; }
-      if (i >= W.length) { if (doneAt < 0) doneAt = clock; else if ($('sx-loop').checked && clock - doneAt > 2600) { reset(); } }
-      const t = W[Math.min(i, W.length - 1)], k = 1 - Math.exp(-d / 85);
-      sp.x += (t.x + 22 - sp.x) * k; sp.y += (t.y + 14 - sp.y) * k;
-      rows.scrollTop += (Math.max(0, t.y - rows.clientHeight * .5) - rows.scrollTop) * (1 - Math.exp(-d / 260));
-      let stepping = feet.filter(f => clock - f.t < 120).length;
-      feet.forEach((f, j) => { const p = ideal(j);
-        if (stepping < 4 && clock - f.t >= 120 && Math.hypot(f.tx - p.x, f.ty - p.y) > 38) {
-          let best = p, bd = 30 * 30; const lead = { x: p.x + (t.x - sp.x) * .25, y: p.y + (t.y - sp.y) * .25 };
-          for (const w of W) { const dd = (w.x - lead.x) ** 2 + (w.y - lead.y) ** 2; if (dd < bd) { bd = dd; best = w; } }
-          f.fx = f.x; f.fy = f.y; f.tx = best.x; f.ty = best.y; f.t = clock; stepping++; }
-        const e = Math.min(1, (clock - f.t) / 120), s = e * e * (3 - 2 * e); f.x = f.fx + (f.tx - f.fx) * s; f.y = f.fy + (f.ty - f.fy) * s; f.lift = Math.sin(e * Math.PI) * 7; });
+      const d = dt * speed; clock += d;
+      let target, hand = null; // where the body wants to be; where the front leg reaches
+      if (!job) { if (jobs.length) { job = jobs.shift(); job.phase = 'toGrab'; job.t0 = clock; }
+        else if (doneAt < 0) doneAt = clock; else if ($('sx-loop').checked && clock - doneAt > 2400) reset(); }
+      if (job) {
+        const gp = grabPt(job.w), st = job.f ? binPt(job.f) : null;
+        if (job.phase === 'toGrab') { target = { x: gp.x + 64, y: gp.y }; scrollRow(job.w, d); // walk over to the source
+          if (Math.hypot(target.x - sp.x, target.y - sp.y) < 72) { job.phase = 'grab'; job.t0 = clock; if (job.w.at < 0) { job.w.at = clock; job.w.el.className = 'sx-row v' + (job.w.found.length ? ' hit' : ''); } } }
+        else if (job.phase === 'grab') { target = { x: gp.x + 60, y: gp.y }; hand = gp; // front leg reaches down and clamps the file
+          if (clock - job.t0 > 320) { if (job.f) { carried = { f: job.f, x: gp.x, y: gp.y }; job.phase = 'toBin'; } else job = null; } }
+        else if (job.phase === 'toBin') { target = { x: st.x - 78, y: st.y }; hand = { x: sp.x + Math.cos(heading) * 20, y: sp.y + Math.sin(heading) * 20 - 6 }; // carry, file tucked under the front
+          if (Math.hypot(target.x - sp.x, target.y - sp.y) < 86) { job.phase = 'insert'; job.t0 = clock; } }
+        else if (job.phase === 'insert') { target = { x: st.x - 70, y: st.y }; hand = st; // reach into the bin and let go
+          if (clock - job.t0 > 300) { fileLanded(job.f); carried = null; job = null; } }
+      }
+      if (!target) { if (clock > roamUntil) { roam = pickRoam(); roamUntil = clock + 500 + Math.random() * 1000; } target = roam; }
+      // body steering — seek the target + a perpendicular wander so the path weaves, never a straight line
+      const dx = target.x - sp.x, dy = target.y - sp.y, dist = Math.hypot(dx, dy) || 1;
+      const spd = Math.min(dist * .06, 4.4) * (.5 + speed * .5);
+      wob += d * .006; const wb = Math.sin(wob) * 1.7 + Math.sin(wob * 2.3 + 1) * .9;
+      const vx = dx / dist * spd - dy / dist * wb, vy = dy / dist * spd + dx / dist * wb;
+      const mv = Math.min(dt, 40) * speed / 16, ef = Math.min(1, .12 * mv); // frame-rate-independent step + easing
+      spv.x += (vx - spv.x) * ef; spv.y += (vy - spv.y) * ef;
+      sp.x = clamp(sp.x + spv.x * mv, 18, SW - 18); sp.y = clamp(sp.y + spv.y * mv, 18, SH - 18);
+      if (Math.hypot(spv.x, spv.y) > .35) { const hd = Math.atan2(spv.y, spv.x), dh = ((hd - heading + Math.PI * 3) % (Math.PI * 2)) - Math.PI; heading += dh * Math.min(1, .18 * mv); }
+      // gait — each leg plants, then steps to its new stance as the body moves over it (alternating, lifted arc)
+      let stepping = legs.filter(L => clock - L.t < 130).length;
+      legs.forEach((L, k) => {
+        L.carry = !!hand && k === 0; // front-right leg is the hand that grabs / carries / inserts
+        if (L.carry) { const hf = Math.min(1, .3 * Math.min(dt, 40) * speed / 16); L.x += (hand.x - L.x) * hf; L.y += (hand.y - L.y) * hf; L.lift = 0; return; }
+        const stn = legStance(k);
+        if (stepping < 3 && clock - L.t >= 130 && Math.hypot(L.tx - stn.x, L.ty - stn.y) > 26) { L.fx = L.x; L.fy = L.y; L.tx = stn.x; L.ty = stn.y; L.t = clock; stepping++; }
+        const e = Math.min(1, (clock - L.t) / 130), s = e * e * (3 - 2 * e); L.x = L.fx + (L.tx - L.fx) * s; L.y = L.fy + (L.ty - L.fy) * s; L.lift = Math.sin(e * Math.PI) * 9;
+      });
+      if (carried) { carried.x = legs[0].x; carried.y = legs[0].y; }
     }
     draw(); raf = requestAnimationFrame(frame);
   }
@@ -10594,30 +10618,8 @@ OUTPUT — one JSON document, nothing else:
       g.strokeStyle = w.found.length ? '#ff3b6b' : '#6a4450'; g.globalAlpha = w.found.length ? Math.max(.2, .85 - age / 1400) : Math.max(0, .55 - age / 900); g.lineWidth = age < 300 ? 1.6 : 1;
       g.beginPath(); g.moveTo(sx, sy); g.bezierCurveTo(sx + (T.x - sx) * .45, sy, T.x - (T.x - sx) * .3, T.y + (sy - T.y) * .15, T.x, T.y); g.stroke(); }
     g.globalAlpha = 1;
-    // FILE DELIVERY — a dedicated insect leg reaches from the body to the bin and physically places the card
-    const bx = ox + sp.x, by = oy + sp.y;
-    flights = flights.filter(fl => clock - fl.t0 < fl.dur + 140);
-    for (const fl of flights) { const e = Math.min(1, Math.max(0, (clock - fl.t0) / fl.dur)); if (e <= 0) continue;
-      const B = arc['bin_' + fl.f.type] || { x: arc.cx, y: arc.cy }, col = TCOL[fl.f.type];
-      let tx, ty, carrying;
-      if (e < IMP) { const r = e / IMP, s = r * r * (3 - 2 * r); carrying = true; // reach out, card on the claw
-        tx = bz(bx, bx + (B.x - bx) * .25, B.x - 34, B.x, s); ty = bz(by, by - 78, B.y - 48, B.y, s);
-      } else { const r = (e - IMP) / (1 - IMP), s = r * r; carrying = false; // card released; the leg folds back
-        tx = bz(B.x, B.x - 32, bx + (B.x - bx) * .2, bx, s); ty = bz(B.y, B.y - 46, by - 54, by, s); }
-      const dx = tx - bx, dy = ty - by, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L, bend = Math.min(96, 24 + L * .22);
-      const kx = bx + dx * .5 + nx * bend, ky = by + dy * .5 + ny * bend - 16; // insect knee, kicked out perpendicular
-      g.globalAlpha = carrying ? .96 : .5; g.lineCap = 'round';
-      g.strokeStyle = col; g.lineWidth = 2.6; g.beginPath(); g.moveTo(bx, by); g.lineTo(kx, ky); g.stroke();
-      g.lineWidth = 1.7; g.beginPath(); g.moveTo(kx, ky); g.lineTo(tx, ty); g.stroke();
-      g.fillStyle = col; g.beginPath(); g.arc(kx, ky, 2.6, 0, TAU); g.fill();
-      const ta = Math.atan2(ty - ky, tx - kx); g.lineWidth = 1.2; g.beginPath(); // the claw
-      g.moveTo(tx, ty); g.lineTo(tx - Math.cos(ta - .5) * 6, ty - Math.sin(ta - .5) * 6);
-      g.moveTo(tx, ty); g.lineTo(tx - Math.cos(ta + .5) * 6, ty - Math.sin(ta + .5) * 6); g.stroke();
-      g.lineCap = 'butt';
-      if (carrying) { g.globalAlpha = 1; const lab = (fl.f.title || fl.f.type).slice(0, 16), tw = g.measureText(lab).width + 10;
-        g.fillStyle = col; g.fillRect(tx - tw / 2, ty - 17, tw, 13); g.fillStyle = '#0b0b0d'; g.fillText(lab, tx - tw / 2 + 5, ty - 10.5);
-        g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = .6; g.strokeRect(tx - tw / 2, ty - 17, tw, 13); } }
-    g.globalAlpha = 1;
+    // the spider roams the whole arena in stage-local coordinates
+    const bx = sp.x, by = sp.y;
     // impact bursts where the card lands in the bin — shock ring + radiating sparks (tech/insect)
     bursts = bursts.filter(b => clock - b.t0 < 540);
     for (const b of bursts) { const e = (clock - b.t0) / 540;
@@ -10626,20 +10628,35 @@ OUTPUT — one JSON document, nothing else:
       g.lineWidth = 1; for (let s = 0; s < 6; s++) { const an = s / 6 * TAU + e * 1.6, r0 = 6 + e * 12, r1 = 11 + e * 28;
         g.beginPath(); g.moveTo(b.x + Math.cos(an) * r0, b.y + Math.sin(an) * r0); g.lineTo(b.x + Math.cos(an) * r1, b.y + Math.sin(an) * r1); g.stroke(); } }
     g.globalAlpha = 1;
-    // the spider — a red/pink orb-weaver at the hub, beaded legs splayed over the feed it reads
-    const glow = g.createRadialGradient(bx, by, 2, bx, by, 74); glow.addColorStop(0, 'rgba(255,59,107,.38)'); glow.addColorStop(1, 'rgba(255,59,107,0)');
-    g.fillStyle = glow; g.beginPath(); g.arc(bx, by, 74, 0, TAU); g.fill();
-    g.strokeStyle = 'rgba(255,90,130,.4)'; g.lineWidth = .6; // halo spines
-    for (let k = 0; k < 40; k++) { const an = k / 40 * TAU + Math.sin(clock / 400 + k) * .12, r = 34 + 11 * Math.sin(clock / 160 + k * 2.4); g.beginPath(); g.moveTo(bx + Math.cos(an) * 17, by + Math.sin(an) * 20); g.lineTo(bx + Math.cos(an) * r * 1.15, by + Math.sin(an) * r); g.stroke(); }
-    feet.forEach((f, k) => { const ax = bx + Math.cos(Math.atan2((oy + f.y) - by, (ox + f.x) - bx)) * 16, ay = by + Math.sin(Math.atan2((oy + f.y) - by, (ox + f.x) - bx)) * 19;
-      const fx = ox + f.x, fy = oy + f.y - (f.lift || 0), mx = (ax + fx) / 2, my = (ay + fy) / 2 - 16 - (f.lift || 0);
-      g.strokeStyle = 'rgba(255,70,120,.85)'; g.globalAlpha = .9; g.lineWidth = 1.2; g.beginPath(); g.moveTo(ax, ay); g.quadraticCurveTo(mx, my, fx, fy); g.stroke();
-      g.fillStyle = '#ff9ab3'; for (let bi = 1; bi <= 4; bi++) { const t = bi / 5, u = 1 - t, px = u * u * ax + 2 * u * t * mx + t * t * fx, py = u * u * ay + 2 * u * t * my + t * t * fy; g.beginPath(); g.arc(px, py, bi === 4 ? 2 : 1.3, 0, TAU); g.fill(); } // beaded leg
-      g.globalAlpha = 1; g.fillStyle = '#ffd1dd'; g.beginPath(); g.arc(fx, fy, 2, 0, TAU); g.fill(); });
-    g.globalAlpha = 1; g.fillStyle = 'rgba(46,10,20,.94)'; g.strokeStyle = '#ff3b6b'; g.lineWidth = 1.3; g.beginPath(); g.ellipse(bx, by, 21, 25, 0, 0, TAU); g.fill(); g.stroke();
-    g.strokeStyle = 'rgba(255,90,130,.55)'; g.lineWidth = .7; g.beginPath(); g.ellipse(bx, by, 13, 17, 0, 0, TAU); g.stroke();
-    const core = g.createRadialGradient(bx, by, 0, bx, by, 13); core.addColorStop(0, '#ffd0dc'); core.addColorStop(.45, 'rgba(255,59,107,.9)'); core.addColorStop(1, 'rgba(220,38,38,0)');
-    g.fillStyle = core; g.beginPath(); g.arc(bx, by, 13, 0, TAU); g.fill();
+    // ===== THE SPIDER — procedural body + 8 two-segment IK legs (femur · tibia · claw) =====
+    if (job && (job.phase === 'grab' || job.phase === 'insert')) { const H = legs[0]; g.strokeStyle = 'rgba(255,59,107,.5)'; g.lineWidth = 1; g.beginPath(); g.moveTo(bx, by); g.lineTo(H.x, H.y); g.stroke(); } // drag-line
+    const glow = g.createRadialGradient(bx, by, 2, bx, by, 56); glow.addColorStop(0, 'rgba(255,59,107,.32)'); glow.addColorStop(1, 'rgba(255,59,107,0)');
+    g.fillStyle = glow; g.beginPath(); g.arc(bx, by, 56, 0, TAU); g.fill();
+    g.lineCap = 'round';
+    legs.forEach((L, k) => {
+      const ba = legBaseAng(k), ax = bx + Math.cos(ba) * 11, ay = by + Math.sin(ba) * 12;
+      const fx = L.x, fy = L.y - (L.lift || 0);
+      let dx = fx - ax, dy = fy - ay, dd = Math.hypot(dx, dy) || 1; if (dd > L1 + L2 - 2) dd = L1 + L2 - 2;
+      const a0 = Math.atan2(dy, dx), ck = Math.max(-1, Math.min(1, (L1 * L1 + dd * dd - L2 * L2) / (2 * L1 * dd))), side = k < 4 ? -1 : 1;
+      const kx = ax + Math.cos(a0 + side * Math.acos(ck)) * L1, ky = ay + Math.sin(a0 + side * Math.acos(ck)) * L1; // the knee (joint)
+      g.strokeStyle = L.carry ? '#ff9ab8' : 'rgba(255,70,120,.92)'; g.globalAlpha = (L.lift || 0) > 4 ? .85 : 1;
+      g.lineWidth = 2.7; g.beginPath(); g.moveTo(ax, ay); g.lineTo(kx, ky); g.stroke(); // femur
+      g.lineWidth = 1.8; g.beginPath(); g.moveTo(kx, ky); g.lineTo(fx, fy); g.stroke(); // tibia
+      g.fillStyle = '#ff9ab3'; g.beginPath(); g.arc(kx, ky, 2.3, 0, TAU); g.fill();
+      const ta = Math.atan2(fy - ky, fx - kx); g.lineWidth = 1.1; g.beginPath(); // two claw tines at the foot
+      g.moveTo(fx, fy); g.lineTo(fx + Math.cos(ta + 2.5) * 5, fy + Math.sin(ta + 2.5) * 5);
+      g.moveTo(fx, fy); g.lineTo(fx + Math.cos(ta - 2.5) * 5, fy + Math.sin(ta - 2.5) * 5); g.stroke();
+    });
+    g.globalAlpha = 1; g.lineCap = 'butt';
+    const hx = Math.cos(heading), hy = Math.sin(heading); // body oriented along travel
+    g.fillStyle = 'rgba(46,10,20,.96)'; g.strokeStyle = '#ff3b6b'; g.lineWidth = 1.3;
+    g.beginPath(); g.ellipse(bx - hx * 12, by - hy * 12, 15, 11, heading, 0, TAU); g.fill(); g.stroke(); // abdomen
+    g.beginPath(); g.ellipse(bx + hx * 6, by + hy * 6, 10, 8, heading, 0, TAU); g.fill(); g.stroke(); // cephalothorax
+    const core = g.createRadialGradient(bx + hx * 6, by + hy * 6, 0, bx + hx * 6, by + hy * 6, 9); core.addColorStop(0, '#ffd0dc'); core.addColorStop(.5, 'rgba(255,59,107,.9)'); core.addColorStop(1, 'rgba(220,38,38,0)');
+    g.fillStyle = core; g.beginPath(); g.arc(bx + hx * 6, by + hy * 6, 9, 0, TAU); g.fill();
+    if (carried) { g.font = '600 9px "JetBrains Mono",monospace'; g.textBaseline = 'middle'; const lab = (carried.f.title || carried.f.type).slice(0, 15), tw = g.measureText(lab).width + 10, col = TCOL[carried.f.type]; // the file in its grip
+      g.fillStyle = col; g.fillRect(carried.x - tw / 2, carried.y - 7, tw, 14); g.fillStyle = '#0b0b0d'; g.fillText(lab, carried.x - tw / 2 + 5, carried.y);
+      g.strokeStyle = 'rgba(255,255,255,.4)'; g.lineWidth = .6; g.strokeRect(carried.x - tw / 2, carried.y - 7, tw, 14); }
   }
   // controls
   $('sx-play').addEventListener('click', () => { playing = !playing; $('sx-play').textContent = playing ? 'PAUSE' : 'PLAY'; });
