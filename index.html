@@ -2444,7 +2444,7 @@
       <div class="brand-mark"><span class="brand-b">B</span></div>
       <div class="brand-text">
         <div class="brand-name">BRINK CORE <span style="font-size: 14px; opacity: 0.5; margin-left: 6px;">⚙</span></div>
-        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.76</div>
+        <div class="brand-sub">Systematized Task & Analytical Research Knowledge Center · Seamus v0.77</div>
       </div>
     </div>
     <button id="spider-toggle" type="button" title="Max — Seamus's spider · flip to the crawl view" onclick="window.toggleSpider && window.toggleSpider()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="13" rx="3.2" ry="4"/><circle cx="12" cy="7.5" r="2"/><path d="M9 11 4 7M9 13H3M9 15l-5 3M9 16.5 6 21M15 11l5-4M15 13h6M15 15l5 3M15 16.5l3 4.5"/></svg></button>
@@ -10024,7 +10024,7 @@ setInterval(() => { sessionStorage.removeItem('brink_sync_reloaded'); syncPull()
 <script>
 // [BRINK v0.37] SETTINGS FAILSAFE — independent script block, survives main-script errors.
 (function versionStamp() {
-  var v = 'v0.76';
+  var v = 'v0.77';
   var t = document.createElement('div');
   t.textContent = '◉ BRINK CORE BUILD ' + v + ' · DEPLOY VERIFIED';
   t.style.cssText = 'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(6,20,14,0.95);color:#2EA86C;border:1px solid #2EA86C;padding:8px 22px;font-family:monospace;font-size:12px;font-weight:bold;letter-spacing:2px;border-radius:4px;box-shadow:0 0 24px rgba(46,168,108,0.5);pointer-events:none;';
@@ -10161,6 +10161,22 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
   .sx-row.v.hit .n { color: #ff6b8a; }
   .sx-empty { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: var(--text-2); font-size: 11px; line-height: 1.8; padding: 20px; }
   .sx-empty b { color: var(--text-0); display: block; font-size: 13px; letter-spacing: .12em; }
+  /* --- INSIGHT HUD — real readouts in the arena, behind the spider --- */
+  .sx-hud { position: absolute; left: 37%; top: 8px; bottom: 8px; width: 322px; max-width: 36%; display: grid; grid-auto-rows: min-content; gap: 7px; align-content: start; pointer-events: none; z-index: 1; overflow: hidden; }
+  .sx-hud .hb { border: 1px solid rgba(154,166,184,.1); background: rgba(10,13,19,.42); border-radius: 3px; padding: 6px 9px; }
+  .sx-hud h4 { margin: 0 0 5px; font-size: 7.5px; letter-spacing: .18em; color: var(--text-2); font-weight: 700; display: flex; justify-content: space-between; }
+  .sx-hud h4 span { color: var(--text-2); font-weight: 500; letter-spacing: .06em; }
+  .sx-hud .row { display: grid; grid-template-columns: 56px 1fr 22px; align-items: center; gap: 6px; margin: 2.5px 0; }
+  .sx-hud .row i { font-style: normal; font-size: 7.5px; color: var(--text-1); letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sx-hud .bar { height: 6px; border-radius: 2px; background: rgba(255,255,255,.05); overflow: hidden; }
+  .sx-hud .bar > span { display: block; height: 100%; border-radius: 2px; transition: width .5s ease; }
+  .sx-hud .row b { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-0); font-size: 8.5px; }
+  .sx-hud .cov { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 10px; font-size: 8px; color: var(--text-2); }
+  .sx-hud .cov b { color: var(--text-0); font-variant-numeric: tabular-nums; }
+  .sx-hud .stream { display: grid; gap: 3px; overflow: hidden; }
+  .sx-hud .stream div { border-left: 2px solid currentColor; padding-left: 6px; font-size: 7.5px; line-height: 1.3; color: var(--text-2); }
+  .sx-hud .stream div b { color: var(--text-0); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (max-width: 1240px) { .sx-hud { display: none; } }
   /* --- BINS --- */
   /* bins — narrow column, every bin a live drop-box: count in the header, the latest finds as full cards */
   .sx-bins { display: flex; flex-direction: column; gap: 6px; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 2px; scrollbar-width: thin; }
@@ -10254,6 +10270,7 @@ console.log('%c[BRINK] failsafe armed — scripts ARE executing on this page', '
           <div class="sx-feedbar"><i></i><i></i><i></i><span id="sx-feedname">source feed · no run loaded</span></div>
           <div id="sx-rows"></div>
         </div>
+        <div class="sx-hud" id="sx-hud"></div>
         <div class="sx-empty" id="sx-empty"><div><b>NO CRAWL YET</b>Hit <b style="color:var(--green)">CRAWL THE CORE</b> for an instant pass over this hub's own state — or spin an order for the full account.<br>Max only animates what was actually read.</div></div>
       </div>
 
@@ -10499,7 +10516,7 @@ OUTPUT — one JSON document, nothing else:
   let legs = [], jobs = [], job = null, carried = null, wob = 0, roam = null, roamUntil = 0;
   const NLEG = 8, L1 = 24, L2 = 30, gcd = (a, b) => b ? gcd(b, a % b) : a;
   function mount(doc, prev) {
-    DOC = doc; wall(doc, prev); cnt = {}; shown = {}; bins(); queue(); $('sx-list').innerHTML = ''; $('sx-listtitle').textContent = '● FINDINGS · click a bin';
+    DOC = doc; wall(doc, prev); cnt = {}; shown = {}; bins(); queue(); renderHud(doc); $('sx-list').innerHTML = ''; $('sx-listtitle').textContent = '● FINDINGS · click a bin';
     $('sx-empty').style.display = doc ? 'none' : 'grid';
     rows.textContent = ''; W = [];
     if (!doc) { $('sx-feedname').textContent = 'source feed · no run loaded'; return; }
@@ -10512,6 +10529,7 @@ OUTPUT — one JSON document, nothing else:
       rows.appendChild(d); W.push({ el: d, src: s, found: byS[s.id] || [], at: -1 });
     });
     PERM = Math.max(1, Math.round(W.length * .618)); while (gcd(PERM, W.length || 1) > 1) PERM++;
+    routed = doc.findings.slice(-10).reverse(); renderStream();
     measure(); reset();
   }
   function measure() {
@@ -10553,6 +10571,36 @@ OUTPUT — one JSON document, nothing else:
     if (b) { b.querySelector('.n').textContent = cnt[f.type]; b.querySelector('ul').innerHTML = binList(f.type); chargeBin(b, cnt[f.type]);
       b.classList.remove('drop'); void b.offsetWidth; b.classList.add('drop'); setTimeout(() => b.classList.remove('drop'), 540); }
     const B = arc['bin_' + f.type] || { x: arc.cx, y: arc.cy }; bursts.push({ x: B.x, y: B.y, t0: clock, col: TCOL[f.type] });
+    routed.unshift(f); if (routed.length > 24) routed.pop(); renderStream(); // feed the live routing stream
+  }
+  // ---------- INSIGHT HUD — every number computed from the run that was actually read ----------
+  let routed = [];
+  function renderStream() {
+    const el = $('sx-stream'); if (!el) return;
+    el.innerHTML = routed.slice(0, 7).map(f => { const s = (DOC && DOC.sources.find(x => x.id === f.source)) || {};
+      return `<div style="border-color:${TCOL[f.type] || 'var(--border)'}"><b>${esc(f.title || f.type)}</b>${esc((s.kind || '').toUpperCase())} → ${esc((f.type || '').toUpperCase())}${f.agent ? ' · ' + esc(f.agent) : ''}${f.status ? ' · ' + esc(f.status) : ''}</div>`; }).join('')
+      || '<div style="border-color:var(--border)"><b>— waiting on the crawl —</b>findings route here as Max files them</div>';
+  }
+  function renderHud(doc) {
+    const H = $('sx-hud'); if (!H) return;
+    if (!doc) { H.innerHTML = ''; return; }
+    const F = doc.findings, S = doc.sources, r = doc.run;
+    const tc = {}; TYPES.forEach(t => tc[t] = F.filter(f => f.type === t).length);
+    const maxT = Math.max(1, ...TYPES.map(t => tc[t]));
+    const ao = {}; ROSTER.forEach(a => ao[a] = F.filter(f => f.agent === a && f.status === 'open').length);
+    const maxA = Math.max(1, ...ROSTER.map(a => ao[a]));
+    const kinds = {}; S.forEach(s => { const k = s.kind || '?'; kinds[k] = (kinds[k] || 0) + 1; });
+    const maxK = Math.max(1, ...Object.values(kinds));
+    const open = F.filter(f => f.status === 'open').length, done = F.filter(f => f.status === 'done').length;
+    const words = S.reduce((a, s) => a + (s.words || 0), 0), dates = S.map(s => s.date).filter(Boolean).sort();
+    const bar = (lab, v, mx, col) => `<div class="row"><i>${esc(lab)}</i><div class="bar"><span style="width:${Math.round(v / mx * 100)}%;background:${col}"></span></div><b>${v}</b></div>`;
+    H.innerHTML =
+      `<div class="hb"><h4>FINDINGS BY TYPE <span>${F.length} total</span></h4>${TYPES.map(t => bar(t.toUpperCase(), tc[t], maxT, TCOL[t])).join('')}</div>`
+      + `<div class="hb"><h4>AGENT LOAD <span>open tasks</span></h4>${ROSTER.filter(a => ao[a]).map(a => bar(a, ao[a], maxA, '#06b6d4')).join('') || '<div class="row"><i style="color:var(--text-2)">no open tasks</i></div>'}</div>`
+      + `<div class="hb"><h4>SOURCE MIX <span>${S.length} read</span></h4>${Object.keys(kinds).sort((a, b) => kinds[b] - kinds[a]).map(k => bar(k.toUpperCase(), kinds[k], maxK, '#2EA86C')).join('')}</div>`
+      + `<div class="hb"><h4>COVERAGE</h4><div class="cov"><span>open / done <b>${open} / ${done}</b></span><span>words read <b>${fmt(words)}</b></span><span>yield <b>${(F.length / Math.max(1, S.length)).toFixed(2)}</b></span><span>date span <b>${dates.length ? dates[0].slice(5) + '→' + dates[dates.length - 1].slice(5) : '—'}</b></span><span>new sources <b>${(r.new_sources || []).length}</b></span><span>merged runs <b>${(r.merged_from || [r.id]).length}</b></span></div></div>`
+      + `<div class="hb"><h4>ROUTING STREAM <span>live</span></h4><div class="stream" id="sx-stream"></div></div>`;
+    renderStream();
   }
   function frame(ts) {
     if (!visible) { raf = 0; return; }
