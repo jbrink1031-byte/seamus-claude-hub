@@ -1,12 +1,12 @@
 {
  "run": {
-  "id": "merged:2026-10-16T11:55:13Z",
+  "id": "merged:2026-10-17T11:54:37Z",
   "started": "2026-10-09T21:11:00Z",
-  "finished": "2026-10-16T11:55:13Z",
-  "sources_attempted": 66,
-  "sources_read": 66,
-  "sources_skipped": 270,
-  "scope": "project chats + account memory + project doc + published artifacts (session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions are not reachable from here) + scheduled cloud crawl 2026-10-09: account memory + BRINK CORE project doc + published artifacts + Drive/Gmail/Dropbox listings (titles only). Chat tools were not present in this session, so no chats were read; other projects and Claude Code sessions not reachable + scheduled cloud crawl 2026-10-11: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24, listed) + Drive/Dropbox recent listings (titles only). No chat tools in this session, so no chats read; Gmail and dealership/store-ops Drive & Dropbox files were reached but excluded (Max Motors store work + PII, kept out of the BRINK CORE digest). Session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-13: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only; only store-ops items were recent, excluded). Nothing changed since 2026-10-11. No chat tools in this session, so no chats read; other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-14: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-13. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII — excluded. Dropbox root listing read; one new finding. No chat tools and no add_repo in this session (repo checkout was pre-staged); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-15: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-14. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII - excluded. Dropbox root re-listed (2 pages): only selective-sync conflict copies and store-ops PDFs, nothing new. No chat tools and no add_repo in this session (repo checkout was pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. No new findings. + scheduled cloud crawl 2026-10-16: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only) + hub repo commit log. Memory, project doc and artifacts unchanged since 2026-10-15. Drive (25 recent) and Gmail (25 recent) were entirely McCarthy/Max Motors store-ops and vendor mail with PII - excluded. Dropbox root re-listed (2 pages): nothing new. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable.",
+  "finished": "2026-10-17T11:56:00Z",
+  "sources_attempted": 69,
+  "sources_read": 69,
+  "sources_skipped": 321,
+  "scope": "project chats + account memory + project doc + published artifacts (session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions are not reachable from here) + scheduled cloud crawl 2026-10-09: account memory + BRINK CORE project doc + published artifacts + Drive/Gmail/Dropbox listings (titles only). Chat tools were not present in this session, so no chats were read; other projects and Claude Code sessions not reachable + scheduled cloud crawl 2026-10-11: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24, listed) + Drive/Dropbox recent listings (titles only). No chat tools in this session, so no chats read; Gmail and dealership/store-ops Drive & Dropbox files were reached but excluded (Max Motors store work + PII, kept out of the BRINK CORE digest). Session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-13: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only; only store-ops items were recent, excluded). Nothing changed since 2026-10-11. No chat tools in this session, so no chats read; other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-14: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-13. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII — excluded. Dropbox root listing read; one new finding. No chat tools and no add_repo in this session (repo checkout was pre-staged); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-15: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-14. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII - excluded. Dropbox root re-listed (2 pages): only selective-sync conflict copies and store-ops PDFs, nothing new. No chat tools and no add_repo in this session (repo checkout was pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. No new findings. + scheduled cloud crawl 2026-10-16: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only) + hub repo commit log. Memory, project doc and artifacts unchanged since 2026-10-15. Drive (25 recent) and Gmail (25 recent) were entirely McCarthy/Max Motors store-ops and vendor mail with PII - excluded. Dropbox root re-listed (2 pages): nothing new. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-17: account memory (all 15 files, unchanged) + BRINK CORE project docs (2; SPIDER-MAX-CARRYOVER.md new 2026-10-17) + published artifacts (26 listed, 2 new, 1 personal skipped) + Drive (25 recent) and Gmail (25 recent) listings (titles only; entirely Max Motors store-ops and vendor mail with PII - excluded) + Dropbox root page 1 (two new hashed image uploads, nothing stated) + hub repo commit log. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable.",
   "merged_from": [
    "2026-10-09T21:20Z",
    "2026-10-09T23:43:23Z",
@@ -14,10 +14,13 @@
    "2026-10-13T11:53Z",
    "2026-10-14T11:54:00Z",
    "2026-10-15T11:53Z",
-   "2026-10-16T11:55:13Z"
+   "2026-10-16T11:55:13Z",
+   "2026-10-17T11:54Z"
   ],
   "new_sources": [
-   "connector:github:seamus-claude-hub"
+   "doc:spider-max-carryover",
+   "artifact:2YDdR7pt43ZVMZbnUKEdi8",
+   "artifact:XBL64KgJWpAD9pCijjrQHz"
   ]
  },
  "sources": [
@@ -602,18 +605,45 @@
    "kind": "connector",
    "title": "Dropbox root listing (titles only)",
    "url": "",
-   "date": "2026-10-16",
-   "words": 0,
+   "date": "2026-10-17",
+   "words": 60,
    "findings": 1
   },
   {
    "id": "connector:github:seamus-claude-hub",
    "kind": "connector",
    "title": "GitHub: seamus-claude-hub main (commit log)",
-   "url": "https://github.com/jbrink1031-byte/seamus-claude-hub/commits/main",
-   "date": "2026-10-15",
-   "words": 400,
+   "url": "https://github.com/jbrink1031-byte/seamus-claude-hub",
+   "date": "2026-10-16",
+   "words": 420,
    "findings": 4
+  },
+  {
+   "id": "doc:spider-max-carryover",
+   "kind": "doc",
+   "title": "SPIDER-MAX-CARRYOVER.md (project doc, v0.77)",
+   "url": "",
+   "date": "2026-10-17",
+   "words": 5200,
+   "findings": 4
+  },
+  {
+   "id": "artifact:2YDdR7pt43ZVMZbnUKEdi8",
+   "kind": "artifact",
+   "title": "Spider Crawl View",
+   "url": "https://claude.ai/artifact/2YDdR7pt43ZVMZbnUKEdi8",
+   "date": "2026-10-17",
+   "words": 1651,
+   "findings": 0
+  },
+  {
+   "id": "artifact:XBL64KgJWpAD9pCijjrQHz",
+   "kind": "artifact",
+   "title": "Spider-Max Crawl",
+   "url": "https://claude.ai/artifact/XBL64KgJWpAD9pCijjrQHz",
+   "date": "2026-10-17",
+   "words": 2314,
+   "findings": 1
   }
  ],
  "findings": [
@@ -1121,9 +1151,9 @@
    "id": "f-0051",
    "type": "task",
    "title": "State doc is one version behind the repo",
-   "detail": "Gap widened: project doc still states v0.69 at main 85528c3; repo main log shows v0.77 at 0f06817 (2026-10-13), with v0.70-v0.77 commits since. Refresh claude/brink-core-state.md.",
+   "detail": "Still open on 2026-10-17: brink-core-state.md states v0.69 at main 85528c3 while the repo and the new carryover doc both state v0.77 (0f06817, 2026-10-13). The carryover doc is current; the state doc is not.",
    "source": "doc:brink-core-state",
-   "date": "2026-10-16",
+   "date": "2026-10-09",
    "status": "open",
    "agent": "Seamus"
   },
@@ -1301,9 +1331,9 @@
    "id": "f-0069",
    "type": "outcome",
    "title": "Scheduled Max crawl has pushed five days running",
-   "detail": "Commit log shows max crawl commits on 2026-10-11, 10-13, 10-14, 10-15 (and this run); each fresh session pulled, merged and pushed without intervention.",
+   "detail": "Commit log shows max crawl commits on 2026-10-11, 10-13, 10-14, 10-15, 10-16 (and this run on 10-17); each fresh session pulled, merged and pushed without intervention. No code commits since v0.77 (0f06817, 2026-10-13).",
    "source": "connector:github:seamus-claude-hub",
-   "date": "2026-10-15",
+   "date": "2026-10-16",
    "status": "done",
    "agent": "Seamus"
   },
@@ -1315,6 +1345,56 @@
    "source": "connector:github:seamus-claude-hub",
    "date": "2026-10-16",
    "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0071",
+   "type": "outcome",
+   "title": "SPIDER-MAX carryover package written (v0.77) for porting the crawl view to any hub",
+   "detail": "New project doc SPIDER-MAX-CARRYOVER.md (2026-10-17): the full crawl view as one self-contained IIFE (style + HTML + script) with STEP 0 theme tokens, a header toggle, the spider-run.json contract, MAX-CRAWL.md, merge_run.py and the scheduled-task prompt. Stated as the self-contained copy so the view still works if the hub repo goes private; canonical source remains index.html in seamus-claude-hub.",
+   "source": "doc:spider-max-carryover",
+   "date": "2026-10-17",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0072",
+   "type": "practice",
+   "title": "One scheduled crawl task per project - chats are fenced per project",
+   "detail": "Carryover STEP 4 states the fence: a scheduled session reads memory, its project's docs, artifacts and connected-app listings but has no chat tools; an interactive project-attached session sees only its own project's chats; Claude Code sessions are never readable. Remedy stated: create one daily scheduled task inside each project; all runs merge into the same hub run by source id.",
+   "source": "doc:spider-max-carryover",
+   "date": "2026-10-17",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0073",
+   "type": "practice",
+   "title": "Ship ritual for the hub: version bump in both places, node --check, live flip check, cache-busted stamp",
+   "detail": "Carryover STEP 5: bump the version in header text and the boot toast var; node --check every script block; open the live page, flip to the spider and confirm a hero leg lands a file in a bucket, HUD shows real numbers, buckets scroll, no console errors; deploy is git-push only, confirm the live stamp with a cache-busted request.",
+   "source": "doc:spider-max-carryover",
+   "date": "2026-10-17",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0074",
+   "type": "task",
+   "title": "Apply Spider-Max to other hubs via the carryover doc",
+   "detail": "The carryover is written to be handed to Claude inside a target project with 'apply Spider-Max to this hub'; no target hub is named in the doc, so which hubs get it is still open.",
+   "source": "doc:spider-max-carryover",
+   "date": "2026-10-17",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0075",
+   "type": "outcome",
+   "title": "Spider crawler reused as a page-source inspection view",
+   "detail": "New artifact (2026-10-17) titled Spider-Max Crawl: a view-source inspector where the spider crawls the pasted markup and grades each finding into lanes (inspect, fetch, structure, SEO/meta, a11y/perf, report). Its rule engine runs over the parsed DOM: title length, H1 count, image alt and dimensions, CLS, mixed content, target=_blank without rel, inline event handlers, placeholder hrefs, JSON-LD presence, bare phone numbers. Built as a store-side digital inspection tool; store details kept out of this digest.",
+   "source": "artifact:XBL64KgJWpAD9pCijjrQHz",
+   "date": "2026-10-17",
+   "status": "done",
    "agent": "Seamus"
   }
  ]
