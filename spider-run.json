@@ -1,12 +1,12 @@
 {
  "run": {
-  "id": "merged:2026-10-17T11:54:37Z",
+  "id": "merged:2026-10-18T11:55:04Z",
   "started": "2026-10-09T21:11:00Z",
-  "finished": "2026-10-17T11:56:00Z",
-  "sources_attempted": 69,
-  "sources_read": 69,
-  "sources_skipped": 321,
-  "scope": "project chats + account memory + project doc + published artifacts (session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions are not reachable from here) + scheduled cloud crawl 2026-10-09: account memory + BRINK CORE project doc + published artifacts + Drive/Gmail/Dropbox listings (titles only). Chat tools were not present in this session, so no chats were read; other projects and Claude Code sessions not reachable + scheduled cloud crawl 2026-10-11: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24, listed) + Drive/Dropbox recent listings (titles only). No chat tools in this session, so no chats read; Gmail and dealership/store-ops Drive & Dropbox files were reached but excluded (Max Motors store work + PII, kept out of the BRINK CORE digest). Session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-13: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only; only store-ops items were recent, excluded). Nothing changed since 2026-10-11. No chat tools in this session, so no chats read; other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-14: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-13. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII — excluded. Dropbox root listing read; one new finding. No chat tools and no add_repo in this session (repo checkout was pre-staged); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-15: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-14. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII - excluded. Dropbox root re-listed (2 pages): only selective-sync conflict copies and store-ops PDFs, nothing new. No chat tools and no add_repo in this session (repo checkout was pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. No new findings. + scheduled cloud crawl 2026-10-16: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only) + hub repo commit log. Memory, project doc and artifacts unchanged since 2026-10-15. Drive (25 recent) and Gmail (25 recent) were entirely McCarthy/Max Motors store-ops and vendor mail with PII - excluded. Dropbox root re-listed (2 pages): nothing new. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-17: account memory (all 15 files, unchanged) + BRINK CORE project docs (2; SPIDER-MAX-CARRYOVER.md new 2026-10-17) + published artifacts (26 listed, 2 new, 1 personal skipped) + Drive (25 recent) and Gmail (25 recent) listings (titles only; entirely Max Motors store-ops and vendor mail with PII - excluded) + Dropbox root page 1 (two new hashed image uploads, nothing stated) + hub repo commit log. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable.",
+  "finished": "2026-10-18T11:55:04Z",
+  "sources_attempted": 74,
+  "sources_read": 74,
+  "sources_skipped": 374,
+  "scope": "project chats + account memory + project doc + published artifacts (session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions are not reachable from here) + scheduled cloud crawl 2026-10-09: account memory + BRINK CORE project doc + published artifacts + Drive/Gmail/Dropbox listings (titles only). Chat tools were not present in this session, so no chats were read; other projects and Claude Code sessions not reachable + scheduled cloud crawl 2026-10-11: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24, listed) + Drive/Dropbox recent listings (titles only). No chat tools in this session, so no chats read; Gmail and dealership/store-ops Drive & Dropbox files were reached but excluded (Max Motors store work + PII, kept out of the BRINK CORE digest). Session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-13: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only; only store-ops items were recent, excluded). Nothing changed since 2026-10-11. No chat tools in this session, so no chats read; other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-14: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-13. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII — excluded. Dropbox root listing read; one new finding. No chat tools and no add_repo in this session (repo checkout was pre-staged); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-15: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-14. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII - excluded. Dropbox root re-listed (2 pages): only selective-sync conflict copies and store-ops PDFs, nothing new. No chat tools and no add_repo in this session (repo checkout was pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. No new findings. + scheduled cloud crawl 2026-10-16: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only) + hub repo commit log. Memory, project doc and artifacts unchanged since 2026-10-15. Drive (25 recent) and Gmail (25 recent) were entirely McCarthy/Max Motors store-ops and vendor mail with PII - excluded. Dropbox root re-listed (2 pages): nothing new. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-17: account memory (all 15 files, unchanged) + BRINK CORE project docs (2; SPIDER-MAX-CARRYOVER.md new 2026-10-17) + published artifacts (26 listed, 2 new, 1 personal skipped) + Drive (25 recent) and Gmail (25 recent) listings (titles only; entirely Max Motors store-ops and vendor mail with PII - excluded) + Dropbox root page 1 (two new hashed image uploads, nothing stated) + hub repo commit log. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-18: account memory (15 files) + BRINK CORE project docs (2) + published artifacts (26, list only) + GitHub commit log + Drive/Gmail/Dropbox recent listings (titles/subjects only; customer threads, store ops sheets, pay plans and personal items skipped); this session had no chat tools and no add_repo (checkout pre-staged) — project chats, other projects and Claude Code sessions unreachable",
   "merged_from": [
    "2026-10-09T21:20Z",
    "2026-10-09T23:43:23Z",
@@ -15,12 +15,15 @@
    "2026-10-14T11:54:00Z",
    "2026-10-15T11:53Z",
    "2026-10-16T11:55:13Z",
-   "2026-10-17T11:54Z"
+   "2026-10-17T11:54Z",
+   "2026-10-18T11:48Z"
   ],
   "new_sources": [
-   "doc:spider-max-carryover",
-   "artifact:2YDdR7pt43ZVMZbnUKEdi8",
-   "artifact:XBL64KgJWpAD9pCijjrQHz"
+   "connector:drive:1q8O_bPmlVKjuJmGHPtCRSRl9vpTQIcUy",
+   "connector:drive:1rIxE1fPuN-zTuHX3Wn5ye52zJNYRun7T_iouy72xM7I",
+   "connector:gmail:1a14cd8405788968",
+   "connector:gmail:1a14ddb99d646034",
+   "connector:gmail:1a14c0602eda533e"
   ]
  },
  "sources": [
@@ -66,7 +69,7 @@
    "title": "Claude Code automation environment",
    "url": "",
    "date": "2026-07-19",
-   "words": 160,
+   "words": 150,
    "findings": 3
   },
   {
@@ -75,7 +78,7 @@
    "title": "HOLLOW POINT — browser game for coworkers",
    "url": "",
    "date": "2026-09-01",
-   "words": 1745,
+   "words": 1700,
    "findings": 6
   },
   {
@@ -84,7 +87,7 @@
    "title": "MK STUDIOS LLC formation",
    "url": "",
    "date": "2026-07-23",
-   "words": 51,
+   "words": 40,
    "findings": 1
   },
   {
@@ -93,7 +96,7 @@
    "title": "Personalized Proposal Portal",
    "url": "",
    "date": "2026-07-19",
-   "words": 120,
+   "words": 110,
    "findings": 2
   },
   {
@@ -102,7 +105,7 @@
    "title": "GBP/social automated posting tool",
    "url": "",
    "date": "2026-07-19",
-   "words": 91,
+   "words": 80,
    "findings": 1
   },
   {
@@ -111,7 +114,7 @@
    "title": "Tech stack",
    "url": "",
    "date": "2026-07-23",
-   "words": 102,
+   "words": 90,
    "findings": 1
   },
   {
@@ -120,7 +123,7 @@
    "title": "Marketing voice and SEO strategy",
    "url": "",
    "date": "2026-07-17",
-   "words": 113,
+   "words": 100,
    "findings": 1
   },
   {
@@ -129,7 +132,7 @@
    "title": "Operating philosophy",
    "url": "",
    "date": "2026-07-17",
-   "words": 191,
+   "words": 180,
    "findings": 1
   },
   {
@@ -138,7 +141,7 @@
    "title": "KPIs tracked",
    "url": "",
    "date": "2026-07-17",
-   "words": 67,
+   "words": 60,
    "findings": 1
   },
   {
@@ -147,7 +150,7 @@
    "title": "BRINK CORE project overview",
    "url": "",
    "date": "2026-10-09",
-   "words": 673,
+   "words": 650,
    "findings": 4
   },
   {
@@ -156,7 +159,7 @@
    "title": "Build rituals and verification gates",
    "url": "",
    "date": "2026-09-08",
-   "words": 399,
+   "words": 380,
    "findings": 1
   },
   {
@@ -165,7 +168,7 @@
    "title": "brink-core-state.md (project doc)",
    "url": "",
    "date": "2026-10-09",
-   "words": 430,
+   "words": 420,
    "findings": 9
   },
   {
@@ -174,7 +177,7 @@
    "title": "Code.gs Paste Page",
    "url": "https://claude.ai/artifact/B7FCNNu9z4SduXqth9rkAw",
    "date": "2026-10-09",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -183,7 +186,7 @@
    "title": "Spider-Max",
    "url": "https://claude.ai/artifact/Nk5dxdNdaYxf2epV5PZgS6",
    "date": "2026-10-09",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -192,7 +195,7 @@
    "title": "Max Blast Console",
    "url": "https://claude.ai/artifact/MUDHQp7X2n6SZm9UcFvnbV",
    "date": "2026-10-07",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -201,7 +204,7 @@
    "title": "#MaxMotorsFamily Spotlight",
    "url": "https://claude.ai/artifact/A112FwqGDFUiHS2Ew5Evb7",
    "date": "2026-10-02",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -210,7 +213,7 @@
    "title": "Rooftop 500 Runbook",
    "url": "https://claude.ai/artifact/VqVEucQGnDjku2MkkZUKGZ",
    "date": "2026-09-23",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -219,7 +222,7 @@
    "title": "Go-Live Runbook",
    "url": "https://claude.ai/artifact/L4px9Tcq64xtrjLXhw1E3s",
    "date": "2026-10-09",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -228,7 +231,7 @@
    "title": "Booking Desk Quickstart",
    "url": "https://claude.ai/artifact/XHMpMFvpEEroZD2nn1sppE",
    "date": "2026-09-23",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -237,7 +240,7 @@
    "title": "TikTok Audit Checklist",
    "url": "https://claude.ai/artifact/9qiEQSydBUPixmBAG3KePH",
    "date": "2026-09-23",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -246,7 +249,7 @@
    "title": "Max Dispatcher Policies",
    "url": "https://claude.ai/artifact/8LfG58ZfGnPQWXpUEEkzC6",
    "date": "2026-09-11",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -255,7 +258,7 @@
    "title": "Go-Live Packet",
    "url": "https://claude.ai/artifact/L5BsHSjqXQxSnvBPXTorXq",
    "date": "2026-08-25",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -264,7 +267,7 @@
    "title": "Local Listings Audit",
    "url": "https://claude.ai/artifact/1SCb7MvT8jjAVHj1m54x1Y",
    "date": "2026-09-05",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -273,7 +276,7 @@
    "title": "Marketplace Playbook",
    "url": "https://claude.ai/artifact/9gbEjRWTaGwF5m7bjhJi1P",
    "date": "2026-08-22",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -282,7 +285,7 @@
    "title": "Facebook Go-Live",
    "url": "https://claude.ai/artifact/TpPRGAYyomsA8Hw15sinnE",
    "date": "2026-08-22",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -291,7 +294,7 @@
    "title": "Validator Field Preview",
    "url": "https://claude.ai/artifact/YF5jQH8VXEfKPMAtFanVA3",
    "date": "2026-08-18",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -300,7 +303,7 @@
    "title": "Max Image Studio — Operator Runbook",
    "url": "https://claude.ai/artifact/LvWJVv3rqgK9YjuStCY7Jy",
    "date": "2026-08-11",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -309,7 +312,7 @@
    "title": "The Max Dispatcher — Go-Live Walkthrough",
    "url": "https://claude.ai/artifact/2yxKKb5PTsS71C5dJGKjUq",
    "date": "2026-07-20",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -318,7 +321,7 @@
    "title": "Open Questions — Operational Excellence Checklist",
    "url": "https://claude.ai/artifact/F3qxX6ZJt9wo7azwF2fuSA",
    "date": "2026-07-30",
-   "words": 0,
+   "words": 4,
    "findings": 1
   },
   {
@@ -327,7 +330,7 @@
    "title": "SUPERCHIP — Interactive Scope Hub",
    "url": "https://claude.ai/artifact/4yG4Ecs6R5NzkVyg2jtGQ5",
    "date": "2026-07-29",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -336,7 +339,7 @@
    "title": "SUPERCHIP — Manager Delegation Hubs",
    "url": "https://claude.ai/artifact/EmFXg1XTd5E32o7C8QfSVy",
    "date": "2026-07-29",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -345,7 +348,7 @@
    "title": "SUPERCHIP — Opportunity Report",
    "url": "https://claude.ai/artifact/7k3NVwkSAzxRU1wJvv754H",
    "date": "2026-07-29",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -354,7 +357,7 @@
    "title": "Max Motors — Store Command Center",
    "url": "https://claude.ai/artifact/RmvZZhGk86ph7GCLfJ9zhw",
    "date": "2026-07-23",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -363,7 +366,7 @@
    "title": "SUPERCHIP — Onboarding Guide",
    "url": "https://claude.ai/artifact/4mqhwYinkijRHNcBWpjEAF",
    "date": "2026-07-26",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -372,7 +375,7 @@
    "title": "The Max Dispatcher — Preview",
    "url": "https://claude.ai/artifact/6hpBkzb9y1jhmBrJL7zoEJ",
    "date": "2026-07-22",
-   "words": 0,
+   "words": 4,
    "findings": 0
   },
   {
@@ -390,7 +393,7 @@
    "title": "Response preferences",
    "url": "",
    "date": "2026-07-17",
-   "words": 83,
+   "words": 70,
    "findings": 1
   },
   {
@@ -399,7 +402,7 @@
    "title": "Team management approach",
    "url": "",
    "date": "2026-07-17",
-   "words": 56,
+   "words": 50,
    "findings": 1
   },
   {
@@ -408,7 +411,7 @@
    "title": "BRINK CORE project memory index",
    "url": "",
    "date": "2026-09-08",
-   "words": 25,
+   "words": 20,
    "findings": 0
   },
   {
@@ -588,7 +591,7 @@
    "title": "Who Jason is — role, employer, background",
    "url": "",
    "date": "2026-07-17",
-   "words": 97,
+   "words": 90,
    "findings": 0
   },
   {
@@ -605,8 +608,8 @@
    "kind": "connector",
    "title": "Dropbox root listing (titles only)",
    "url": "",
-   "date": "2026-10-17",
-   "words": 60,
+   "date": "2026-10-18",
+   "words": 40,
    "findings": 1
   },
   {
@@ -614,9 +617,9 @@
    "kind": "connector",
    "title": "GitHub: seamus-claude-hub main (commit log)",
    "url": "https://github.com/jbrink1031-byte/seamus-claude-hub",
-   "date": "2026-10-16",
-   "words": 420,
-   "findings": 4
+   "date": "2026-10-17",
+   "words": 260,
+   "findings": 5
   },
   {
    "id": "doc:spider-max-carryover",
@@ -624,7 +627,7 @@
    "title": "SPIDER-MAX-CARRYOVER.md (project doc, v0.77)",
    "url": "",
    "date": "2026-10-17",
-   "words": 5200,
+   "words": 9800,
    "findings": 4
   },
   {
@@ -633,7 +636,7 @@
    "title": "Spider Crawl View",
    "url": "https://claude.ai/artifact/2YDdR7pt43ZVMZbnUKEdi8",
    "date": "2026-10-17",
-   "words": 1651,
+   "words": 4,
    "findings": 0
   },
   {
@@ -642,7 +645,52 @@
    "title": "Spider-Max Crawl",
    "url": "https://claude.ai/artifact/XBL64KgJWpAD9pCijjrQHz",
    "date": "2026-10-17",
-   "words": 2314,
+   "words": 4,
+   "findings": 1
+  },
+  {
+   "id": "connector:drive:1q8O_bPmlVKjuJmGHPtCRSRl9vpTQIcUy",
+   "kind": "connector",
+   "title": "Drive folder: MAX (shared into PITLANE FILES)",
+   "url": "https://drive.google.com/drive/folders/1q8O_bPmlVKjuJmGHPtCRSRl9vpTQIcUy",
+   "date": "2026-10-17",
+   "words": 3,
+   "findings": 1
+  },
+  {
+   "id": "connector:drive:1rIxE1fPuN-zTuHX3Wn5ye52zJNYRun7T_iouy72xM7I",
+   "kind": "connector",
+   "title": "Drive: MAX SUPER SALE MOVERS",
+   "url": "https://docs.google.com/document/d/1rIxE1fPuN-zTuHX3Wn5ye52zJNYRun7T_iouy72xM7I/edit",
+   "date": "2026-10-09",
+   "words": 3,
+   "findings": 0
+  },
+  {
+   "id": "connector:gmail:1a14cd8405788968",
+   "kind": "connector",
+   "title": "Gmail: MAX GROUP nightly recap · Sat Oct 17",
+   "url": "",
+   "date": "2026-10-18",
+   "words": 60,
+   "findings": 1
+  },
+  {
+   "id": "connector:gmail:1a14ddb99d646034",
+   "kind": "connector",
+   "title": "Gmail: Google Ads — Ads disapproved (88)",
+   "url": "",
+   "date": "2026-10-18",
+   "words": 10,
+   "findings": 1
+  },
+  {
+   "id": "connector:gmail:1a14c0602eda533e",
+   "kind": "connector",
+   "title": "Gmail: CallRail call-summary forward (GBP listing call)",
+   "url": "",
+   "date": "2026-10-17",
+   "words": 30,
    "findings": 1
   }
  ],
@@ -1396,6 +1444,56 @@
    "date": "2026-10-17",
    "status": "done",
    "agent": "Seamus"
+  },
+  {
+   "id": "f-0076",
+   "type": "outcome",
+   "title": "Scheduled Max crawl has pushed six days running (10-12 → 10-17)",
+   "detail": "Commit log on main shows one 'max crawl <date>' commit per day 2026-10-12 through 2026-10-17 on top of v0.77; no hub code change since 0f06817 (v0.77, 2026-10-13).",
+   "source": "connector:github:seamus-claude-hub",
+   "date": "2026-10-17",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0077",
+   "type": "outcome",
+   "title": "A 'MAX' folder was shared into PITLANE FILES on 2026-10-17",
+   "detail": "Drive recent-files listing: folder 'MAX' (created 2026-09-09, parent PITLANE FILES) shared with this account 2026-10-17; contents not opened.",
+   "source": "connector:drive:1q8O_bPmlVKjuJmGHPtCRSRl9vpTQIcUy",
+   "date": "2026-10-17",
+   "status": "unknown",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0078",
+   "type": "error",
+   "title": "Nightly Recap mailer reported 0 units MTD and 'no deals logged for Oct 2026 at any rooftop' on Oct 17",
+   "detail": "The automated recap emails (group + every rooftop, 02:30Z Oct 18) all read 0 tonight · 0 MTD · pace 0 / 180 · 13 selling days left and state no deals are logged for Oct 2026. Store managers' same-evening sold-report emails list units sold (e.g. '7 SOLD', 'SOLD 5', '2 USED'). Looks like the recap's deal feed is empty, not the stores.",
+   "source": "connector:gmail:1a14cd8405788968",
+   "date": "2026-10-18",
+   "status": "open",
+   "agent": "Insect Cop"
+  },
+  {
+   "id": "f-0079",
+   "type": "task",
+   "title": "Review 90 Google Ads disapprovals (88 + 2) received 2026-10-18",
+   "detail": "Two Google Ads policy notices arrived 07:08Z and 07:13Z: 'Ads disapproved (2)' and 'Ads disapproved (88)'. Policy reason not visible in the listing; bodies not opened.",
+   "source": "connector:gmail:1a14ddb99d646034",
+   "date": "2026-10-18",
+   "status": "open",
+   "agent": "Polyphemus"
+  },
+  {
+   "id": "f-0080",
+   "type": "error",
+   "title": "CallRail call-summary emails embed waveform URLs carrying an access_key and are forwarded to team distribution lists",
+   "detail": "Snippets of the automated call-summary emails (sent from the work mailbox to per-rooftop GBP/sales team lists) include an api.callrail.com waveform URL with an access_key query parameter in plain text. Key value not recorded here. Worth confirming the key is per-call and low-privilege, or stripping it before forwarding.",
+   "source": "connector:gmail:1a14c0602eda533e",
+   "date": "2026-10-17",
+   "status": "open",
+   "agent": "Ronin"
   }
  ]
 }
