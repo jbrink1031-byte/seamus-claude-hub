@@ -1,12 +1,12 @@
 {
  "run": {
-  "id": "merged:2026-10-18T11:55:04Z",
+  "id": "merged:2026-10-20T11:55:32Z",
   "started": "2026-10-09T21:11:00Z",
-  "finished": "2026-10-18T11:55:04Z",
-  "sources_attempted": 74,
-  "sources_read": 74,
-  "sources_skipped": 374,
-  "scope": "project chats + account memory + project doc + published artifacts (session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions are not reachable from here) + scheduled cloud crawl 2026-10-09: account memory + BRINK CORE project doc + published artifacts + Drive/Gmail/Dropbox listings (titles only). Chat tools were not present in this session, so no chats were read; other projects and Claude Code sessions not reachable + scheduled cloud crawl 2026-10-11: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24, listed) + Drive/Dropbox recent listings (titles only). No chat tools in this session, so no chats read; Gmail and dealership/store-ops Drive & Dropbox files were reached but excluded (Max Motors store work + PII, kept out of the BRINK CORE digest). Session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-13: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only; only store-ops items were recent, excluded). Nothing changed since 2026-10-11. No chat tools in this session, so no chats read; other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-14: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-13. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII — excluded. Dropbox root listing read; one new finding. No chat tools and no add_repo in this session (repo checkout was pre-staged); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-15: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-14. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII - excluded. Dropbox root re-listed (2 pages): only selective-sync conflict copies and store-ops PDFs, nothing new. No chat tools and no add_repo in this session (repo checkout was pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. No new findings. + scheduled cloud crawl 2026-10-16: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only) + hub repo commit log. Memory, project doc and artifacts unchanged since 2026-10-15. Drive (25 recent) and Gmail (25 recent) were entirely McCarthy/Max Motors store-ops and vendor mail with PII - excluded. Dropbox root re-listed (2 pages): nothing new. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-17: account memory (all 15 files, unchanged) + BRINK CORE project docs (2; SPIDER-MAX-CARRYOVER.md new 2026-10-17) + published artifacts (26 listed, 2 new, 1 personal skipped) + Drive (25 recent) and Gmail (25 recent) listings (titles only; entirely Max Motors store-ops and vendor mail with PII - excluded) + Dropbox root page 1 (two new hashed image uploads, nothing stated) + hub repo commit log. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-18: account memory (15 files) + BRINK CORE project docs (2) + published artifacts (26, list only) + GitHub commit log + Drive/Gmail/Dropbox recent listings (titles/subjects only; customer threads, store ops sheets, pay plans and personal items skipped); this session had no chat tools and no add_repo (checkout pre-staged) — project chats, other projects and Claude Code sessions unreachable",
+  "finished": "2026-10-20T11:55:32Z",
+  "sources_attempted": 81,
+  "sources_read": 81,
+  "sources_skipped": 418,
+  "scope": "project chats + account memory + project doc + published artifacts (session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions are not reachable from here) + scheduled cloud crawl 2026-10-09: account memory + BRINK CORE project doc + published artifacts + Drive/Gmail/Dropbox listings (titles only). Chat tools were not present in this session, so no chats were read; other projects and Claude Code sessions not reachable + scheduled cloud crawl 2026-10-11: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24, listed) + Drive/Dropbox recent listings (titles only). No chat tools in this session, so no chats read; Gmail and dealership/store-ops Drive & Dropbox files were reached but excluded (Max Motors store work + PII, kept out of the BRINK CORE digest). Session fenced to the BRINK CORE project; other projects' chats and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-13: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only; only store-ops items were recent, excluded). Nothing changed since 2026-10-11. No chat tools in this session, so no chats read; other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-14: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-13. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII — excluded. Dropbox root listing read; one new finding. No chat tools and no add_repo in this session (repo checkout was pre-staged); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-15: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only). Memory, project doc and artifacts unchanged since 2026-10-14. Drive (25 recent) and Gmail (25 recent) were entirely Max Motors store-ops/vendor mail with PII - excluded. Dropbox root re-listed (2 pages): only selective-sync conflict copies and store-ops PDFs, nothing new. No chat tools and no add_repo in this session (repo checkout was pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. No new findings. + scheduled cloud crawl 2026-10-16: account memory (all 15 files) + BRINK CORE project doc + published artifacts (24 listed, 1 personal skipped) + Drive/Gmail/Dropbox recent listings (titles only) + hub repo commit log. Memory, project doc and artifacts unchanged since 2026-10-15. Drive (25 recent) and Gmail (25 recent) were entirely McCarthy/Max Motors store-ops and vendor mail with PII - excluded. Dropbox root re-listed (2 pages): nothing new. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-17: account memory (all 15 files, unchanged) + BRINK CORE project docs (2; SPIDER-MAX-CARRYOVER.md new 2026-10-17) + published artifacts (26 listed, 2 new, 1 personal skipped) + Drive (25 recent) and Gmail (25 recent) listings (titles only; entirely Max Motors store-ops and vendor mail with PII - excluded) + Dropbox root page 1 (two new hashed image uploads, nothing stated) + hub repo commit log. No chat tools and no add_repo in this session (repo checkout pre-staged, pulled to origin/main); other projects and Claude Code sessions not reachable. + scheduled cloud crawl 2026-10-18: account memory (15 files) + BRINK CORE project docs (2) + published artifacts (26, list only) + GitHub commit log + Drive/Gmail/Dropbox recent listings (titles/subjects only; customer threads, store ops sheets, pay plans and personal items skipped); this session had no chat tools and no add_repo (checkout pre-staged) — project chats, other projects and Claude Code sessions unreachable + scheduled cloud crawl 2026-10-20: account memory (15 files, unchanged since 2026-10-09) + BRINK CORE project docs (2, unchanged) + published artifacts (26 listed, 1 personal skipped; Code.gs Paste Page updated 10-18) + GitHub commit log (no crawl commit on 10-19) + Drive (25 recent) and Gmail (25 recent, 3 days) listings (titles/subjects only; store-ops sheets, customer/lead mail, call summaries, reviews and personal items skipped) + Dropbox root (3 thin pages). No chat tools and no add_repo in this session (checkout pre-staged, pulled to origin/main); project chats, other projects and Claude Code sessions unreachable",
   "merged_from": [
    "2026-10-09T21:20Z",
    "2026-10-09T23:43:23Z",
@@ -16,14 +16,17 @@
    "2026-10-15T11:53Z",
    "2026-10-16T11:55:13Z",
    "2026-10-17T11:54Z",
-   "2026-10-18T11:48Z"
+   "2026-10-18T11:48Z",
+   "2026-10-20T11:55:32Z"
   ],
   "new_sources": [
-   "connector:drive:1q8O_bPmlVKjuJmGHPtCRSRl9vpTQIcUy",
-   "connector:drive:1rIxE1fPuN-zTuHX3Wn5ye52zJNYRun7T_iouy72xM7I",
-   "connector:gmail:1a14cd8405788968",
-   "connector:gmail:1a14ddb99d646034",
-   "connector:gmail:1a14c0602eda533e"
+   "connector:gmail:1a157980726cce5e",
+   "connector:gmail:1a1575c0de77f5d0",
+   "connector:gmail:1a157720058a7b27",
+   "connector:gmail:1a158e364696bbac",
+   "connector:gmail:1a158cfe5f5134a0",
+   "connector:drive:1sS0j9VUbpVucJGJF5NvYFT3L4UNsvqOmhUge0QhF474",
+   "connector:drive:1kvwlhAr907S_l9DXdCC03g2U2haPPHNtvuzFVN8Oc38"
   ]
  },
  "sources": [
@@ -176,9 +179,9 @@
    "kind": "artifact",
    "title": "Code.gs Paste Page",
    "url": "https://claude.ai/artifact/B7FCNNu9z4SduXqth9rkAw",
-   "date": "2026-10-09",
+   "date": "2026-10-18",
    "words": 4,
-   "findings": 0
+   "findings": 1
   },
   {
    "id": "artifact:Nk5dxdNdaYxf2epV5PZgS6",
@@ -444,11 +447,11 @@
   {
    "id": "connector:drive:1AiFUqhxLQ0-agQEWpuXfq7q5hj1h3WRO",
    "kind": "connector",
-   "title": "Drive folder: Max Recon — Founder Docs (Sept 2026)",
-   "url": "",
-   "date": "2026-10-07",
-   "words": 0,
-   "findings": 1
+   "title": "Drive folder: Max Recon - Founder Docs (Sept 2026)",
+   "url": "https://drive.google.com/drive/folders/1AiFUqhxLQ0-agQEWpuXfq7q5hj1h3WRO",
+   "date": "2026-10-19",
+   "words": 6,
+   "findings": 2
   },
   {
    "id": "connector:drive:1fgq7HRetLhyzzybhnpSsCkFyqVX3G3C_OiNuSRvqpGk",
@@ -608,18 +611,18 @@
    "kind": "connector",
    "title": "Dropbox root listing (titles only)",
    "url": "",
-   "date": "2026-10-18",
-   "words": 40,
-   "findings": 1
+   "date": "2026-10-20",
+   "words": 10,
+   "findings": 2
   },
   {
    "id": "connector:github:seamus-claude-hub",
    "kind": "connector",
    "title": "GitHub: seamus-claude-hub main (commit log)",
    "url": "https://github.com/jbrink1031-byte/seamus-claude-hub",
-   "date": "2026-10-17",
-   "words": 260,
-   "findings": 5
+   "date": "2026-10-20",
+   "words": 60,
+   "findings": 7
   },
   {
    "id": "doc:spider-max-carryover",
@@ -669,9 +672,9 @@
   {
    "id": "connector:gmail:1a14cd8405788968",
    "kind": "connector",
-   "title": "Gmail: MAX GROUP nightly recap · Sat Oct 17",
+   "title": "Gmail: MAX GROUP nightly recap (automated mailer)",
    "url": "",
-   "date": "2026-10-18",
+   "date": "2026-10-20",
    "words": 60,
    "findings": 1
   },
@@ -692,6 +695,69 @@
    "date": "2026-10-17",
    "words": 30,
    "findings": 1
+  },
+  {
+   "id": "connector:gmail:1a157980726cce5e",
+   "kind": "connector",
+   "title": "Gmail: Marketplace posts through the Dispatcher (sent)",
+   "url": "",
+   "date": "2026-10-20",
+   "words": 40,
+   "findings": 1
+  },
+  {
+   "id": "connector:gmail:1a1575c0de77f5d0",
+   "kind": "connector",
+   "title": "Gmail: First Smart Auction cars - arb rules (sent)",
+   "url": "",
+   "date": "2026-10-20",
+   "words": 40,
+   "findings": 1
+  },
+  {
+   "id": "connector:gmail:1a157720058a7b27",
+   "kind": "connector",
+   "title": "Gmail: Friday leadership meeting - part due Thursday (sent)",
+   "url": "",
+   "date": "2026-10-20",
+   "words": 40,
+   "findings": 1
+  },
+  {
+   "id": "connector:gmail:1a158e364696bbac",
+   "kind": "connector",
+   "title": "Gmail: Prelaunch checklist - Max Chevrolet GMC websites (vendor)",
+   "url": "",
+   "date": "2026-10-20",
+   "words": 40,
+   "findings": 1
+  },
+  {
+   "id": "connector:gmail:1a158cfe5f5134a0",
+   "kind": "connector",
+   "title": "Gmail: DocuSign reminder - parts-vendor documents (vendor)",
+   "url": "",
+   "date": "2026-10-20",
+   "words": 20,
+   "findings": 1
+  },
+  {
+   "id": "connector:drive:1sS0j9VUbpVucJGJF5NvYFT3L4UNsvqOmhUge0QhF474",
+   "kind": "connector",
+   "title": "Drive: COMMAND CENTER KB",
+   "url": "https://docs.google.com/document/d/1sS0j9VUbpVucJGJF5NvYFT3L4UNsvqOmhUge0QhF474/edit",
+   "date": "2026-10-19",
+   "words": 3,
+   "findings": 1
+  },
+  {
+   "id": "connector:drive:1kvwlhAr907S_l9DXdCC03g2U2haPPHNtvuzFVN8Oc38",
+   "kind": "connector",
+   "title": "Drive: Bookmarked Sites & Tools",
+   "url": "https://docs.google.com/document/d/1kvwlhAr907S_l9DXdCC03g2U2haPPHNtvuzFVN8Oc38/edit",
+   "date": "2026-10-19",
+   "words": 4,
+   "findings": 0
   }
  ],
  "findings": [
@@ -1469,9 +1535,9 @@
    "id": "f-0078",
    "type": "error",
    "title": "Nightly Recap mailer reported 0 units MTD and 'no deals logged for Oct 2026 at any rooftop' on Oct 17",
-   "detail": "The automated recap emails (group + every rooftop, 02:30Z Oct 18) all read 0 tonight · 0 MTD · pace 0 / 180 · 13 selling days left and state no deals are logged for Oct 2026. Store managers' same-evening sold-report emails list units sold (e.g. '7 SOLD', 'SOLD 5', '2 USED'). Looks like the recap's deal feed is empty, not the stores.",
+   "detail": "Still true on the Oct 19 recaps (sent 02:30Z Oct 20): the group mail and every rooftop mail read 0 tonight / 0 MTD / pace 0 / 180 and the same '13 selling days left' as on Oct 17, which suggests the mailer's data feed is stuck rather than a real zero month. Bodies not opened.",
    "source": "connector:gmail:1a14cd8405788968",
-   "date": "2026-10-18",
+   "date": "2026-10-20",
    "status": "open",
    "agent": "Insect Cop"
   },
@@ -1494,6 +1560,116 @@
    "date": "2026-10-17",
    "status": "open",
    "agent": "Ronin"
+  },
+  {
+   "id": "f-0081",
+   "type": "error",
+   "title": "Scheduled Max crawl did not push on 2026-10-19",
+   "detail": "The hub commit log on main shows crawl commits for 2026-10-17 and 2026-10-18 and none for 2026-10-19; the next push is this run (2026-10-20). Cause not visible from the repo. Earlier runs recorded the first-fire miss on 2026-10-09 the same way.",
+   "source": "connector:github:seamus-claude-hub",
+   "date": "2026-10-20",
+   "status": "open",
+   "agent": "Insect Cop"
+  },
+  {
+   "id": "f-0082",
+   "type": "outcome",
+   "title": "Scheduled Max crawl has pushed on 7 of the last 8 days (10-12 through 10-20)",
+   "detail": "Commit log: daily 'max crawl' commits 2026-10-12 through 2026-10-18, a gap on 2026-10-19, then this run. No add_repo tool in the scheduled session; the checkout was pre-staged and pulled to origin/main before merging.",
+   "source": "connector:github:seamus-claude-hub",
+   "date": "2026-10-20",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0083",
+   "type": "outcome",
+   "title": "Marketplace champions were asked to route Marketplace posts through the Max Dispatcher",
+   "detail": "A sent mail (Oct 20) to the group's Marketplace champions list links the Dispatcher site and opens with the problem it solves: posters are split across different tools. Preview only; the full case was not opened.",
+   "source": "connector:gmail:1a157980726cce5e",
+   "date": "2026-10-20",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0084",
+   "type": "practice",
+   "title": "First Smart Auction purchases are in; a 10-day arbitration clock applies",
+   "detail": "A sent mail (Oct 20) to the fixed and variable leadership lists says the group bought its first vehicles on Smart Auction, four are headed to Clinton, every store is going live, and recon teams have 10 days to arbitrate. Preview only.",
+   "source": "connector:gmail:1a1575c0de77f5d0",
+   "date": "2026-10-20",
+   "status": "done",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0085",
+   "type": "task",
+   "title": "Leadership teams owe their part for Friday's quarterly meeting by Thursday",
+   "detail": "A sent mail (Oct 20) to the variable-leadership list: Friday's leadership meeting runs 7:00-9:00 AM and part of it confirms group-level standards live; each team's input is due Thursday. Calendar acceptances for the Fri Oct 23 meeting are also in the inbox.",
+   "source": "connector:gmail:1a157720058a7b27",
+   "date": "2026-10-20",
+   "status": "open",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0086",
+   "type": "task",
+   "title": "Review the website prelaunch checklist for Max Chevrolet GMC and Chevrolet of Nevada",
+   "detail": "An OEM digital vendor sent a prelaunch checklist (Oct 20) asking that each tab be reviewed for both Chevy and GMC; the mail notes a linking-strategy choice and a trade-tool setting. Attachment not opened.",
+   "source": "connector:gmail:1a158e364696bbac",
+   "date": "2026-10-20",
+   "status": "open",
+   "agent": "Polyphemus"
+  },
+  {
+   "id": "f-0087",
+   "type": "task",
+   "title": "Parts-vendor FordDirect documents are waiting for DocuSign signature (Max Ford of Richmond)",
+   "detail": "A DocuSign reminder (Oct 20) says documents from a parts e-commerce vendor are awaiting electronic signature. Not opened.",
+   "source": "connector:gmail:1a158cfe5f5134a0",
+   "date": "2026-10-20",
+   "status": "open",
+   "agent": "Polyphemus"
+  },
+  {
+   "id": "f-0088",
+   "type": "outcome",
+   "title": "COMMAND CENTER KB doc exists in Drive and was reopened on 2026-10-19",
+   "detail": "Drive recent-files listing: a Google Doc titled COMMAND CENTER KB (created 2026-07-20, last modified 2026-07-29) was viewed 2026-10-19, alongside the three Max Recon founder docs and 'Bookmarked Sites & Tools' (modified 2026-10-19). Bodies not opened; COMMAND CENTER is the Claude Code automation workflow named in memory.",
+   "source": "connector:drive:1sS0j9VUbpVucJGJF5NvYFT3L4UNsvqOmhUge0QhF474",
+   "date": "2026-10-19",
+   "status": "unknown",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0089",
+   "type": "outcome",
+   "title": "Max Recon founder docs were reopened on 2026-10-19",
+   "detail": "Drive listing shows the 'Max Recon - Founder Docs (Sept 2026)' folder and its three docs (plain-English overview, integration discovery questions for a webmaster, 'how did you build it' short answer) viewed 2026-10-19. Contents not opened this run.",
+   "source": "connector:drive:1AiFUqhxLQ0-agQEWpuXfq7q5hj1h3WRO",
+   "date": "2026-10-19",
+   "status": "unknown",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0090",
+   "type": "outcome",
+   "title": "Code.gs Paste Page artifact was updated on 2026-10-18",
+   "detail": "Artifact listing only: 'Code.gs Paste Page' now shows updated 2026-10-18 (previously 2026-10-09). Not opened.",
+   "source": "artifact:B7FCNNu9z4SduXqth9rkAw",
+   "date": "2026-10-18",
+   "status": "unknown",
+   "agent": "Seamus"
+  },
+  {
+   "id": "f-0091",
+   "type": "practice",
+   "title": "Dropbox root listing pages one entry at a time in this session",
+   "detail": "Three list_folder pages on the Dropbox root returned one entry, one entry, then zero entries with has_more still true (DIGITAL ANALYSIS folder; a KBB CRM template install guide PDF re-saved 2026-10-05). Listing stopped there; nothing new seen.",
+   "source": "connector:dropbox:root",
+   "date": "2026-10-20",
+   "status": "unknown",
+   "agent": "Seamus"
   }
  ]
 }
